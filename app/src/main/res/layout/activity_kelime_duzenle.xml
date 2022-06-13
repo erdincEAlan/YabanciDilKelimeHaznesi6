@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary_color">
+
+    <EditText
+        android:id="@+id/kelimeOrnekEditText"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/roundedcorner_textbox"
+        android:hint="Örnek Cumle"
+        android:inputType="textMultiLine"
+        android:scrollHorizontally="false"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeDuzenKaydetButon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/kelimeAnlamEditText"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/roundedcorner_textbox"
+        android:hint="Kelime Anlam"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeOrnekEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/kelimeKendiEditText"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/roundedcorner_textbox"
+        android:hint="Kelime"
+
+        app:layout_constraintBottom_toTopOf="@+id/kelimeAnlamEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/kelimeDuzenKaydetButon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:background="@null"
+        android:contentDescription="kaydetButon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_button_save" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/kelimeSilButton"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/roundedcorner_textbox"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Kelimeyi Sil"
+        android:textAllCaps="false"
+        android:textColor="#DC0C0C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/kelimeDuzenleOgrenilmeIsaretButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/roundedcorner"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Öğrenilenlerden kaldır"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/kelimeSilButton"
+        app:layout_constraintTop_toTopOf="@+id/kelimeSilButton" />
+
+    <ImageButton
+        android:id="@+id/ayarlarBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+        android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_button_back" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

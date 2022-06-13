@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Profil -->
+    <dimen name="profil_kullanici_adi_text_size">34sp</dimen>
+    <dimen name="profil_alt_baslik_text_size">20sp</dimen>
+    <dimen name="profil_alt_baslik_cerceve_arasi_bosluk">5dp</dimen>
+
+    <!-- Genel -->
+
+    <dimen name="anaekran_genel_icon">115dp</dimen>
+    <dimen name="islem_buton_kare_boyut">82dp</dimen>
+    <dimen name="icon_radius">30dp</dimen>
+    <dimen name="baslik_kutu_arasi">12dp</dimen>
+    <dimen name="genel_baslik_text_boyut">20sp</dimen>
+    <dimen name="genel_giris_textler_arasi_bosluk">30dp</dimen>
+    <dimen name="ortali_plain_text_width">337dp</dimen>
+    <dimen name="ortali_plain_text_height">48dp</dimen>
+    <dimen name="geri_buton_kare_boyut">48dp</dimen>
+    <dimen name="geri_buton_cerceve_uzaklik">10dp</dimen>
+
+</resources>

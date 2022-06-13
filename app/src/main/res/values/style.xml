@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="high_button_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+    <style name="button_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="test_word">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+    <style name="toplam_kelime_text">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/theme_small_text_color</item>
+
+    </style>
+
+    <style name="toplam_kelime_sayi">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="textbox_title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/theme_secondary_color</item>
+
+    </style>
+    <style name="textbox_title_high">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+    <style name="textbox_text_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+    <style name="textbox_text_style_high">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+
+    <style name="main_title">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="main_high_title">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+    <style name="small_text">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+    <style name="small_text_high">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+    <style name="under_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+    <style name="under_text_high">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
+
+    </style>
+
+
+
+
+</resources>

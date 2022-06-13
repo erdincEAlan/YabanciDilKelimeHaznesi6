@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary_color"
+    tools:context=".activity.GirisYapActivity">
+
+    <EditText
+        android:id="@+id/girisYapKullaniciEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/girisYapSifreTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/girisYapSifreEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/button_title_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/sifremiUnuttum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/girisYapKullaniciEmailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:text="Email:"
+        android:textAppearance="@style/textbox_title"
+        app:layout_constraintBottom_toTopOf="@+id/girisYapKullaniciEditText"
+        app:layout_constraintStart_toStartOf="@+id/girisYapKullaniciEditText" />
+
+
+    <TextView
+        android:id="@+id/girisYapSifreTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:text="Şifre:"
+        android:textAppearance="@style/textbox_title"
+        app:layout_constraintBottom_toTopOf="@+id/girisYapSifreEditText"
+        app:layout_constraintStart_toStartOf="@+id/girisYapSifreEditText" />
+
+    <TextView
+        android:id="@+id/sifremiUnuttum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/login_button_content_margin"
+        android:clickable="true"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:text="Şifremi Unuttum"
+        android:textAppearance="@style/under_text_high"
+        app:layout_constraintBottom_toTopOf="@+id/girisYapButon"
+        app:layout_constraintStart_toStartOf="@+id/girisYapSifreEditText" />
+
+    <ImageButton
+        android:id="@+id/girisYapButon"
+        android:layout_width="@dimen/process_button_height_and_width"
+        android:layout_height="@dimen/process_button_height_and_width"
+        android:layout_marginBottom="@dimen/two_button_margin"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@+id/girisYapVeyaTxt"
+        app:layout_constraintEnd_toEndOf="@+id/girisYapVeyaTxt"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/girisYapVeyaTxt"
+        app:srcCompat="@drawable/ic_button_log_in"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/kayitOlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Kayıt Ol"
+        android:textAppearance="@style/under_text_high"
+        app:layout_constraintEnd_toEndOf="@+id/girisYapSifreEditText"
+        app:layout_constraintTop_toTopOf="@+id/sifremiUnuttum" />
+
+    <ImageButton
+        android:id="@+id/googleSıgnButton"
+        android:layout_width="@dimen/process_button_height_and_width"
+        android:layout_height="@dimen/process_button_height_and_width"
+        android:layout_marginBottom="@dimen/button_frame_margin_bottom"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_button_google_login" />
+
+    <TextView
+        android:id="@+id/girisYapVeyaTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/two_button_margin"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Veya"
+        android:textAlignment="center"
+        android:textAppearance="@style/under_text_high"
+        app:layout_constraintBottom_toTopOf="@+id/googleSıgnButton"
+        app:layout_constraintEnd_toEndOf="@+id/googleSıgnButton"
+        app:layout_constraintStart_toStartOf="@+id/googleSıgnButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

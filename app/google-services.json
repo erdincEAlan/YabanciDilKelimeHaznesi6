@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720393896060",
+    "project_id": "yabancidilkelimehaznesi6",
+    "storage_bucket": "yabancidilkelimehaznesi6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720393896060:android:ce9eb6afb88fc7fcb7c9f9",
+        "android_client_info": {
+          "package_name": "com.erdince.yabancidilkelimehaznesi6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720393896060-l8s93tmfpi1l5gu9tcj554pd7mlinfjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6rpEKoMMwh2HVlH9wFpwiMQT397rSVjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720393896060-l8s93tmfpi1l5gu9tcj554pd7mlinfjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

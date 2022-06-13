@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">YabancıDilKelimeHaznesi</string>
+    <!-- Profil -->
+    <string name="profil_kullanici_adi">Kullanici Adi</string>
+    <string name="profil_toplam_kelime_txt">Toplam kayıtlı kelime sayısı:</string>
+    <string name="profil_ogrenilen_kelime_sayisi">Toplam öğrenilen kelime sayısı:</string>
+    <string name="profil_ogrenilen_kelimeler_button_txt">Öğrenilen Kelimeler</string>
+    <string name="profil_ayarlar_button_txt">Ayarlar</string>
+    <string name="profil_ogrenilen_kelimeler_button">Öğrenilen Kelimeler Listesini Görüntüle</string>
+    <!-- Ayarlar -->
+    <string name="ayarlar_yeni_kullanici_adi">Yeni Kullanıcı Adı</string>
+    <string name="ayarlar_mevcut_sifre">Mevcut Şifre</string>
+    <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
+    <string name="ayarlar_yeni_sifre_hint">İstediğiniz yeni şifrenizi girin</string>
+    <string name="ayarlar_mevcut_sifre_hint">Kullandığınız mevcut şifrenizi girin</string>
+    <string name="ayarlar_kullanici_adi_hint">İstediğiniz kullanıcı adını girin</string>
+    <!-- Sifre Sıfırla-->
+    <string name="email_baslik">Email:</string>
+    <string name="email_hint">sisteme kayıtlı email adresinizi girin</string>
+
+    <!-- Kayit Ol -->
+    <string name="kayit_ol_kullanici_adi_hint">kullanmak istediğiniz kullanıcı adını girin</string>
+    <string name="kayit_ol_email_hint">email adresinizi girin</string>
+    <string name="kayit_ol_sifre_hint">sifrenizi girin</string>
+    <string name="kayit_ol_sifre_tekrar_hint">sifrenizi tekrar girin</string>
+
+    <!-- Kelime Ekle -->
+    <string name="kelime_ekle_baslik">Kelime Ekle</string>
+    <string name="kelime_ekle_kelime_baslik">Kelime:</string>
+    <string name="kelime_ekle_anlam_baslik">Kelime Anlamı:</string>
+    <string name="kelime_ekle_ornek_baslik">Örnek Cümle:</string>
+    <string name="kelime_ekle_kelime_hint">kelimenin kendisini girin (zorunlu)</string>
+    <string name="kelime_ekle_anlam_hint">kelimenin anlamını girin (isteğe bağlı)</string>
+    <string name="kelime_ekle_ornek_hint">kelime hakkında örnek girin (isteğe bağlı)</string>
+
+    <!-- Kelime Ara -->
+    <string name="kelime_ara_baslik">Kelime Ara</string>
+    <string name="kelime_ara_kelime_baslik">Kelime:</string>
+    <string name="kelime_ara_kelime_hint">Aranacak kelimeyi girin</string>
+    <!-- Kelime Sil -->
+    <string name="kelime_sil_baslik">Kelime Sil</string>
+    <string name="kelime_sil_kelime_baslik">Kelime:</string>
+    <string name="kelime_sil_kelime_hint">kelimeyi girin</string>
+
+
+
+</resources>

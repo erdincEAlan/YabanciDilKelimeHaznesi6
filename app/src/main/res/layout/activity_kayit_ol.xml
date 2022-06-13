@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary_color">
+
+    <TextView
+        android:id="@+id/kayitOlKullaniciAdiTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="Kullanıcı Adı:"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlKullaniciAdiEditText"
+        app:layout_constraintStart_toStartOf="@+id/kayitOlKullaniciAdiEditText" />
+
+    <TextView
+        android:id="@+id/kayitOlEmailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="Email:"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlEmailEditText"
+        app:layout_constraintStart_toStartOf="@+id/kayitOlEmailEditText" />
+
+    <TextView
+        android:id="@+id/kayitOlSifreTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="Şifre:"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlSifreEditText"
+        app:layout_constraintStart_toStartOf="@+id/kayitOlSifreEditText" />
+
+    <TextView
+        android:id="@+id/kayitOlSifreTekrarTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="Şifre Tekrar:"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlSifreTekrarEditText"
+        app:layout_constraintStart_toStartOf="@+id/kayitOlSifreTekrarEditText" />
+
+    <EditText
+        android:id="@+id/kayitOlSifreTekrarEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/textbox_text_style"
+        android:hint="@string/kayit_ol_sifre_tekrar_hint"
+        android:inputType="textPersonName|textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlKayitImageButton" />
+
+    <EditText
+        android:id="@+id/kayitOlEmailEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/textbox_text_style"
+        android:hint="@string/kayit_ol_email_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlSifreTxt" />
+
+    <EditText
+        android:id="@+id/kayitOlSifreEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/textbox_text_style"
+        android:hint="@string/kayit_ol_sifre_hint"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlSifreTekrarTxt" />
+
+    <EditText
+        android:id="@+id/kayitOlKullaniciAdiEditText"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:background="@drawable/roundedcorner_textbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/textbox_text_style"
+        android:hint="@string/kayit_ol_kullanici_adi_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/kayitOlEmailTxt"
+         />
+
+    <ImageButton
+        android:id="@+id/kayitOlKayitImageButton"
+        android:layout_width="@dimen/process_button_height_and_width"
+        android:layout_height="@dimen/process_button_height_and_width"
+        android:layout_marginBottom="@dimen/button_frame_margin_bottom"
+        android:background="@null"
+        android:contentDescription="Kayıt Ol"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_button_sign_in" />
+
+    <ImageButton
+        android:id="@+id/kayitOlBackButton"
+        android:layout_width="@dimen/back_button_height_and_width"
+        android:layout_height="@dimen/back_button_height_and_width"
+        android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+        android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_button_back"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

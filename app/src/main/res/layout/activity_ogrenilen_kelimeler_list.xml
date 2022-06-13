@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary_color"
+    tools:context=".activity.OgrenilenKelimelerListActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ogrenilenKelimelerRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"></androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ogrenilenKelimeBackButton">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/ogrenilenKelimelerListSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_box_height"
+            android:layout_marginTop="@dimen/main_title_margin_bottom"
+            android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+            android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+            android:background="@drawable/roundedcorner_textbox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ImageButton
+        android:id="@+id/ogrenilenKelimeBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+        android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
+        android:background="@null"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_button_back" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

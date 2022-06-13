@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Yabancı DilKelime Haznesi</string>
+    <!-- Splash -->
+    <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
+    <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet bağlantınızı kontrol edin.</string>
+    <string name="network_dialog_wifi_button">WIFI ayarlarını aç</string>
+    <string name="network_dialog_mobile_data_button">Mobil veri ayarlarını aç</string>
+    <!-- Test -->
+    <string name="cevap_buton">Cevapla</string>
+    <string name="sonraki_buton">Bu kelimeyi biliyorum, sonraki kelimeye geç</string>
+    <string name="cevap_edit_text">cevap</string>
+    <string name="test_sonuc_yanlis_title">Cevap Yanlış</string>
+    <string name="test_sonuc_yanlis_correct_answer_txt">Doğrusu:</string>
+    <string name="test_sonuc_yanlis_correct_kelime_txt">Kelime</string>
+    <string name="test_sonuc_yanlis_correct_anlam_txt">Anlam</string>
+    <string name="test_sonuc_yanlis_correct_ornekCumle_txt">Ornek Cumle</string>
+    <string name="test_sonuc_yanlis_next_button">Sonraki Kelime</string>
+    <string name="test_sonuc_yanlis_finish_button">Bitir</string>
+    <!-- Profil -->
+    <string name="profil_kullanici_adi">Kullanici Adi</string>
+    <string name="profil_toplam_kelime_txt">TOPLAM KELİME</string>
+    <string name="profil_ogrenilen_kelime_txt">ÖĞRENİLEN KELİME</string>
+    <string name="profil_ogrenilen_kelimeler_button_txt">Öğrenilen Kelimeler</string>
+    <string name="profil_ayarlar_button_txt">Ayarlar</string>
+    <string name="profil_ogrenilen_kelimeler_button">Öğrenilen Kelimeler</string>
+    <string name="info_number_txt">adet</string>
+    <!-- Ayarlar -->
+    <string name="ayarlar_yeni_kullanici_adi">Yeni Kullanıcı Adı</string>
+    <string name="ayarlar_mevcut_sifre">Mevcut Şifre</string>
+    <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
+    <string name="ayarlar_yeni_sifre_hint">Yeni şifrenizi girin</string>
+    <string name="ayarlar_mevcut_sifre_hint">Kullandığınız mevcut şifrenizi girin</string>
+    <string name="ayarlar_kullanici_adi_hint">İstediğiniz kullanıcı adını girin</string>
+    <!-- Sifre Sıfırla-->
+    <string name="email_baslik">Email:</string>
+    <string name="email_hint">sisteme kayıtlı email adresinizi girin</string>
+
+    <!-- Kayit Ol -->
+    <string name="kayit_ol_kullanici_adi_hint">kullanmak istediğiniz kullanıcı adını girin</string>
+    <string name="kayit_ol_email_hint">email adresinizi girin</string>
+    <string name="kayit_ol_sifre_hint">sifrenizi girin</string>
+    <string name="kayit_ol_sifre_tekrar_hint">sifrenizi tekrar girin</string>
+    <string name="email_verify_button_Txt">Doğrulama bağlantısı gönder</string>
+    <string name="kayit_ol_verify_dialog_positive">Doğruladım, devam et</string>
+    <string name="kayit_ol_verify_dialog_msg">Mail adresinizi doğrulayın"</string>
+    <string name="kayit_ol_verify_dialog_send_link_button">Doğrulama bağlantısı gönder</string>
+
+
+    <!-- Kelime Ekle -->
+    <string name="kelime_ekle_baslik">Kelime Ekle</string>
+    <string name="kelime_ekle_kelime_baslik">Kelime</string>
+    <string name="kelime_ekle_anlam_baslik">Kelime Anlamı:</string>
+    <string name="kelime_ekle_ornek_baslik">Örnek Cümle:</string>
+    <string name="kelime_ekle_kelime_hint">kelimenin kendisini girin (zorunlu)</string>
+    <string name="kelime_ekle_anlam_hint">kelimenin anlamını girin (isteğe bağlı)</string>
+    <string name="kelime_ekle_ornek_hint">kelime hakkında örnek girin (isteğe bağlı)</string>
+
+    <!-- Kelime Ara -->
+    <string name="kelime_ara_baslik">Kelime Ara</string>
+    <string name="kelime_ara_kelime_baslik">Kelime:</string>
+    <string name="kelime_ara_kelime_hint">Aranacak kelimeyi girin</string>
+    <!-- Kelime Sil -->
+    <string name="kelime_sil_baslik">Kelime Sil</string>
+    <string name="kelime_sil_kelime_baslik">Kelime:</string>
+    <string name="kelime_sil_kelime_hint">kelimeyi girin</string>
+
+    <string name="name">Name</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- KelimeListe -->
+    <string name="checkbox_ornek">Örnek Cümle</string>
+    <string name="checkbox_anlam">Anlam</string>
+    <string name="checkbox_kelime">Kelime</string>
+
+
+
+</resources>

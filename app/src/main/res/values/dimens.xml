@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash -->
+    <dimen name="splash_logo_width">285dp</dimen>
+    <dimen name="splash_logo_height">380dp</dimen>
+    <!--Sifre Sifirla-->
+    <dimen name="sifre_sifirla_send_button_margin_bottom">176dp</dimen>
+    <!--Giris Yap-->
+    <dimen name="login_button_content_margin">110dp</dimen>
+
+
+    <!--Ayarlar-->
+    <dimen name="settings_profile_photo_height">150dp</dimen>
+    <dimen name="settings_profile_photo_width">140dp</dimen>
+
+    <!-- Profil -->
+    <dimen name="profile_photo_width">450dp</dimen>
+    <dimen name="profile_photo_height">350dp</dimen>
+    <dimen name="profile_photo_margin_top">20dp</dimen>
+    <dimen name="profile_username_margin_bottom">20dp</dimen>
+    <dimen name="profile_username_margin_start">20dp</dimen>
+    <dimen name="profil_kullanici_adi_text_size">25sp</dimen>
+    <dimen name="profil_alt_baslik_text_size">20sp</dimen>
+    <dimen name="profil_alt_baslik_cerceve_arasi_bosluk">5dp</dimen>
+    <dimen name="info_rectangle_width">165dp</dimen>
+    <dimen name="info_rectangle_height">140dp</dimen>
+    <dimen name="info_button_margin_buttom">20dp</dimen>
+    <dimen name="info_title_margin_top">6dp</dimen>
+    <dimen name="info_title_margin_start">6dp</dimen>
+    <dimen name="info_value_number_margin_start">1dp</dimen>
+    <dimen name="info_rectangle_margin">8dp</dimen>
+    <!-- Kelime Ekle -->
+    <dimen name="process_button_content_margin">45dp</dimen>
+
+    <!-- Test -->
+    <dimen name="test_rectangle_back_height">80dp</dimen>
+    
+    <!-- General -->
+    <dimen name="button_title_margin">2dp</dimen>
+    <dimen name="button_frame_margin_bottom">40dp</dimen>
+    <dimen name="two_button_margin">32dp</dimen>
+    <dimen name="back_button_frame_margin_top_and_start">10dp</dimen>
+    <dimen name="back_button_height_and_width">48dp</dimen>
+    <dimen name="process_button_height_and_width">82dp</dimen>
+    <dimen name="text_box_big_height">154dp</dimen>
+    <dimen name="text_box_width">0dp</dimen>
+    <dimen name="text_box_height">48dp</dimen>
+    <dimen name="text_box_margin_start_and_end">30dp</dimen>
+    <dimen name="main_title_margin_bottom">50dp</dimen>
+    <dimen name="main_title_text_size">20sp</dimen>
+    <dimen name="text_box_title_margin_bottom">2dp</dimen>
+    <dimen name="anaekran_main_icon_h_and_w">115dp</dimen>
+    <dimen name="icon_radius">30dp</dimen>
+    <dimen name="genel_giris_textler_arasi_bosluk">30dp</dimen>
+
+
+
+
+
+</resources>

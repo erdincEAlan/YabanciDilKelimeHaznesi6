@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary_color">
+
+    <TextView
+        android:id="@+id/kelimeEkleOrnekBaslikTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="@string/kelime_ekle_ornek_baslik"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleOrnekCumleGiris"
+        app:layout_constraintStart_toStartOf="@+id/kelimeEkleOrnekCumleGiris" />
+
+    <EditText
+        android:id="@+id/kelimeEkleAnlamGiris"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:background="@drawable/roundedcorner_textbox"
+        android:hint="@string/kelime_ekle_anlam_hint"
+        android:textAppearance="@style/textbox_text_style"
+        android:textAlignment="center"
+        android:textColorHint="@color/theme_hint_color"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleOrnekBaslikTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/kelimeEkleAnlamBaslikTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="@string/kelime_ekle_anlam_baslik"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleAnlamGiris"
+        app:layout_constraintStart_toStartOf="@+id/kelimeEkleAnlamGiris" />
+
+    <TextView
+        android:id="@+id/kelimeEkleBaslikTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/main_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:text="@string/kelime_ekle_baslik"
+        android:textAlignment="center"
+        android:textAppearance="@style/main_title"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleKelimeTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/kelimeEkleKelimeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+        android:fontFamily="@font/ibm_plex_mono"
+        android:textAppearance="@style/textbox_title"
+        android:text="@string/kelime_ekle_kelime_baslik"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleKelimeGiris"
+        app:layout_constraintStart_toStartOf="@+id/kelimeEkleKelimeGiris" />
+
+    <EditText
+        android:id="@+id/kelimeEkleKelimeGiris"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:background="@drawable/roundedcorner_textbox"
+        android:textAppearance="@style/textbox_text_style"
+        android:hint="@string/kelime_ekle_kelime_hint"
+        android:textAlignment="center"
+        android:textColorHint="@color/theme_hint_color"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeEkleAnlamBaslikTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/kelimeEkleOrnekCumleGiris"
+        android:layout_width="@dimen/text_box_width"
+        android:layout_height="@dimen/text_box_big_height"
+        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+        android:layout_marginBottom="@dimen/process_button_content_margin"
+        android:background="@drawable/roundedcorner_textbox"
+        android:ellipsize="none"
+        android:hint="@string/kelime_ekle_ornek_hint"
+        android:inputType="textMultiLine"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textAppearance="@style/textbox_text_style"
+        android:textColorHint="@color/theme_hint_color"
+        app:layout_constraintBottom_toTopOf="@+id/kelimeKaydetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/kelimeKaydetButton"
+        android:layout_width="@dimen/process_button_height_and_width"
+        android:layout_height="@dimen/process_button_height_and_width"
+        android:layout_marginBottom="@dimen/button_frame_margin_bottom"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_button_save"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/kelimeEkleBackButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_button_back"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
