@@ -19,7 +19,7 @@ class AnaEkranActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
     private lateinit var uid: String
     private var profilButton: ImageButton? = null
-    private var kelimeEkleButon: ImageButton? = null
+    private var kelimeEkleButton: ImageButton? = null
     private var listeGoruntuleButon: ImageButton? = null
     private var testButton: ImageButton? = null
 
@@ -41,7 +41,7 @@ class AnaEkranActivity : AppCompatActivity() {
     private fun setUI() {
 
         profilButton = findViewById(R.id.profilButon)
-        kelimeEkleButon = findViewById(R.id.kelimeEkleButon)
+        kelimeEkleButton = findViewById(R.id.kelimeEkleButon)
         listeGoruntuleButon = findViewById(R.id.listeGoruntuleButon)
         testButton = findViewById(R.id.testButon)
 
@@ -56,7 +56,7 @@ class AnaEkranActivity : AppCompatActivity() {
             switchActivity("TestActivity")
         }
 
-        kelimeEkleButon?.setOnClickListener {
+        kelimeEkleButton?.setOnClickListener {
             switchActivity("KelimeEkleActivity")
         }
         listeGoruntuleButon?.setOnClickListener {
@@ -73,7 +73,8 @@ class AnaEkranActivity : AppCompatActivity() {
                     "uid" to uid,
                     "kullaniciAdi" to user?.displayName,
                     "kelimeSayisi" to 0,
-                    "ogrenilenKelimeSayisi" to 0
+                    "ogrenilenKelimeSayisi" to 0,
+                    "dogrulamaTuru" to "google"
                 )
                 db?.collection("user")?.document(uid)?.set(kullanici)
             }

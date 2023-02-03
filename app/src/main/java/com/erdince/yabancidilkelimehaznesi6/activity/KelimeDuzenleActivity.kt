@@ -6,14 +6,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import com.erdince.yabancidilkelimehaznesi6.*
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -21,12 +23,12 @@ import kotlinx.android.synthetic.main.activity_kelime_duzenle.*
 
 
 class KelimeDuzenleActivity : AppCompatActivity() {
-    val db = Firebase.firestore
-    val user = Firebase.auth.currentUser
-    val uid = user?.uid
+    private var db : FirebaseFirestore?=null
+    private var user : FirebaseUser?=null
+    private var uid : String?=null
     private lateinit var kullaniciRef : DocumentReference
-    var kelimeDocumentReference : DocumentReference?=null
-    var kelimeEski: KelimeModel? = null
+    private var kelimeDocumentReference : DocumentReference?=null
+    private var kelimeEski: KelimeModel? = null
     private var kelimeId: String? = null
     private lateinit var kelimeKendiString: String
     private lateinit var kelimeAnlamString: String
@@ -46,6 +48,7 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        setFirebase()
         getIntentExtraAndSet()
         setDatabaseReferences()
         takeKelimeAndSet()
@@ -66,7 +69,7 @@ class KelimeDuzenleActivity : AppCompatActivity() {
             deleteKelime()
 
         }
-        ogrenmeDurumButon?.setOnClickListener() {
+        ogrenmeDurumButon?.setOnClickListener {
 
             kelimeOgrenmeDurumReset()
 
@@ -93,13 +96,13 @@ class KelimeDuzenleActivity : AppCompatActivity() {
 
     private fun kelimeOgrenmeDurumReset() {
         kelimeDocumentReference?.update("kelimeOgrenmeDurum", 0, "kelimePuan", 0)
-            ?.addOnSuccessListener() {
+            ?.addOnSuccessListener {
                 kullaniciRef.update(
                     "ogrenilenKelimeSayisi",
                     FieldValue.increment(-1)
                 )
-                makeToast("İşlem Tamamlandı")
-                restartActivity()
+                makeToast("Kelimenin öğrenilme durumu sıfırlandı")
+                setOgrenmeButtonVisibility(0)
             }
     }
 
@@ -111,20 +114,20 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     }
 
     private fun setDatabaseReferences() {
-        kullaniciRef = db.collection("user").document(uid!!)
-        kelimeDocumentReference = db.collection("kelimeler").document(kelimeId!!)
+        kullaniciRef = db?.collection("user")?.document(uid!!)!!
+        kelimeDocumentReference = db?.collection("kelimeler")?.document(kelimeId!!)
     }
 
     private fun takeKelimeAndSet() {
         kelimeDocumentReference?.get()?.addOnSuccessListener { kelimeDoc ->
             kelimeEski = kelimeDoc.toObject<KelimeModel>()
             setEditTextTexts()
-            setOgrenmeButtonVisibility()
+            setOgrenmeButtonVisibility(kelimeEski?.kelimeOgrenmeDurum)
         }
     }
 
-    private fun setOgrenmeButtonVisibility() {
-        if (kelimeEski?.kelimeOgrenmeDurum == 1) {
+    private fun setOgrenmeButtonVisibility(visibility : Int?) {
+        if ( visibility == 1) {
             ogrenmeDurumButon?.visibility = View.VISIBLE
         } else {
             ogrenmeDurumButon?.visibility = View.GONE
@@ -154,7 +157,12 @@ class KelimeDuzenleActivity : AppCompatActivity() {
         kelimeEdit = findViewById(R.id.kelimeKendiEditText)
         kelimeAnlamEdit = findViewById(R.id.kelimeAnlamEditText)
         kelimeOrnekEdit = findViewById(R.id.kelimeOrnekEditText)
-        backButton = findViewById(R.id.ayarlarBackButton)
+        backButton = findViewById(R.id.kelimeDuzenleBackButton)
+    }
+    private fun setFirebase(){
+         db = Firebase.firestore
+         user = Firebase.auth.currentUser
+         uid = user?.uid
     }
 
 }

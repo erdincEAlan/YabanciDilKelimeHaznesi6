@@ -93,7 +93,7 @@
         app:layout_constraintTop_toTopOf="@+id/kelimeSilButton" />
 
     <ImageButton
-        android:id="@+id/ayarlarBackButton"
+        android:id="@+id/kelimeDuzenleBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
