@@ -105,11 +105,12 @@ class KayitOlActivity : AppCompatActivity() {
                 switchActivity("AnaEkranActivity")
             } else {
                 reloadUser()
-                changeFragment(emailVerifyFragment())
+                changeFragment(EmailVerifyFragment())
             }
         } else {
             createAccount(email, password)
-            changeFragment(emailVerifyFragment())
+            reloadUser()
+            verifyAndSignUp()
         }
     }
 
@@ -183,7 +184,6 @@ class KayitOlActivity : AppCompatActivity() {
     private fun reloadUser() {
         Firebase.auth.currentUser?.reload()
         user = Firebase.auth.currentUser
-        user?.reload()
         if (user != null) {
             isMailVerify = user!!.isEmailVerified
             uid = user!!.uid

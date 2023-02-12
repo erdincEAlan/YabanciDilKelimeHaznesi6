@@ -5,31 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/theme_primary_color"
-    tools:context=".activity.emailVerifyFragment">
+    tools:context=".activity.EmailVerifyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button2"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendVerificationMailButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="300dp"
+            android:background="@drawable/roundedcorner"
+            android:text="  Tekrar Gönder  "
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:fontFamily="@font/ibm_plex_mono"
+            android:textAppearance="@style/button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_test_back" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkVerificationButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/two_button_margin"
+            android:background="@drawable/roundedcorner"
+            android:text="Doğruladım, devam et"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:fontFamily="@font/ibm_plex_mono"
+            android:textAppearance="@style/button_text"
+            app:layout_constraintBottom_toBottomOf="@+id/sendVerificationMailButton"
+            app:layout_constraintEnd_toEndOf="@+id/rectangle_test_back"
+            app:layout_constraintStart_toEndOf="@+id/sendVerificationMailButton"
+            app:layout_constraintTop_toTopOf="@+id/sendVerificationMailButton" />
+
+        <View
+            android:id="@+id/rectangle_test_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="-10dp"
+            android:background="@drawable/info_rectangle"
+            app:layout_constraintBottom_toBottomOf="@+id/verifyFragmentMainTxt"
+            app:layout_constraintEnd_toEndOf="@+id/verifyFragmentMainTxt"
+            app:layout_constraintStart_toStartOf="@+id/verifyFragmentMainTxt"
+            app:layout_constraintTop_toTopOf="@+id/verifyFragmentMainTxt" />
+
+        <TextView
+            android:id="@+id/verifyFragmentMainTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibm_plex_mono"
+            android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+            android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+            android:layout_marginBottom="10dp"
+            android:text="@string/kayit_ol_verify_fragment_main"
+            android:textAppearance="@style/verify_text"
+            app:layout_constraintBottom_toTopOf="@+id/mailVerificationWarningText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/mailVerificationWarningText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/ibm_plex_mono"
+            android:textAppearance="@style/small_text_high"
+            android:text="warninTXT"
+            app:layout_constraintBottom_toTopOf="@+id/sendVerificationMailButton"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_test_back" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="240dp"
-            android:layout_height="67dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/roundedcorner_textbox"
-            android:hint="Kod"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></EditText>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
