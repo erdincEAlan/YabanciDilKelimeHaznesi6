@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.erdince.yabancidilkelimehaznesi6.R
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -33,31 +32,39 @@ class EmailVerifyFragment : Fragment() {
         val root =  inflater.inflate(R.layout.fragment_email_verify, container, false)
         val warnText : TextView = root.findViewById(R.id.mailVerificationWarningText)
         val verifyButton: Button = root.findViewById(R.id.sendVerificationMailButton)
-        setFirebase()
-        reloadUser()
-        setFirebase()
-        sendVerificationMail()
-        verifyButton.setOnClickListener {
-            Toast.makeText(view?.context, "Mail gönderildi",Toast.LENGTH_LONG).show()
-            sendVerificationMail()
-        }
         val checkVerifyButton : Button = root.findViewById(R.id.checkVerificationButton)
-        checkVerifyButton.setOnClickListener {
-            reloadUser()
-            if(user.isEmailVerified){
-                createDatabaseDoc()
-                switchToMainActivity()
-            }else {
-                warnText.text = "Mail adresiniz doğrulanmamış gözüküyor. Mail adresinize gönderilen bağlantıya tıkladığınızdan emin olup eğer tıkladıysanız biraz daha bekleyip tekrar denemenizi rica ederim"
-
-            }
-        }
+        initButtons(verifyButton, checkVerifyButton, warnText)
         return root
 
     }
 
+    private fun initButtons(
+        verifyButton: Button,
+        checkVerifyButton: Button,
+        warnText: TextView
+    ) {
+        verifyButton.setOnClickListener {
+            sendVerificationMail()
+        }
+
+        checkVerifyButton.setOnClickListener {
+            checkVerification(warnText)
+        }
+    }
+
+    private fun checkVerification(warnText: TextView) {
+        reloadUser()
+        if (user.isEmailVerified) {
+            createDatabaseDoc()
+            switchToMainActivity()
+        } else {
+            warnText.text = getString(R.string.mail_verify_warning_string)
+
+        }
+    }
+
     private fun switchToMainActivity() {
-        val mainIntent : Intent = Intent(context,AnaEkranActivity::class.java)
+        val mainIntent = Intent(context,AnaEkranActivity::class.java)
         startActivity(mainIntent)
     }
 
@@ -80,6 +87,7 @@ class EmailVerifyFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setFirebase()
+        sendVerificationMail()
     }
     private fun reloadUser() {
         user.reload()

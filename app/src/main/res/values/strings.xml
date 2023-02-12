@@ -73,6 +73,7 @@
     <string name="checkbox_kelime">Kelime</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mail_verify_warning_string">Mail adresiniz doğrulanmamış gözüküyor. Mail adresinize gönderilen bağlantıya tıkladığınızdan emin olup eğer tıkladıysanız biraz daha bekleyip tekrar denemenizi rica ederim</string>
 
 
 </resources>
