@@ -20,6 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.android.synthetic.main.activity_test_yanlis_sonuc.sonrakiKelimeButton
 import java.util.*
 
 
@@ -130,27 +131,15 @@ class TestActivity : AppCompatActivity() {
 
     private fun increaseKelimePointAndSwitch() {
         kelimelerRef?.document(soruKelime?.kelimeID.toString())?.update("kelimePuan", increment(1))
-        checkKelimeLearnedAndUpdate()
+        if (soruKelime?.kelimePuan == 9) {
+            kelimelerRef?.document(soruKelime?.kelimeID.toString())?.update("kelimeOgrenmeDurum", 1)
+            kullaniciRef?.document(Firebase.auth.currentUser!!.uid)?.update(
+                "ogrenilenKelimeSayisi",
+                increment(1)
+            )
+        }
         makeToast("Kelimeye puan eklendi")
         restartActivity()
-    }
-
-    private fun checkKelimeLearnedAndUpdate() {
-        if (soruKelime?.kelimePuan == 6) {
-            setKelimeLearned()
-            updateUserOgrenilenKelimeNumber()
-        }
-    }
-
-    private fun setKelimeLearned() {
-        kelimelerRef?.document(soruKelime?.kelimeID.toString())?.update("kelimeOgrenmeDurum", 1)
-    }
-
-    private fun updateUserOgrenilenKelimeNumber() {
-        kullaniciRef?.document(Firebase.auth.currentUser!!.uid)?.update(
-            "ogrenilenKelimeSayisi",
-            increment(1)
-        )
     }
 
     private fun setIntents() {

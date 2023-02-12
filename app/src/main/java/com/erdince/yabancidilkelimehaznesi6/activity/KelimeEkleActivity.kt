@@ -22,7 +22,6 @@ import com.google.firebase.ktx.Firebase
 
 class KelimeEkleActivity : AppCompatActivity() {
 
-    
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
     private lateinit var uid: String
@@ -32,7 +31,6 @@ class KelimeEkleActivity : AppCompatActivity() {
     private var kendiEditText: EditText? = null
     private var anlamEditText: EditText? = null
     private var ornekEditText: EditText? = null
-    private var emptyStatus : Boolean = false
     private lateinit var kelimeTxt: String
     private lateinit var anlamTxt: String
     private lateinit var ornekTxt: String
@@ -65,6 +63,7 @@ class KelimeEkleActivity : AppCompatActivity() {
     private fun setButtonClickers() {
         kaydetButton?.setOnClickListener {
             saveKelime()
+            restartActivity()
         }
         backButton?.setOnClickListener {
             switchActivity("AnaEkranActivity")
@@ -72,32 +71,10 @@ class KelimeEkleActivity : AppCompatActivity() {
     }
 
     private fun saveKelime() {
-        if (isAllOkForSaving()){
-            startSaving()
-            restartActivity()
-        }
-    }
-
-    private fun startSaving() {
+        setStringsFromEditTexts()
         setNewKelime()
         addNewKelimeToDatabase()
         updateUserKelimeSayi()
-    }
-
-    private fun isAllOkForSaving(): Boolean {
-        setStringsFromEditTexts()
-        checkIfFieldsEmpty()
-        return emptyStatus
-    }
-
-    private fun checkIfFieldsEmpty() {
-        emptyStatus = if (kelimeTxt == ""|| anlamTxt == ""){
-            makeToast("Lütfen zorunlu olan kelime ve anlam alanlarını doldurduğunuzdan emin olun")
-            false
-        }else{
-            true
-        }
-
     }
 
     private fun setStringsFromEditTexts() {

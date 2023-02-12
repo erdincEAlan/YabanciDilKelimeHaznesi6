@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yabancı Dil Kelime Haznesi</string>
+    <string name="app_name">Yabancı DilKelime Haznesi</string>
     <!-- Splash -->
     <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
     <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet bağlantınızı kontrol edin.</string>
@@ -70,8 +70,7 @@
     <string name="checkbox_ornek">Örnek Cümle</string>
     <string name="checkbox_anlam">Anlam</string>
     <string name="checkbox_kelime">Kelime</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

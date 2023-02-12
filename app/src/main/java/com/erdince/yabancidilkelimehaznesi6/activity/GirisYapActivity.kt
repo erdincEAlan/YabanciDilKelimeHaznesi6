@@ -1,15 +1,15 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
+
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.os.health.UidHealthStats
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.util.GoogleServerClientId
-import com.erdince.yabancidilkelimehaznesi6.util.GoogleSavedPreference
+import com.erdince.yabancidilkelimehaznesi6.util.SavedPreference
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,30 +18,31 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class GirisYapActivity : AppCompatActivity() {
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private var signInAttempt : Int = 0
-    private val regCode: Int = 123
-    private val auth = Firebase.auth
-    private var gso: GoogleSignInOptions? = null
-    private var forgotMyPassword: TextView? = null
-    private var loginButton: ImageButton? = null
-    private var signInButton: TextView? = null
-    private  var signInGoogleButon: ImageButton? = null
-    private  var emailEditText: EditText? = null
-    private var passwordEditText: EditText? = null
-    private  lateinit var loginEmail: String
-    private lateinit var loginPass: String
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    val regCode: Int = 123
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val auth = Firebase.auth
+    var gso: GoogleSignInOptions? = null
+    var sifremiUnuttumButton: TextView? = null
+    var girisYapButton: ImageButton? = null
+    var kayitolButton: TextView? = null
+    var signInGoogleButon: ImageButton? = null
+    var emailEditText: EditText? = null
+    var sifreEditText: EditText? = null
+    lateinit var girisEmail: String
+    lateinit var girisSifre: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_giris_yap)
         init()
+
 
     }
 
@@ -62,74 +63,66 @@ class GirisYapActivity : AppCompatActivity() {
     }
 
 
-    private fun initButtons() {
+    fun initButtons() {
 
-        signInGoogleButon?.setOnClickListener {
+        signInGoogleButon?.setOnClickListener() {
             signInGoogle()
         }
 
-        loginButton?.setOnClickListener {
+        girisYapButton?.setOnClickListener() {
 
             takeInfosFromEditTexts()
 
-            signInCheck()
+            if (girisEmail != "" && girisSifre != "") {
+                signInWithEmail()
+            } else {
+                Toast.makeText(
+                    baseContext, "Email ve sifrenizi kontrol edin",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
         }
 
 
-        signInButton?.setOnClickListener {
+        kayitolButton?.setOnClickListener() {
             switchActivity("KayitOlActivity")
         }
 
 
-        forgotMyPassword?.setOnClickListener {
+        sifremiUnuttumButton?.setOnClickListener() {
 
             switchActivity("SifreSifirlaActivity")
         }
 
     }
 
-    private fun signInCheck() {
-        if (loginEmail != "" && loginPass != "") {
-            signInWithEmail()
-        } else {
-            makeToast("Email ve şifre alanları doldurulmalı")
-        }
-    }
-
     private fun signInWithEmail() {
-        auth.signInWithEmailAndPassword(loginEmail, loginPass)
+        auth.signInWithEmailAndPassword(girisEmail, girisSifre)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     switchActivity("AnaEkranActivity")
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     makeToast("Email ve sifrenizi kontrol edin")
-                    signInAttemptCheck()
+
                 }
             }
     }
 
-    private fun signInAttemptCheck() {
-        if (signInAttempt==6) {
-            makeToast("Şifrenizi mi unuttunuz? Şifrenizi sıfırlamak için \"Şifremi Unuttum\" butonuna basabilirsiniz")
-        } else {
-            signInAttempt++
-        }
-    }
-
     private fun takeInfosFromEditTexts() {
-        loginEmail = emailEditText?.text.toString()
-        loginPass = passwordEditText?.text.toString()
+        girisEmail = emailEditText?.text.toString()
+        girisSifre = sifreEditText?.text.toString()
     }
 
     fun setUI() {
 
-        forgotMyPassword = findViewById(R.id.sifremiUnuttum)
-        loginButton = findViewById(R.id.girisYapButon)
-        signInButton = findViewById(R.id.kayitOlButton)
+        sifremiUnuttumButton = findViewById(R.id.sifremiUnuttum)
+        girisYapButton = findViewById(R.id.girisYapButon)
+        kayitolButton = findViewById(R.id.kayitOlButton)
         signInGoogleButon = findViewById(R.id.googleSıgnButton)
         emailEditText = findViewById(R.id.girisYapKullaniciEditText)
-        passwordEditText = findViewById(R.id.girisYapSifreEditText)
+        sifreEditText = findViewById(R.id.girisYapSifreEditText)
 
     }
 
@@ -140,7 +133,7 @@ class GirisYapActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, regCode)
     }
 
-
+    // onActivityResult() function : this is where we provide the task and data for the Google Account
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == regCode) {
@@ -149,7 +142,7 @@ class GirisYapActivity : AppCompatActivity() {
         }
     }
 
-
+    // handleResult() function -  this is where we update the UI after Google signin takes place
     private fun handleResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
@@ -163,16 +156,15 @@ class GirisYapActivity : AppCompatActivity() {
 
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential).addOnCompleteListener { task ->
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                GoogleSavedPreference.setEmail(this, account.email.toString())
-                GoogleSavedPreference.setUsername(this, account.displayName.toString())
+                SavedPreference.setEmail(this, account.email.toString())
+                SavedPreference.setUsername(this, account.displayName.toString())
                 switchActivity("AnaEkranActivity")
                 finish()
             }
         }
     }
-
 
 
 

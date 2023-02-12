@@ -25,7 +25,7 @@ class TestSonucActivity: AppCompatActivity() {
     private var sonrakiKelimeButton : Button?= null
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_sonuc)
+        setContentView(R.layout.activity_test_yanlis_sonuc)
 
 
         init()

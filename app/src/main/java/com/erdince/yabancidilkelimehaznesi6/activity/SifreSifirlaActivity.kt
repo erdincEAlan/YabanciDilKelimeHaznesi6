@@ -39,10 +39,7 @@ class SifreSifirlaActivity : AppCompatActivity() {
         Firebase.auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    makeToast("Şifre sıfırlama bağlantınız mail adresinize gönderildi")
-                }
-                if (!task.isSuccessful){
-                    makeToast("Mail gönderilemedi, mail adresinizin doğru olduğundan emin olun.")
+                    makeToast("Yeni şifreniz mail adresinize gönderildi")
                 }
             }
     }

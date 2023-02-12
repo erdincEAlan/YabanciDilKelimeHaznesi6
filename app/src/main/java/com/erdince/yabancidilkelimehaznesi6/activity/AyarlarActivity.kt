@@ -1,12 +1,9 @@
-
-
 package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.content.Intent
 import android.net.Uri
 
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -24,7 +21,6 @@ import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 
-@Suppress("OverrideDeprecatedMigration", "OverrideDeprecatedMigration")
 class AyarlarActivity : AppCompatActivity() {
     private var pickFileButton: Button? = null
     private var saveButton: ImageButton? = null
@@ -34,9 +30,6 @@ class AyarlarActivity : AppCompatActivity() {
     private var newPassEditText: EditText? = null
     private var profilePhoto: ImageView? = null
     private var photoUploadButton: Button? = null
-    private var yeniKullaniciAdiTextView : TextView? =null
-    private var yeniSifreTextView : TextView? =null
-
     var profilePhotoUploadTask: UploadTask? = null
     var downloadUri: Uri? = null
     var imagesRef: StorageReference? = null
@@ -222,18 +215,7 @@ class AyarlarActivity : AppCompatActivity() {
     private fun takeUserDatabaseDocumentAndSet() {
         userDatabaseRef.get().addOnSuccessListener { user ->
             kullanici = user.data as MutableMap<String, Any>
-            checkAndSetTextVisibility()
             setTexts()
-        }
-    }
-
-    private fun checkAndSetTextVisibility() {
-        if (kullanici!!["accountType"].toString() != "appAccount") {
-            newPassEditText?.visibility = View.GONE
-            newUserNameEditText?.visibility = View.GONE
-            yeniSifreTextView?.visibility = View.GONE
-            yeniKullaniciAdiTextView?.visibility = View.GONE
-
         }
     }
 
@@ -259,11 +241,6 @@ class AyarlarActivity : AppCompatActivity() {
         newPassEditText = findViewById(R.id.ayarlarYeniSifreEditText)
         profilePhoto = findViewById(R.id.ayarlarProfilePhoto)
         photoUploadButton = findViewById(R.id.uploadButton)
-        yeniSifreTextView = findViewById(R.id.ayarlarYeniSifreTxt)
-        yeniKullaniciAdiTextView = findViewById(R.id.ayarlarYeniKullanıcıAdiTxt)
-
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
