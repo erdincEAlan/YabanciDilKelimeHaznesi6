@@ -1,6 +1,7 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -31,8 +32,8 @@ class KayitOlActivity : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var password: String
     private lateinit var sifreTekrar: String
-
-
+    private lateinit var timer: CountDownTimer
+    private var cycle : Short = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kayit_ol)
@@ -108,10 +109,36 @@ class KayitOlActivity : AppCompatActivity() {
                 changeFragment(EmailVerifyFragment())
             }
         } else {
+            setTimer()
             createAccount(email, password)
+            waitForAccountToBeGetCreated()
             reloadUser()
             verifyAndSignUp()
         }
+    }
+
+    private fun waitForAccountToBeGetCreated() {
+        while (!isAccountCreated()) {
+            if (cycle.equals(2)) {
+                cycle = 0
+                createAccount(email, password)
+            }
+            makeToast("Lutfen Bekleyin")
+            timer.start()
+
+            cycle++
+
+        }
+    }
+
+    private fun isAccountCreated() : Boolean{
+        reloadUser()
+        if (user!=null){
+            return true
+        }else{
+            return false
+        }
+
     }
 
 
@@ -135,7 +162,24 @@ class KayitOlActivity : AppCompatActivity() {
 
     }
 
+    private fun setTimer(){
+       timer = object: CountDownTimer(3000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                makeToast("Lütfen Bekleyin")
+            }
+            override fun onFinish() {
 
+
+            }
+        }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setFirebase()
+    }
     private fun reloadUser() {
         Firebase.auth.currentUser?.reload()
         user = Firebase.auth.currentUser
