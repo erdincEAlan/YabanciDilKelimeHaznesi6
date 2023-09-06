@@ -20,68 +20,77 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:gravity="center">
 
-
-            <TextView
-                android:id="@+id/txtOrnekCumle"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/sarala"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
-                android:text="text"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/txtAnlam"
-                app:layout_constraintEnd_toStartOf="@+id/kelimeDuzenleButton"
-                app:layout_constraintStart_toEndOf="@+id/txtAnlam"
-                app:layout_constraintTop_toTopOf="@+id/txtAnlam" />
-
-            <TextView
-                android:id="@+id/txtKelime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/sarala"
-                android:text="text"
-                android:textColor="@color/white"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/kelimeDuzenleButton"
+                android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/kelimeDuzenleButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txtAnlam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/sarala"
-                android:text="text"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/txtKelime"
-                app:layout_constraintStart_toEndOf="@+id/txtKelime"
-                app:layout_constraintTop_toTopOf="@+id/txtKelime" />
+                <TextView
+                    android:id="@+id/txtKelime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="80dp"
+                    android:minWidth="70dp"
+                    android:singleLine="false"
+                    android:fontFamily="@font/sarala"
+                    android:text="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/txtAnlam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:maxWidth="80dp"
+                    android:minWidth="70dp"
+                    android:singleLine="false"
+                    android:fontFamily="@font/sarala"
+                    android:text="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/txtOrnekCumle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/sarala"
+                    android:minWidth="70dp"
+                    android:singleLine="false"
+                    android:text="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/kelimeDuzenleButton"
-                android:layout_width="100dp"
+                android:layout_width="70dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/sarala_bold"
                 android:background="@drawable/roundedcorner_textbox"
                 android:backgroundTint="@color/theme_primary_color"
-                android:fontFamily="@font/sarala_bold"
                 android:text="Duzenle"
                 android:textColor="@color/theme_orange_color"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

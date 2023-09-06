@@ -100,13 +100,15 @@ class TestActivity : AppCompatActivity() {
 
     private fun takeTheAnswerAndInit() {
         setStringsFromEditTexts()
-        if (soruKelime?.kelimeAnlam?.lowercase() == cevapKelime?.lowercase()) {
+        if (takeStringsAndMakeReadyToQuestioning(soruKelime?.kelimeAnlam!!)== takeStringsAndMakeReadyToQuestioning(cevapKelime!!)) {
             correctAnswer()
         } else {
             incorrectAnswer()
         }
     }
-
+    private fun takeStringsAndMakeReadyToQuestioning(text:String): String{
+        return text.lowercase().replace("\\p{Punct}|\\s".toRegex(), "")
+    }
     private fun incorrectAnswer() {
         makeToast("Cevap Yanlış")
         testSonucPutExtrasAndStart()

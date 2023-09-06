@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue.increment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 
@@ -101,9 +102,9 @@ class KelimeEkleActivity : AppCompatActivity() {
     }
 
     private fun setStringsFromEditTexts() {
-        kelimeTxt = kendiEditText?.text.toString()
-        anlamTxt = anlamEditText?.text.toString()
-        ornekTxt = ornekEditText?.text.toString()
+        kelimeTxt = kendiEditText?.text.toString().trimStart().trimEnd()
+        anlamTxt = anlamEditText?.text.toString().trimStart().trimEnd()
+        ornekTxt = ornekEditText?.text.toString().trimStart().trimEnd()
     }
 
     private fun setNewKelime() {
@@ -112,7 +113,25 @@ class KelimeEkleActivity : AppCompatActivity() {
 
     private fun addNewKelimeToDatabase() {
         db?.collection("kelimeler")?.add(eklenecekKelime!!)
+        setKelimeIdAndUpload()
+
         makeToast("Kelime başarıyla eklendi")
+    }
+
+    private fun setKelimeIdAndUpload() {
+        db?.collection("kelimeler")?.whereEqualTo("kelimeSahipID", uid)
+            ?.whereEqualTo("kelimeKendi", kelimeTxt)?.get()?.addOnSuccessListener { documents ->
+                for (document in documents) {
+                    eklenecekKelime = document.toObject()
+                    eklenecekKelime?.kelimeID = document.id
+                }
+                uploadTheFinalKelime()
+            }
+    }
+
+    private fun uploadTheFinalKelime() {
+        db?.collection("kelimeler")?.document(eklenecekKelime?.kelimeID!!)
+            ?.update("kelimeID", eklenecekKelime?.kelimeID)
     }
 
     private fun updateUserKelimeSayi() {
