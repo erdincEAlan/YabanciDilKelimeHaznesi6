@@ -68,7 +68,7 @@ class GirisYapActivity : AppCompatActivity() {
             signInGoogle()
         }
 
-        loginButton?.setOnClickListener {
+       /* loginButton?.setOnClickListener {
 
             takeInfosFromEditTexts()
 
@@ -85,17 +85,17 @@ class GirisYapActivity : AppCompatActivity() {
 
             switchActivity("SifreSifirlaActivity")
         }
-
+*/
     }
-
+/*
     private fun signInCheck() {
         if (loginEmail != "" && loginPass != "") {
             signInWithEmail()
         } else {
             makeToast("Email ve şifre alanları doldurulmalı")
         }
-    }
-
+    }*/
+/*
     private fun signInWithEmail() {
         auth.signInWithEmailAndPassword(loginEmail, loginPass)
             .addOnCompleteListener(this) { task ->
@@ -107,8 +107,8 @@ class GirisYapActivity : AppCompatActivity() {
                     signInAttemptCheck()
                 }
             }
-    }
-
+    }*/
+/*
     private fun signInAttemptCheck() {
         if (signInAttempt==6) {
             makeToast("Şifrenizi mi unuttunuz? Şifrenizi sıfırlamak için \"Şifremi Unuttum\" butonuna basabilirsiniz")
@@ -121,15 +121,16 @@ class GirisYapActivity : AppCompatActivity() {
         loginEmail = emailEditText?.text.toString()
         loginPass = passwordEditText?.text.toString()
     }
-
+*/
     fun setUI() {
-
+/*
         forgotMyPassword = findViewById(R.id.sifremiUnuttum)
         loginButton = findViewById(R.id.girisYapButon)
         signInButton = findViewById(R.id.kayitOlButton)
-        signInGoogleButon = findViewById(R.id.googleSıgnButton)
         emailEditText = findViewById(R.id.girisYapKullaniciEditText)
-        passwordEditText = findViewById(R.id.girisYapSifreEditText)
+        passwordEditText = findViewById(R.id.girisYapSifreEditText)*/
+        signInGoogleButon = findViewById(R.id.googleSıgnButton)
+
 
     }
 

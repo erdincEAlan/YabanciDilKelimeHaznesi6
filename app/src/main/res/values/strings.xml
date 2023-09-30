@@ -30,7 +30,7 @@
     <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
     <string name="ayarlar_yeni_sifre_hint">Yeni şifrenizi girin</string>
     <string name="ayarlar_mevcut_sifre_hint">Kullandığınız mevcut şifrenizi girin</string>
-    <string name="ayarlar_kullanici_adi_hint">İstediğiniz kullanıcı adını girin</string>
+    <string name="ayarlar_kullanici_adi_hint"> kullanıcı adı</string>
     <!-- Sifre Sıfırla-->
     <string name="email_baslik">Email:</string>
     <string name="email_hint">sisteme kayıtlı email adresinizi girin</string>

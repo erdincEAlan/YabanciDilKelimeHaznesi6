@@ -256,10 +256,10 @@ class AyarlarActivity : AppCompatActivity() {
         ayarlarBackButton = findViewById(R.id.ayarlarGeriButon)
         signOutButton = findViewById(R.id.cikisImageButton)
         newUserNameEditText = findViewById(R.id.ayarlarYeniKullaniciAdiEditText)
-        newPassEditText = findViewById(R.id.ayarlarYeniSifreEditText)
+      //  newPassEditText = findViewById(R.id.ayarlarYeniSifreEditText)
         profilePhoto = findViewById(R.id.ayarlarProfilePhoto)
         photoUploadButton = findViewById(R.id.uploadButton)
-        yeniSifreTextView = findViewById(R.id.ayarlarYeniSifreTxt)
+       // yeniSifreTextView = findViewById(R.id.ayarlarYeniSifreTxt)
         yeniKullaniciAdiTextView = findViewById(R.id.ayarlarYeniKullanıcıAdiTxt)
 
 

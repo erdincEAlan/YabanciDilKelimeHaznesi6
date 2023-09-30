@@ -20,18 +20,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_back" />
 
-    <TextView
-        android:id="@+id/ayarlarYeniKullanıcıAdiTxt"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
-        android:fontFamily="@font/ibm_plex_mono"
-        android:text="@string/ayarlar_yeni_kullanici_adi"
-        android:textAppearance="@style/textbox_title"
-        app:layout_constraintBottom_toTopOf="@+id/ayarlarYeniKullaniciAdiEditText"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/ayarlarYeniKullaniciAdiEditText" />
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayarlarGeriButon">
 
+        <ImageView
+            android:id="@+id/ayarlarProfilePhoto"
+            android:layout_width="@dimen/settings_profile_photo_width"
+            android:layout_height="@dimen/settings_profile_photo_height"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/ic_anaekran_profile" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/roundedcorner"
+
+            android:text="Profil Fotoğrafı Seç"
+            android:textAppearance="@style/textbox_text_style"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/uploadButton"
+            app:layout_constraintEnd_toEndOf="@+id/uploadButton"
+            app:layout_constraintStart_toStartOf="@+id/uploadButton" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/uploadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedcorner"
+
+            android:text="Yükle"
+            android:textAppearance="@style/textbox_text_style_high"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/ayarlarYeniKullanıcıAdiTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/ayarlarKaydetButon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/ayarlarYeniKullanıcıAdiTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+            android:layout_gravity="start"
+            android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+            android:text="@string/ayarlar_yeni_kullanici_adi"
+            android:textAppearance="@style/textbox_title" />
+
+        <EditText
+            android:id="@+id/ayarlarYeniKullaniciAdiEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_box_height"
+            android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+            android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+            android:layout_marginBottom="@dimen/process_button_content_margin"
+            android:background="@drawable/roundedcorner_textbox"
+            android:hint="@string/ayarlar_kullanici_adi_hint"
+            android:inputType="textPersonName"
+            android:textAppearance="@style/textbox_text_style" />
+    </LinearLayout>
+    <!--
     <TextView
         android:id="@+id/ayarlarYeniSifreTxt"
         android:layout_width="wrap_content"
@@ -44,6 +113,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/ayarlarYeniSifreEditText" />
 
+
     <EditText
         android:id="@+id/ayarlarYeniSifreEditText"
         android:layout_width="@dimen/text_box_width"
@@ -53,27 +123,14 @@
         android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
         android:background="@drawable/roundedcorner_textbox"
         android:textAppearance="@style/textbox_text_style"
-        android:fontFamily="@font/ibm_plex_mono"
+
         android:hint="@string/ayarlar_yeni_sifre_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/ayarlarKaydetButon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+ -->
 
-    <EditText
-        android:id="@+id/ayarlarYeniKullaniciAdiEditText"
-        android:layout_width="@dimen/text_box_width"
-        android:layout_height="@dimen/text_box_height"
-        android:layout_marginBottom="@dimen/process_button_content_margin"
-        android:layout_marginStart="@dimen/text_box_margin_start_and_end"
-        android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
-        android:background="@drawable/roundedcorner_textbox"
-        android:textAppearance="@style/textbox_text_style"
-        android:hint="@string/ayarlar_kullanici_adi_hint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ayarlarYeniSifreTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/ayarlarKaydetButon"
@@ -93,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_title_margin"
-        android:fontFamily="@font/sarala_bold"
+
         android:text="Çıkış Yap"
         android:textAppearance="@style/button_text"
         app:layout_constraintEnd_toEndOf="@+id/cikisImageButton"
@@ -110,42 +167,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_sign_out" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/fileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/two_button_margin"
-        android:background="@drawable/roundedcorner"
-        android:fontFamily="@font/ibm_plex_mono"
-        android:text="Profil Fotoğrafı Seç"
-        android:textAppearance="@style/textbox_text_style"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
-        app:layout_constraintEnd_toEndOf="@+id/uploadButton"
-        app:layout_constraintStart_toStartOf="@+id/uploadButton" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/uploadButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/process_button_content_margin"
-        android:background="@drawable/roundedcorner"
-        android:fontFamily="@font/ibm_plex_mono"
-        android:text="Yükle"
-        android:textAppearance="@style/textbox_text_style_high"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/ayarlarYeniKullanıcıAdiTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/ayarlarProfilePhoto"
-        android:layout_width="@dimen/settings_profile_photo_width"
-        android:layout_height="@dimen/settings_profile_photo_height"
-        app:layout_constraintBottom_toTopOf="@+id/fileButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_anaekran_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
