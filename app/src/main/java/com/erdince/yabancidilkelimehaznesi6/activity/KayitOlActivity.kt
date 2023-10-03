@@ -36,7 +36,7 @@ class KayitOlActivity : AppCompatActivity() {
     private var cycle : Short = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kayit_ol)
+        setContentView(R.layout.activity_signup)
         init()
 
     }

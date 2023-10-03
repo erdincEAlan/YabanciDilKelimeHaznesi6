@@ -25,7 +25,7 @@ class AnaEkranActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_anaekran)
+        setContentView(R.layout.activity_mainscreen)
         init()
     }
 

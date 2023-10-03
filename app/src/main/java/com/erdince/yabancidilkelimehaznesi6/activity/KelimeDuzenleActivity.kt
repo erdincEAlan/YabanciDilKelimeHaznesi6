@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_kelime_duzenle.*
+import kotlinx.android.synthetic.main.activity_word_edit.*
 
 
 class KelimeDuzenleActivity : AppCompatActivity() {
@@ -42,7 +42,7 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     private var backButton: ImageButton? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kelime_duzenle)
+        setContentView(R.layout.activity_word_edit)
         init()
 
     }

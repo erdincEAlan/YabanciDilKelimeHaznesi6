@@ -40,7 +40,7 @@ class KelimeEkleActivity : AppCompatActivity() {
     private var eklenecekKelime: KelimeModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kelime_ekle)
+        setContentView(R.layout.activity_word_add)
         init()
 
     }

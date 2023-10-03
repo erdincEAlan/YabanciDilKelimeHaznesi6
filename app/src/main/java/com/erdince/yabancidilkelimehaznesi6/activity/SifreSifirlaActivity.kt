@@ -9,7 +9,7 @@ import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_sifre_sifirla.*
+import kotlinx.android.synthetic.main.activity_pass_reset.*
 
 
 class SifreSifirlaActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class SifreSifirlaActivity : AppCompatActivity() {
     private var emailEditText : EditText?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sifre_sifirla)
+        setContentView(R.layout.activity_pass_reset)
         init()
 
 

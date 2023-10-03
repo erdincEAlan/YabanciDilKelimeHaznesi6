@@ -11,7 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.adapter.KelimeAdapter
+import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_kelime_liste.*
+import kotlinx.android.synthetic.main.activity_word_list.*
 
 class KelimeListeActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class KelimeListeActivity : AppCompatActivity() {
     private lateinit var uid: String
     private var kelimeDuzenleIntent: Intent? = null
     private var searchViewKelime: SearchView? = null
-    private var adapter: KelimeAdapter? = null
+    private var adapter: WordListAdapter? = null
     private var kelimeListesi = mutableListOf<KelimeModel?>()
     private var filtreListesi = mutableListOf<KelimeModel?>()
     private var filtreListesi2 = mutableListOf<KelimeModel?>()
@@ -44,7 +44,7 @@ class KelimeListeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kelime_liste)
+        setContentView(R.layout.activity_word_list)
         init()
     }
 
@@ -163,7 +163,7 @@ class KelimeListeActivity : AppCompatActivity() {
     }
 
     fun setKelimeAdapter(mutableList: MutableList<KelimeModel?>) {
-        adapter = KelimeAdapter(mutableList) {
+        adapter = WordListAdapter(mutableList) {
             kelimeDuzenleIntent?.putExtra("kelimeID", it)
             startActivity(kelimeDuzenleIntent)
         }

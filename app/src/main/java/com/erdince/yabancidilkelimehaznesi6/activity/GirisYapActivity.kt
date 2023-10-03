@@ -40,7 +40,7 @@ class GirisYapActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_giris_yap)
+        setContentView(R.layout.activity_login)
         init()
 
     }

@@ -58,7 +58,7 @@ class AyarlarActivity : AppCompatActivity() {
     val userDatabaseRef = db.collection("user").document(user!!.uid)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ayarlar)
+        setContentView(R.layout.activity_settings)
         init()
     }
 

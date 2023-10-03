@@ -10,7 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.adapter.KelimeAdapter
+import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
@@ -28,7 +28,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
     private lateinit var uid: String
     private var kelimeDuzenleIntent: Intent? = null
-    private var adapter: KelimeAdapter? = null
+    private var adapter: WordListAdapter? = null
     private var kelimeOgrenilenListeGeriButon: ImageButton? = null
     private var ogrenilenKelimelerRecycleView: RecyclerView? = null
     private var searchViewKelime: SearchView? = null
@@ -39,7 +39,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ogrenilen_kelimeler_list)
+        setContentView(R.layout.activity_learned_words_list)
         init()
     }
     override fun onStart() {
@@ -131,7 +131,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
     }
 
     private fun setKelimeAdapter(mutableList: MutableList<KelimeModel?>) {
-        adapter = KelimeAdapter(mutableList) {
+        adapter = WordListAdapter(mutableList) {
             kelimeDuzenleIntent?.putExtra("kelimeID", it)
             startActivity(kelimeDuzenleIntent)
         }

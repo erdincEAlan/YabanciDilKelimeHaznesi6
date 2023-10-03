@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
-import com.erdince.yabancidilkelimehaznesi6.databinding.RowItemKelimeBinding
+import com.erdince.yabancidilkelimehaznesi6.databinding.RowItemWordBinding
 
 
-class KelimeAdapter(kelimeListesi : MutableList<KelimeModel?>, var onClik :(String?) -> Unit) : RecyclerView.Adapter<KelimeAdapter.ViewHolder>() {
+class WordListAdapter(kelimeListesi : MutableList<KelimeModel?>, var onClik :(String?) -> Unit) : RecyclerView.Adapter<WordListAdapter.ViewHolder>() {
 
     var kelimeListe: MutableList<KelimeModel?>? =null
     var isKelime = true
@@ -27,11 +27,11 @@ class KelimeAdapter(kelimeListesi : MutableList<KelimeModel?>, var onClik :(Stri
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: RowItemKelimeBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: RowItemWordBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val binding = RowItemKelimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RowItemWordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
 
