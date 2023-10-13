@@ -28,18 +28,18 @@
     <string name="ayarlar_yeni_kullanici_adi">Yeni Kullanıcı Adı</string>
     <string name="ayarlar_mevcut_sifre">Mevcut Şifre</string>
     <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
-    <string name="ayarlar_yeni_sifre_hint">Yeni şifrenizi girin</string>
-    <string name="ayarlar_mevcut_sifre_hint">Kullandığınız mevcut şifrenizi girin</string>
+    <string name="ayarlar_yeni_sifre_hint"> Yeni Şifre</string>
+    <string name="ayarlar_mevcut_sifre_hint"> Mevcut Şifre</string>
     <string name="ayarlar_kullanici_adi_hint"> kullanıcı adı</string>
     <!-- Sifre Sıfırla-->
     <string name="email_baslik">Email:</string>
-    <string name="email_hint">sisteme kayıtlı email adresinizi girin</string>
+    <string name="email_hint"> Sisteme kayıtlı email adresinizi girin</string>
 
     <!-- Kayit Ol -->
-    <string name="kayit_ol_kullanici_adi_hint">kullanmak istediğiniz kullanıcı adını girin</string>
-    <string name="kayit_ol_email_hint">email adresinizi girin</string>
-    <string name="kayit_ol_sifre_hint">sifrenizi girin</string>
-    <string name="kayit_ol_sifre_tekrar_hint">sifrenizi tekrar girin</string>
+    <string name="kayit_ol_kullanici_adi_hint"> Kullanıcı Adın</string>
+    <string name="kayit_ol_email_hint"> Mail</string>
+    <string name="kayit_ol_sifre_hint"> Parola</string>
+    <string name="kayit_ol_sifre_tekrar_hint"> Parola Tekrar</string>
     <string name="email_verify_button_Txt">Doğrulama bağlantısı gönder</string>
     <string name="kayit_ol_verify_dialog_positive">Doğruladım, devam et</string>
     <string name="kayit_ol_verify_dialog_msg">Mail adresinizi doğrulayın"</string>
@@ -52,9 +52,9 @@
     <string name="kelime_ekle_kelime_baslik">Kelime</string>
     <string name="kelime_ekle_anlam_baslik">Kelime Anlamı:</string>
     <string name="kelime_ekle_ornek_baslik">Örnek Cümle:</string>
-    <string name="kelime_ekle_kelime_hint">kelimenin kendisini girin (zorunlu)</string>
-    <string name="kelime_ekle_anlam_hint">kelimenin anlamını girin (isteğe bağlı)</string>
-    <string name="kelime_ekle_ornek_hint">kelime hakkında örnek girin (isteğe bağlı)</string>
+    <string name="kelime_ekle_kelime_hint"> Kelime (zorunlu)</string>
+    <string name="kelime_ekle_anlam_hint"> Anlam (isteğe bağlı)</string>
+    <string name="kelime_ekle_ornek_hint"> Örnek (isteğe bağlı)</string>
 
     <!-- Kelime Ara -->
     <string name="kelime_ara_baslik">Kelime Ara</string>
