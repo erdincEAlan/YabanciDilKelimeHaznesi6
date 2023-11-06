@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yabancı DilKelime Haznesi</string>
+    <string name="app_name">Yabancı Dil Kelime Haznesi</string>
     <!-- Splash -->
     <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
     <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet bağlantınızı kontrol edin.</string>
@@ -30,7 +30,7 @@
     <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
     <string name="ayarlar_yeni_sifre_hint">Yeni şifrenizi girin</string>
     <string name="ayarlar_mevcut_sifre_hint">Kullandığınız mevcut şifrenizi girin</string>
-    <string name="ayarlar_kullanici_adi_hint">İstediğiniz kullanıcı adını girin</string>
+    <string name="ayarlar_kullanici_adi_hint"> kullanıcı adı</string>
     <!-- Sifre Sıfırla-->
     <string name="email_baslik">Email:</string>
     <string name="email_hint">sisteme kayıtlı email adresinizi girin</string>
@@ -44,6 +44,7 @@
     <string name="kayit_ol_verify_dialog_positive">Doğruladım, devam et</string>
     <string name="kayit_ol_verify_dialog_msg">Mail adresinizi doğrulayın"</string>
     <string name="kayit_ol_verify_dialog_send_link_button">Doğrulama bağlantısı gönder</string>
+    <string name="kayit_ol_verify_fragment_main">Mail adresinizi doğrulamanız için belirtmiş olduğunuz mail adresine doğrulama bağlantısı gönderilmiştir. Linke tıklayıp geri dönün. (Spam klasörünü kontrol etmeyi unutmayın)</string>
 
 
     <!-- Kelime Ekle -->
@@ -70,7 +71,9 @@
     <string name="checkbox_ornek">Örnek Cümle</string>
     <string name="checkbox_anlam">Anlam</string>
     <string name="checkbox_kelime">Kelime</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mail_verify_warning_string">Mail adresiniz doğrulanmamış gözüküyor. Mail adresinize gönderilen bağlantıya tıkladığınızdan emin olup eğer tıkladıysanız biraz daha bekleyip tekrar denemenizi rica ederim</string>
 
 
 </resources>

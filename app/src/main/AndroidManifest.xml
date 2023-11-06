@@ -36,6 +36,7 @@
         <activity android:name=".activity.SplashActivity"/>
 
         <meta-data
+            android:usesCleartextTraffic="true"
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>

@@ -1,40 +1,39 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.CountDownTimer
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
 class KayitOlActivity : AppCompatActivity() {
-    val db = Firebase.firestore
-    var user = Firebase.auth.currentUser
-    var girisYapIntent: Intent? = null
-    var kayitOlButton: ImageButton? = null
+
+    private var db : FirebaseFirestore?=null
+    private var user : FirebaseUser?=null
+    private var kayitOlButton: ImageButton? = null
     private var backButton: ImageButton? = null
-    var emailEditText: EditText? = null
-    var sifreEditText: EditText? = null
-    var sifreTekrarEditText: EditText? = null
-    var kullaniciAdiEditText: EditText? = null
-    var isMailVerify: Boolean? = null
-    lateinit var kullaniciAdi: String
-    lateinit var email: String
-    lateinit var password: String
-    lateinit var sifreTekrar: String
-    lateinit var uid: String
-
-
+    private var emailEditText: EditText? = null
+    private var sifreEditText: EditText? = null
+    private var sifreTekrarEditText: EditText? = null
+    private var kullaniciAdiEditText: EditText? = null
+    private var isMailVerify: Boolean? = null
+    private lateinit var kullaniciAdi: String
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var sifreTekrar: String
+    private lateinit var timer: CountDownTimer
+    private var cycle : Short = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kayit_ol)
@@ -43,6 +42,7 @@ class KayitOlActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        setFirebase()
         initUI()
     }
 
@@ -52,7 +52,7 @@ class KayitOlActivity : AppCompatActivity() {
     }
 
 
-    fun setStringsFromEditTexts() {
+    private fun setStringsFromEditTexts() {
         sifreTekrar = sifreTekrarEditText?.text.toString()
         email = emailEditText?.text.toString()
         password = sifreEditText?.text.toString()
@@ -71,63 +71,84 @@ class KayitOlActivity : AppCompatActivity() {
     fun setButtonClickers() {
         kayitOlButton?.setOnClickListener {
             setStringsFromEditTexts()
-            signIn()
+            checkAndSignUp()
+
         }
         backButton?.setOnClickListener {
             switchActivity("GirisYapActivity")
         }
     }
 
+    private fun checkAndSignUp() {
+        if(isTextsOk()) {
+            verifyAndSignUp()
+        }
+    }
 
-    fun signIn() {
+
+    private fun isTextsOk() : Boolean {
         if (email == "" || password == "" || kullaniciAdi == "") {
-            Toast.makeText(
-                baseContext, "Lutfen tum alanları doldurdugunuza emin olun",
-                Toast.LENGTH_SHORT
-            ).show()
-
+            makeToast("Lütfen tüm alanları doldurduğunuza emin olun")
+            return false
         } else if (password != sifreTekrar) {
-
-            Toast.makeText(
-                baseContext, "Sifre ve sifre tekrar alanlarının aynı oldugundan emin olun",
-                Toast.LENGTH_SHORT
-            ).show()
-
+            return false
+            makeToast("Şifre ve şifre tekrar alanlarının aynı olduğuna emin olun")
         } else {
-            verifyAndSignIn()
+            return true
+
 
         }
     }
 
-    private fun verifyAndSignIn() {
+    private fun verifyAndSignUp() {
         if (user != null) {
-            reloadUser()
             if (isMailVerify == true) {
-                updateProfileAndCreateDatabaseDoc()
-                startActivity(girisYapIntent)
+                switchActivity("AnaEkranActivity")
             } else {
-                makeToast("Mail adresiniz doğrulanmamış gözüküyor. Spam klasörünüzü kontrol etmeyi unutmayın. ")
-                createEmailVerifyDialog().create().show()
+                updateProfile()
+                changeFragment(EmailVerifyFragment())
             }
         } else {
+            setTimer()
             createAccount(email, password)
-            createEmailVerifyDialog().create().show()
+            waitForAccountToBeGetCreated()
+            reloadUser()
+            verifyAndSignUp()
         }
     }
 
-    private fun updateProfileAndCreateDatabaseDoc() {
+    private fun waitForAccountToBeGetCreated() {
+        while (!isAccountCreated()) {
+            if (cycle.equals(2)) {
+                cycle = 0
+                createAccount(email, password)
+            }
+            makeToast("Lutfen Bekleyin")
+            timer.start()
+
+            cycle++
+
+        }
+    }
+
+    private fun isAccountCreated() : Boolean{
+        reloadUser()
+        if (user!=null){
+            return true
+        }else{
+            return false
+        }
+
+    }
+
+
+
+    private fun updateProfile() {
         val profileUpdates = userProfileChangeRequest {
             displayName = kullaniciAdi
         }
         user?.updateProfile(profileUpdates)
         reloadUser()
-        val kullanici = mutableMapOf(
-            "uid" to uid,
-            "kullaniciAdi" to kullaniciAdi,
-            "kelimeSayisi" to 0,
-            "ogrenilenKelimeSayisi" to 0
-        )
-        db.collection("user").document(uid).set(kullanici)
     }
 
 
@@ -141,43 +162,40 @@ class KayitOlActivity : AppCompatActivity() {
 
     }
 
-    private fun createEmailVerifyDialog(): AlertDialog.Builder {
-        val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
-        dialog.setMessage(R.string.kayit_ol_verify_dialog_msg)
-        dialog.setCancelable(false)
-        dialog.setPositiveButton(R.string.kayit_ol_verify_dialog_positive) { _, _ ->
-            reloadUser()
-            verifyAndSignIn()
-
-        }.setNeutralButton(R.string.kayit_ol_verify_dialog_send_link_button) { _, _ ->
-            user?.sendEmailVerification()?.addOnCompleteListener {
-                if (it.isSuccessful) {
-                    makeToast("Doğrulama bağlantısı mail adresinize gönderildi. Gönderilen bağlantıya tıklayın ve geri dönün")
-                    reloadUser()
-                    createEmailVerifyDialog().create().show()
-                }
-                if (!it.isSuccessful) {
-                    user?.delete()
-                    user = null
-                    makeToast("Doğrulama bağlantısı gönderilemedi, internet bağlantınızı kontrol edin")
-                }
-            }?.addOnFailureListener() {
-                Log.d("FIREBASE ERROR", it.toString())
+    private fun setTimer(){
+       timer = object: CountDownTimer(3000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                makeToast("Lütfen Bekleyin")
             }
+            override fun onFinish() {
 
+
+            }
         }
-        return dialog
+
+
     }
 
-
-    fun reloadUser() {
+    override fun onStart() {
+        super.onStart()
+        setFirebase()
+    }
+    private fun reloadUser() {
         Firebase.auth.currentUser?.reload()
         user = Firebase.auth.currentUser
-        if (user != null) {
-            isMailVerify = user!!.isEmailVerified
-            uid = user!!.uid
-        }
+        user?.reload()
     }
 
+    private fun setFirebase(){
+        db = Firebase.firestore
+        user = Firebase.auth.currentUser
+    }
+
+
+    private fun changeFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.emailVerifyLayout, fragment)
+        fragmentTransaction.commit()
+    }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/theme_primary_color"
     tools:context=".activity.GirisYapActivity">
-
+<!--
     <EditText
         android:id="@+id/girisYapKullaniciEditText"
         android:layout_width="@dimen/text_box_width"
@@ -93,30 +93,33 @@
         android:textAppearance="@style/under_text_high"
         app:layout_constraintEnd_toEndOf="@+id/girisYapSifreEditText"
         app:layout_constraintTop_toTopOf="@+id/sifremiUnuttum" />
-
-    <ImageButton
-        android:id="@+id/googleSıgnButton"
-        android:layout_width="@dimen/process_button_height_and_width"
-        android:layout_height="@dimen/process_button_height_and_width"
-        android:layout_marginBottom="@dimen/button_frame_margin_bottom"
-        android:background="@null"
+-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_button_google_login" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/girisYapVeyaTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google ile giriş yapmak için simgeye tıklayın"
+            android:textAlignment="center"
+            android:textAppearance="@style/under_text_high" />
+        <ImageButton
+            android:id="@+id/googleSıgnButton"
+            android:contentDescription="Google sign button"
+            android:layout_width="@dimen/process_button_height_and_width"
+            android:layout_height="@dimen/process_button_height_and_width"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_button_google_login" />
 
-    <TextView
-        android:id="@+id/girisYapVeyaTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/two_button_margin"
-        android:fontFamily="@font/abril_fatface"
-        android:text="Veya"
-        android:textAlignment="center"
-        android:textAppearance="@style/under_text_high"
-        app:layout_constraintBottom_toTopOf="@+id/googleSıgnButton"
-        app:layout_constraintEnd_toEndOf="@+id/googleSıgnButton"
-        app:layout_constraintStart_toStartOf="@+id/googleSıgnButton" />
 
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
