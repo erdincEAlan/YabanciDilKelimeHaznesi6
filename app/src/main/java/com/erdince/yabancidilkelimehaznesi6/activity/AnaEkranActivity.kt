@@ -89,9 +89,11 @@ class AnaEkranActivity : AppCompatActivity() {
         uid = user!!.uid
 
     }
+
+    @Deprecated("Deprecated in Java")
     @Override
     override fun onBackPressed() {
-        //super.onBackPressed()
+        super.onBackPressed()
         createAndShowDialog("Uygulamadan çıkmak mı istiyorsunuz?"){answer->
             if (answer){
                 this.finishAffinity()
