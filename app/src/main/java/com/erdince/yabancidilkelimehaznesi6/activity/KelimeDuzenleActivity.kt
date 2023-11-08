@@ -19,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_kelime_duzenle.*
 
 
 class KelimeDuzenleActivity : AppCompatActivity() {
@@ -145,9 +144,9 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     }
 
     private fun setStringsFromEditTexts() {
-        kelimeKendiString = kelimeKendiEditText.text.toString()
-        kelimeAnlamString = kelimeAnlamEditText.text.toString()
-        kelimeOrnekCumleString = kelimeOrnekEditText.text.toString()
+        kelimeKendiString = kelimeEdit?.text.toString()
+        kelimeAnlamString = kelimeAnlamEdit?.text.toString()
+        kelimeOrnekCumleString = kelimeOrnekEdit?.text.toString()
     }
 
     private fun setUI() {

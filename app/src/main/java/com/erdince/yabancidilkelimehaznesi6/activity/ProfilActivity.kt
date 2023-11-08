@@ -17,8 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_profil.*
-
 
 class ProfilActivity : AppCompatActivity() {
     private var kullaniciAdiTextView: TextView?=null
@@ -101,7 +99,7 @@ class ProfilActivity : AppCompatActivity() {
     private fun setTextViews() {
         kullaniciAdiTextView?.text = kullaniciAdi
         profilKelimeSayisiTextView?.text = kelimeSayi
-        ogrenilenKelimeSayiTextView?.text = ogrenilenKelimeSayi
+        profilOgrenilenKelimeSayiTextView?.text = ogrenilenKelimeSayi
     }
 
     private fun initFirebase() {

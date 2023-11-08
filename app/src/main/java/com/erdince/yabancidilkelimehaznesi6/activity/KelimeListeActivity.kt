@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_kelime_liste.*
+
 
 class KelimeListeActivity : AppCompatActivity() {
 
@@ -167,7 +167,7 @@ class KelimeListeActivity : AppCompatActivity() {
             kelimeDuzenleIntent?.putExtra("kelimeID", it)
             startActivity(kelimeDuzenleIntent)
         }
-        kelimeListeRecyclerView.adapter = adapter
+        kelimeListRecyclerView?.adapter = adapter
 
     }
 

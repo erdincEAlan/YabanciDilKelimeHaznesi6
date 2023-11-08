@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.*
@@ -19,7 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_test.*
 import java.util.*
 
 
@@ -36,6 +36,8 @@ class TestActivity : AppCompatActivity() {
     private var cevapButon: Button? = null
     private var soruKelimeTextView: TextView? = null
     private var cevapEditText: EditText? = null
+    private var backButton : ImageButton?=null
+    private var nextButton : Button?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +67,8 @@ class TestActivity : AppCompatActivity() {
         cevapButon = findViewById(R.id.cevapButton)
         soruKelimeTextView = findViewById(R.id.soruKelimeTextView)
         cevapEditText = findViewById(R.id.cevapKelimeEditText)
+        backButton = findViewById(R.id.testGeriButton)
+        nextButton = findViewById(R.id.sonrakiKelimeButton)
     }
 
     private fun takeListAndSetQuestKelime() {
@@ -87,10 +91,10 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun setButtonClickers() {
-        testGeriButton.setOnClickListener {
+        backButton?.setOnClickListener {
             switchActivity("AnaEkranActivity")
         }
-        sonrakiKelimeButton.setOnClickListener {
+        nextButton?.setOnClickListener {
             increaseKelimePointAndSwitch()
         }
         cevapButon?.setOnClickListener {

@@ -9,8 +9,6 @@ import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_sifre_sifirla.*
-
 
 class SifreSifirlaActivity : AppCompatActivity() {
     private var girisYapIntent: Intent? = null
@@ -55,7 +53,7 @@ class SifreSifirlaActivity : AppCompatActivity() {
         }
 
         sendMailButton?.setOnClickListener{
-            sendResetEmail(sifreSifirlaMailEditText.text.toString())
+            sendResetEmail(emailEditText?.text.toString())
         }
     }
 
