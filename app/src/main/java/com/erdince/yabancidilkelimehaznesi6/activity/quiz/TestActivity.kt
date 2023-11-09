@@ -1,4 +1,4 @@
-package com.erdince.yabancidilkelimehaznesi6.activity
+package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
@@ -42,10 +44,17 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
-        init()
+        val fragment : FragmentQuizSourceSelection = FragmentQuizSourceSelection.newInstance("sdf","sdf")
+       changeFragment(fragment)
+        //init()
+    }
+    private fun changeFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
+        fragmentTransaction.commit()
     }
 
-
+/*
     fun init() {
         prapare()
         initUI()
@@ -67,7 +76,6 @@ class TestActivity : AppCompatActivity() {
         cevapButon = findViewById(R.id.cevapButton)
         soruKelimeTextView = findViewById(R.id.soruKelimeTextView)
         cevapEditText = findViewById(R.id.cevapKelimeEditText)
-        backButton = findViewById(R.id.testGeriButton)
         nextButton = findViewById(R.id.sonrakiKelimeButton)
     }
 
@@ -172,4 +180,6 @@ class TestActivity : AppCompatActivity() {
         kelimelerRef = db?.collection("kelimeler")
         kullaniciRef = db?.collection("user")
     }
+
+ */
 }

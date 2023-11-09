@@ -31,8 +31,8 @@
         <activity android:name=".activity.AnaEkranActivity" />
         <activity android:name=".activity.AyarlarActivity" />
         <activity android:name=".activity.KelimeDuzenleActivity" />
-        <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.TestSonucActivity" />
+        <activity android:name=".activity.quiz.TestActivity" />
+        <activity android:name=".activity.quiz.TestSonucActivity" />
         <activity android:name=".activity.SplashActivity"/>
 
         <meta-data

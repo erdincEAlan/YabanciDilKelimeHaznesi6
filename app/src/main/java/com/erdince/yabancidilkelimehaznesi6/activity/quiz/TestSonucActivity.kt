@@ -1,4 +1,4 @@
-package com.erdince.yabancidilkelimehaznesi6.activity
+package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.os.Bundle
 import android.widget.Button

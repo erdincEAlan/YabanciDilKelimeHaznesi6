@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.activity.*
+import com.erdince.yabancidilkelimehaznesi6.activity.quiz.TestActivity
+import com.erdince.yabancidilkelimehaznesi6.activity.quiz.TestSonucActivity
 
 fun Activity.createAndShowDialog(msg: String, clicked: (Boolean) -> Unit) {
     val alert: AlertDialog.Builder = AlertDialog.Builder(this)

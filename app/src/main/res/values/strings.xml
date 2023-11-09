@@ -2,7 +2,9 @@
     <string name="app_name">Yabancı Dil Kelime Haznesi</string>
     <!-- Splash -->
     <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
-    <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet bağlantınızı kontrol edin.</string>
+    <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet
+        bağlantınızı kontrol edin.
+    </string>
     <string name="network_dialog_wifi_button">WIFI ayarlarını aç</string>
     <string name="network_dialog_mobile_data_button">Mobil veri ayarlarını aç</string>
     <!-- Test -->
@@ -28,23 +30,25 @@
     <string name="ayarlar_yeni_kullanici_adi">Yeni Kullanıcı Adı</string>
     <string name="ayarlar_mevcut_sifre">Mevcut Şifre</string>
     <string name="ayarlar_yeni_sifre">Yeni Şifre</string>
-    <string name="ayarlar_yeni_sifre_hint"> Yeni Şifre</string>
-    <string name="ayarlar_mevcut_sifre_hint"> Mevcut Şifre</string>
-    <string name="ayarlar_kullanici_adi_hint"> kullanıcı adı</string>
+    <string name="ayarlar_yeni_sifre_hint">Yeni Şifre</string>
+    <string name="ayarlar_mevcut_sifre_hint">Mevcut Şifre</string>
+    <string name="ayarlar_kullanici_adi_hint">kullanıcı adı</string>
     <!-- Sifre Sıfırla-->
     <string name="email_baslik">Email:</string>
-    <string name="email_hint"> Sisteme kayıtlı email adresinizi girin</string>
+    <string name="email_hint">Sisteme kayıtlı email adresinizi girin</string>
 
     <!-- Kayit Ol -->
-    <string name="kayit_ol_kullanici_adi_hint"> Kullanıcı Adın</string>
-    <string name="kayit_ol_email_hint"> Mail</string>
-    <string name="kayit_ol_sifre_hint"> Parola</string>
-    <string name="kayit_ol_sifre_tekrar_hint"> Parola Tekrar</string>
+    <string name="kayit_ol_kullanici_adi_hint">Kullanıcı Adın</string>
+    <string name="kayit_ol_email_hint">Mail</string>
+    <string name="kayit_ol_sifre_hint">Parola</string>
+    <string name="kayit_ol_sifre_tekrar_hint">Parola Tekrar</string>
     <string name="email_verify_button_Txt">Doğrulama bağlantısı gönder</string>
     <string name="kayit_ol_verify_dialog_positive">Doğruladım, devam et</string>
     <string name="kayit_ol_verify_dialog_msg">Mail adresinizi doğrulayın"</string>
     <string name="kayit_ol_verify_dialog_send_link_button">Doğrulama bağlantısı gönder</string>
-    <string name="kayit_ol_verify_fragment_main">Mail adresinizi doğrulamanız için belirtmiş olduğunuz mail adresine doğrulama bağlantısı gönderilmiştir. Linke tıklayıp geri dönün. (Spam klasörünü kontrol etmeyi unutmayın)</string>
+    <string name="kayit_ol_verify_fragment_main">Mail adresinizi doğrulamanız için belirtmiş olduğunuz mail adresine
+        doğrulama bağlantısı gönderilmiştir. Linke tıklayıp geri dönün. (Spam klasörünü kontrol etmeyi unutmayın)
+    </string>
 
 
     <!-- Kelime Ekle -->
@@ -52,9 +56,9 @@
     <string name="kelime_ekle_kelime_baslik">Kelime</string>
     <string name="kelime_ekle_anlam_baslik">Kelime Anlamı:</string>
     <string name="kelime_ekle_ornek_baslik">Örnek Cümle:</string>
-    <string name="kelime_ekle_kelime_hint"> Kelime (zorunlu)</string>
-    <string name="kelime_ekle_anlam_hint"> Anlam (isteğe bağlı)</string>
-    <string name="kelime_ekle_ornek_hint"> Örnek (isteğe bağlı)</string>
+    <string name="kelime_ekle_kelime_hint">Kelime (zorunlu)</string>
+    <string name="kelime_ekle_anlam_hint">Anlam (isteğe bağlı)</string>
+    <string name="kelime_ekle_ornek_hint">Örnek (isteğe bağlı)</string>
 
     <!-- Kelime Ara -->
     <string name="kelime_ara_baslik">Kelime Ara</string>
@@ -73,7 +77,10 @@
     <string name="checkbox_kelime">Kelime</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mail_verify_warning_string">Mail adresiniz doğrulanmamış gözüküyor. Mail adresinize gönderilen bağlantıya tıkladığınızdan emin olup eğer tıkladıysanız biraz daha bekleyip tekrar denemenizi rica ederim</string>
+    <string name="mail_verify_warning_string">Mail adresiniz doğrulanmamış gözüküyor. Mail adresinize gönderilen
+        bağlantıya tıkladığınızdan emin olup eğer tıkladıysanız biraz daha bekleyip tekrar denemenizi rica ederim
+    </string>
+    <string name="quiz_title">Sorular için kelime kaynağını seçin</string>
 
 
 </resources>
