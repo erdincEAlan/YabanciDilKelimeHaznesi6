@@ -27,10 +27,6 @@ class FragmentQuizSourceSelection : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
-
-
     }
     private fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()

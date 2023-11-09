@@ -28,7 +28,7 @@ import java.util.*
 class TestActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
-    private lateinit var uid: String
+    lateinit var uid: String
     private var kelimelerRef : CollectionReference?=null
     private var kullaniciRef : CollectionReference?=null
     private var testSonucIntent: Intent? = null
@@ -44,15 +44,20 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+        setFirebase()
         val fragment : FragmentQuizSourceSelection = FragmentQuizSourceSelection.newInstance("sdf","sdf")
        changeFragment(fragment)
         //init()
     }
-    private fun changeFragment(fragment: Fragment) {
+     fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
         fragmentTransaction.commit()
     }
+fun returnUid() : String{
+    return uid
+}
+
 
 /*
     fun init() {
@@ -170,7 +175,7 @@ class TestActivity : AppCompatActivity() {
     private fun setIntents() {
         testSonucIntent = Intent(this@TestActivity, TestSonucActivity::class.java)
     }
-
+ */
     private fun setFirebase() {
         db = Firebase.firestore
         user = Firebase.auth.currentUser
@@ -181,5 +186,5 @@ class TestActivity : AppCompatActivity() {
         kullaniciRef = db?.collection("user")
     }
 
- */
+
 }

@@ -22,7 +22,7 @@ import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-private const val WordSource = "wordSource"
+private const val WORD_SRC_PARAM = "wordSource"
 
 private var db: FirebaseFirestore? = null
 private var user: FirebaseUser? = null
@@ -42,7 +42,7 @@ class FragmentQuiz : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            wordSourceType = it.getString(WordSource)
+            wordSourceType = it.getString(WORD_SRC_PARAM)
         }
 
 
@@ -113,7 +113,7 @@ class FragmentQuiz : Fragment() {
     private fun setButtonClickers() {
         with(binding!!){
             backButton.setOnClickListener {
-
+                requireActivity().switchActivity("AnaEkranActivity")
             }
             sonrakiKelimeButton.setOnClickListener {
                 increaseKelimePointAndSwitch()
@@ -137,18 +137,9 @@ class FragmentQuiz : Fragment() {
         return text.lowercase().replace("\\p{Punct}|\\s".toRegex(), "")
     }
     private fun incorrectAnswer() {
-        if (wordSourceType == "preparedWords"){
-            publicWordsToCustomWords()
-        }
         requireActivity().makeToast("Cevap Yanlış")
-        testSonucPutExtrasAndStart()
-    }
-
-    private fun testSonucPutExtrasAndStart() {
-        testSonucIntent?.putExtra("kelimeKendi", soruKelime?.kelimeKendi)
-        testSonucIntent?.putExtra("kelimeAnlam", soruKelime?.kelimeAnlam)
-        testSonucIntent?.putExtra("kelimeOrnek", soruKelime?.kelimeOrnekCumle)
-        startActivity(testSonucIntent)
+        val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.kelimeID!!,wordSourceType!!)
+        (activity as TestActivity).changeFragment(fragmentQuizWrongAnswer)
     }
 
     private fun setStringsFromEditTexts() {
@@ -178,20 +169,6 @@ class FragmentQuiz : Fragment() {
         changeFragment(thisFragment)
     }
 
-    private fun publicWordsToCustomWords() {
-        kelimelerRef?.document(soruKelime?.kelimeID.toString())?.get()?.addOnSuccessListener {
-
-            val publicToCustomWord = it.toObject(KelimeModel::class.java)
-            publicToCustomWord?.kelimeOgrenmeDurum = 0
-            publicToCustomWord?.kelimePuan = 1
-            publicToCustomWord?.kelimeSahipID = uid
-            publicToCustomWord?.wordType = "preparedWord"
-            if (publicToCustomWord != null) {
-                db?.collection("kelimeler")?.add(publicToCustomWord)
-            }
-
-        }
-    }
 
     private fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
@@ -235,10 +212,10 @@ class FragmentQuiz : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(wordSource: String) =
             FragmentQuiz().apply {
                 arguments = Bundle().apply {
-                    putString(WordSource, param1)
+                    putString(WORD_SRC_PARAM, wordSource)
 
                 }
             }
