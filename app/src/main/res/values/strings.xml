@@ -16,7 +16,7 @@
     <string name="test_sonuc_yanlis_correct_kelime_txt">Kelime</string>
     <string name="test_sonuc_yanlis_correct_anlam_txt">Anlam</string>
     <string name="test_sonuc_yanlis_correct_ornekCumle_txt">Ornek Cumle</string>
-    <string name="test_sonuc_yanlis_next_button">Sonraki Kelime</string>
+    <string name="test_sonuc_yanlis_next_button">Sonraki kelime</string>
     <string name="test_sonuc_yanlis_finish_button">Bitir</string>
     <!-- Profil -->
     <string name="profil_kullanici_adi">Kullanici Adi</string>

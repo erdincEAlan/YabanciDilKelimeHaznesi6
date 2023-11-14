@@ -52,9 +52,7 @@
     <dimen name="anaekran_main_icon_h_and_w">115dp</dimen>
     <dimen name="icon_radius">30dp</dimen>
     <dimen name="genel_giris_textler_arasi_bosluk">30dp</dimen>
-
-
-
+    <dimen name="button_text_padding">8dp</dimen>
 
 
 </resources>

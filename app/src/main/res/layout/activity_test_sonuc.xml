@@ -72,12 +72,12 @@
         android:background="@drawable/roundedcorner"
         android:text="@string/test_sonuc_yanlis_next_button"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bitirButton"
-        app:layout_constraintEnd_toEndOf="@+id/bitirButton"
-        app:layout_constraintStart_toStartOf="@+id/bitirButton" />
+        app:layout_constraintBottom_toTopOf="@+id/addToMyCustomWords"
+        app:layout_constraintEnd_toEndOf="@+id/addToMyCustomWords"
+        app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bitirButton"
+        android:id="@+id/addToMyCustomWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/button_frame_margin_bottom"

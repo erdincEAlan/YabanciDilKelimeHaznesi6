@@ -2,12 +2,18 @@ package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
@@ -22,9 +28,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class TestActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
@@ -40,23 +47,36 @@ class TestActivity : AppCompatActivity() {
     private var cevapEditText: EditText? = null
     private var backButton : ImageButton?=null
     private var nextButton : Button?=null
-
+    private var progressBar : LinearLayout?=null
+    private var fragmentContainer : FragmentContainerView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
         setFirebase()
+        progressBar = findViewById(R.id.progressBar)
+        fragmentContainer = findViewById(R.id.quizFragmentContainer)
+        stopProgressBar()
         val fragment : FragmentQuizSourceSelection = FragmentQuizSourceSelection.newInstance("sdf","sdf")
        changeFragment(fragment)
-        //init()
     }
      fun changeFragment(fragment: Fragment) {
+         startProgressBar()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
         fragmentTransaction.commit()
     }
-fun returnUid() : String{
-    return uid
-}
+    fun returnUid() : String{
+        return uid
+    }
+    fun startProgressBar(){
+        fragmentContainer?.isVisible = false
+        progressBar?.isVisible = true
+
+    }
+    fun stopProgressBar(){
+        progressBar?.isVisible = false
+        fragmentContainer?.isVisible = true
+    }
 
 
 /*

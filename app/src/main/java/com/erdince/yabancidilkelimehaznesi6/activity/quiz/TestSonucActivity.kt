@@ -36,7 +36,7 @@ class TestSonucActivity: AppCompatActivity() {
         kelimeKendiTextView = findViewById(R.id.kelimeKendiTextView)
         kelimeAnlamTextView = findViewById(R.id.kelimeAnlamTextView)
         kelimeOrnekCumleTextView = findViewById(R.id.kelimeOrnekCumleTextView)
-        bitirButton = findViewById(R.id.bitirButton)
+        bitirButton = findViewById(R.id.addToMyCustomWords)
         sonrakiKelimeButton = findViewById(R.id.sonrakiKelimeButton)
     }
 

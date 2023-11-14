@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".activity.quiz.FragmentQuizWrongAnswer">
+             tools:context=".activity.quiz.FragmentQuizWrongAnswer"
+android:background="@color/theme_primary_color">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       android:background="@color/theme_primary_color">
+        android:layout_height="match_parent"
+        >
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/quizResultBackButton"
+            android:layout_width="@dimen/back_button_height_and_width"
+            android:layout_height="@dimen/back_button_height_and_width"
+            android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
+            android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+            android:background="@drawable/ic_button_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/cevapTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_title_margin_bottom"
+            android:layout_marginBottom="40dp"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_title"
             android:textAppearance="@style/main_high_title"
@@ -28,7 +37,7 @@
             android:id="@+id/testDogrusuTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_title_margin_bottom"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_correct_answer_txt"
             android:textAppearance="@style/under_text"
@@ -77,19 +86,21 @@
             android:layout_marginBottom="@dimen/two_button_margin"
             android:background="@drawable/roundedcorner"
             android:text="@string/test_sonuc_yanlis_next_button"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/bitirButton"
-            app:layout_constraintEnd_toEndOf="@+id/bitirButton"
-            app:layout_constraintStart_toStartOf="@+id/bitirButton" />
+            android:padding="@dimen/button_text_padding"
+            android:textAppearance="@style/button_text"
+            app:layout_constraintBottom_toTopOf="@+id/addToMyCustomWords"
+            app:layout_constraintEnd_toEndOf="@+id/addToMyCustomWords"
+            app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/bitirButton"
+            android:id="@+id/addToMyCustomWords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/button_frame_margin_bottom"
             android:background="@drawable/roundedcorner"
-            android:text="@string/test_sonuc_yanlis_finish_button"
-            android:textColor="@color/white"
+            android:text="Kelimelerime ekle"
+            android:padding="@dimen/button_text_padding"
+            android:textAppearance="@style/button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -108,11 +108,15 @@ class KelimeEkleActivity : AppCompatActivity() {
     }
 
     private fun setNewKelime() {
-        eklenecekKelime = KelimeModel("0", kelimeTxt, anlamTxt, ornekTxt, 1, 0, uid, 0)
+        eklenecekKelime = KelimeModel("0", kelimeTxt, anlamTxt, ornekTxt, 1, 0, uid, 0,"customWord")
     }
 
     private fun addNewKelimeToDatabase() {
-        db?.collection("kelimeler")?.add(eklenecekKelime!!)
+        db?.collection("kelimeler")?.add(eklenecekKelime!!)?.addOnSuccessListener {
+            makeToast("jdlfkdlfkdlfkdlfkşdkfl")
+        }?.addOnFailureListener {
+          println(it)
+        }
         setKelimeIdAndUpload()
 
         makeToast("Kelime başarıyla eklendi")
@@ -131,7 +135,9 @@ class KelimeEkleActivity : AppCompatActivity() {
 
     private fun uploadTheFinalKelime() {
         db?.collection("kelimeler")?.document(eklenecekKelime?.kelimeID!!)
-            ?.update("kelimeID", eklenecekKelime?.kelimeID)
+            ?.update("kelimeID", eklenecekKelime?.kelimeID)?.addOnSuccessListener {
+                makeToast("yupppppp")
+            }
     }
 
     private fun updateUserKelimeSayi() {

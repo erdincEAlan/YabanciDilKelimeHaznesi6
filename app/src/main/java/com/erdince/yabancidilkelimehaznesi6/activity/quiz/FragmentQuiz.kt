@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
@@ -13,14 +14,13 @@ import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.collections.ArrayList
 
 private const val WORD_SRC_PARAM = "wordSource"
 
@@ -33,8 +33,9 @@ private var testSonucIntent: Intent? = null
 private var soruKelime: KelimeModel? = null
 private var soruListe = mutableListOf<KelimeModel?>()
 private var cevapKelime: String? = null
-
+@AndroidEntryPoint
 class FragmentQuiz : Fragment() {
+    private val wordViewModel : DbWordViewModel by viewModels()
     private var __binding : FragmentQuizBinding?=null
     private val binding get() = __binding
     private var wordSourceType: String? = null
@@ -74,39 +75,16 @@ class FragmentQuiz : Fragment() {
 
 
     private fun takeListAndSetQuestKelime() {
-        if (wordSourceType == "kelimeler"){
-            kelimelerRef?.whereEqualTo("kelimeDurum", 1)?.whereEqualTo("kelimeOgrenmeDurum", 0)
-                ?.whereEqualTo("kelimeSahipID", uid)?.get()?.addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        soruKelime = document.toObject(KelimeModel::class.java)
-                        soruKelime?.kelimeID = document.id
-                        soruListe.add(soruKelime!!)
-                    }
-                    if (soruKelime == null) {
-                        requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
-                        requireActivity().switchActivity("AnaEkranActivity")
-                    } else {
-                        soruKelime = soruListe.random()
-                        binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
-                    }
-                }
-        }else{
-            kelimelerRef?.whereEqualTo("kelimeDurum", 1)?.get()?.addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        soruKelime = document.toObject(KelimeModel::class.java)
-                        soruKelime?.kelimeID = document.id
-                        soruListe.add(soruKelime!!)
-                    }
-                    if (soruKelime == null) {
-                        requireActivity().makeToast("Bir sorun oluştu, lütfen internet bağlantınızı kontrol edin.")
-                        requireActivity().switchActivity("AnaEkranActivity")
-                    } else {
-                        soruKelime = soruListe.random()
-                        binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
-                    }
-                }
+        wordViewModel.wordLiveData.observe(viewLifecycleOwner){
+            soruKelime = it
+            binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
         }
-
+        wordViewModel.observeRandomWord(wordSourceType!!).let {
+            if (!it){
+                requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
+                requireActivity().switchActivity("AnaEkranActivity")
+            } else (activity as TestActivity).stopProgressBar()
+        }
 
     }
 
@@ -138,6 +116,7 @@ class FragmentQuiz : Fragment() {
     }
     private fun incorrectAnswer() {
         requireActivity().makeToast("Cevap Yanlış")
+
         val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.kelimeID!!,wordSourceType!!)
         (activity as TestActivity).changeFragment(fragmentQuizWrongAnswer)
     }
