@@ -1,4 +1,4 @@
-package com.erdince.yabancidilkelimehaznesi6.activity.quiz
+package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.activity.SplashActivity
+import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         fragmentContainer = findViewById(R.id.quizFragmentContainer)
         stopProgressBar()
+       // startActivity(Intent(this, SplashActivity::class.java))
         startActivity(Intent(this, SplashActivity::class.java))
-
     }
      fun changeFragment(fragment: Fragment) {
          startProgressBar()

@@ -1,10 +1,15 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import com.erdince.yabancidilkelimehaznesi6.R
+import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
+import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentHomepageBinding
+import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.util.createAndShowDialog
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.FirebaseApp
@@ -13,58 +18,57 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class AnaEkranActivity : AppCompatActivity() {
 
+
+
+class FragmentHomepage : MainFragment() {
+
+    private lateinit var __binding : FragmentHomepageBinding
+    private val binding get() = __binding
     private var db: FirebaseFirestore? = null
     private var user: FirebaseUser? = null
     private lateinit var uid: String
-    private var profilButton: ImageButton? = null
-    private var kelimeEkleButton: ImageButton? = null
-    private var listeGoruntuleButon: ImageButton? = null
-    private var testButton: ImageButton? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_anaekran)
-        FirebaseApp.initializeApp(applicationContext)
-        init()
+        arguments?.let {
+        }
+        FirebaseApp.initializeApp(requireContext())
     }
 
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        __binding= FragmentHomepageBinding.inflate(inflater,container,false)
+        init()
+        return binding.root
+    }
 
     private fun init() {
         setFirebase()
         userDatabaseDocumentControl()
-        setUI()
         setButtons()
     }
 
-    private fun setUI() {
-
-        profilButton = findViewById(R.id.profilButon)
-        kelimeEkleButton = findViewById(R.id.kelimeEkleButon)
-        listeGoruntuleButon = findViewById(R.id.listeGoruntuleButon)
-        testButton = findViewById(R.id.testButon)
-
-    }
-
-
     private fun setButtons() {
-        profilButton?.setOnClickListener {
-            switchActivity("ProfilActivity")
+        with(binding){
+            profilButon.setOnClickListener {
+
+            }
+            testButon.setOnClickListener {
+                changeFragment(FragmentQuizSourceSelection.newInstance())
+            }
+            kelimeEkleButon.setOnClickListener {
+
+            }
+            listeGoruntuleButon.setOnClickListener {
+
+            }
         }
-        testButton?.setOnClickListener {
-            switchActivity("MainActivity")
-        }
-        kelimeEkleButton?.setOnClickListener {
-            switchActivity("KelimeEkleActivity")
-        }
-        listeGoruntuleButon?.setOnClickListener {
-            switchActivity("KelimeListeActivity")
-        }
+
     }
 
 
@@ -93,15 +97,14 @@ class AnaEkranActivity : AppCompatActivity() {
 
     }
 
-    @Deprecated("Deprecated in Java")
-    @Override
-    override fun onBackPressed() {
-        super.onBackPressed()
-        createAndShowDialog("Uygulamadan çıkmak mı istiyorsunuz?"){answer->
-            if (answer){
-                this.finishAffinity()
-            }
-        }
-    }
 
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            FragmentHomepage().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+    }
 }

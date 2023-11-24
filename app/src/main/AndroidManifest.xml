@@ -32,7 +32,7 @@
         <activity android:name=".activity.AnaEkranActivity" />
         <activity android:name=".activity.AyarlarActivity" />
         <activity android:name=".activity.KelimeDuzenleActivity" />
-        <activity android:name=".activity.quiz.MainActivity" />
+        <activity android:name=".activity.MainActivity" />
         <meta-data
             android:usesCleartextTraffic="true"
             android:name="preloaded_fonts"

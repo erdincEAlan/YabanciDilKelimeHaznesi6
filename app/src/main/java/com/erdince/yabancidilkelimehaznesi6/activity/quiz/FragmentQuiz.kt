@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
+import com.erdince.yabancidilkelimehaznesi6.activity.MainActivity
+import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
@@ -23,13 +25,10 @@ private const val WORD_SRC_PARAM = "wordSource"
 
 
 @AndroidEntryPoint
-class FragmentQuiz : Fragment() {
+class FragmentQuiz : MainFragment() {
 
-    private var user: FirebaseUser? = null
-    private lateinit var uid: String
     private var kelimelerRef : CollectionReference?=null
     private var kullaniciRef : CollectionReference?=null
-    private var testSonucIntent: Intent? = null
     private var soruKelime: KelimeModel? = null
     private var cevapKelime: String? = null
     private val wordViewModel : DbWordViewModel by viewModels()
@@ -74,7 +73,7 @@ class FragmentQuiz : Fragment() {
                     soruKelime = it.data as KelimeModel
                     binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
                 }
-                (activity as MainActivity).stopProgressBar()
+                stopProgressBar()
             }else{
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
                 requireActivity().switchActivity("AnaEkranActivity")
@@ -87,7 +86,7 @@ class FragmentQuiz : Fragment() {
     private fun setButtonClickers() {
         with(binding!!){
             backButton.setOnClickListener {
-                (activity as MainActivity).changeFragment(FragmentQuizSourceSelection.newInstance())
+                changeFragment(FragmentQuizSourceSelection.newInstance())
             }
             sonrakiKelimeButton.setOnClickListener {
                 increaseKelimePointAndSwitch()
@@ -113,7 +112,7 @@ class FragmentQuiz : Fragment() {
     private fun incorrectAnswer() {
         requireActivity().makeToast("Cevap Yanlış")
         val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.kelimeID!!,wordSourceType!!)
-        (activity as MainActivity).changeFragment(fragmentQuizWrongAnswer)
+        changeFragment(fragmentQuizWrongAnswer)
     }
 
     private fun setStringsFromEditTexts() {
@@ -143,13 +142,6 @@ class FragmentQuiz : Fragment() {
         changeFragment(thisFragment)
     }
 
-
-    private fun changeFragment(fragment: Fragment) {
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
 
     private fun checkKelimeLearnedAndUpdate() {
         if (soruKelime?.kelimePuan == 6) {

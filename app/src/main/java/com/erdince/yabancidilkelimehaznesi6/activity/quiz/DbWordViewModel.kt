@@ -1,6 +1,7 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
@@ -15,7 +16,7 @@ import io.grpc.internal.SharedResourceHolder.Resource
 import java.util.ResourceBundle
 
 @HiltViewModel
-class DbWordViewModel @Inject constructor(): ViewModel() {
+class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
     var word : KelimeModel? = null
     var wordLiveData = MutableLiveData<ResourceModel>()
     var resource : ResourceModel = ResourceModel(false, word)

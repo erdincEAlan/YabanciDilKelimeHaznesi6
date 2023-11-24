@@ -1,11 +1,11 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizWrongAnswerBinding
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -17,7 +17,7 @@ private const val PARAM_WORD_ID : String = "wordId"
 private const val PARAM_QUIZ_TYPE : String = "quizType"
 
 @AndroidEntryPoint
-class FragmentQuizWrongAnswer : Fragment() {
+class FragmentQuizWrongAnswer : MainFragment() {
     var publicWord : KelimeModel? =null
     private val wordViewModel : DbWordViewModel by viewModels()
     var db : FirebaseFirestore?=null
@@ -33,8 +33,6 @@ class FragmentQuizWrongAnswer : Fragment() {
             quizType= it.getString(PARAM_QUIZ_TYPE)
 
         }
-        (requireActivity() as MainActivity).startProgressBar()
-
     }
 
     override fun onCreateView(
@@ -56,7 +54,7 @@ class FragmentQuizWrongAnswer : Fragment() {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){resource ->
             publicWord = resource.data as KelimeModel
             initTextViews()
-            (requireActivity() as MainActivity).stopProgressBar()
+            stopProgressBar()
         }
         wordViewModel.getWordFromId(wordId,quizType.toString())
     }
@@ -72,7 +70,7 @@ class FragmentQuizWrongAnswer : Fragment() {
             }
             sonrakiKelimeButton.setOnClickListener {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
-                (activity as MainActivity).changeFragment(quizFragment)
+                changeFragment(quizFragment)
             }
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {

@@ -11,7 +11,9 @@ import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity:AppCompatActivity() {
     private var auth : FirebaseAuth?=null
     private var alert : AlertDialog.Builder?=null
