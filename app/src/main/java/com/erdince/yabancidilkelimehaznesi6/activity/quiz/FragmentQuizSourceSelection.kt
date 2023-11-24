@@ -5,16 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizSourceSelectionBinding
 import dagger.hilt.android.AndroidEntryPoint
-import org.checkerframework.checker.units.qual.A
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class FragmentQuizSourceSelection : Fragment() {
@@ -26,8 +19,6 @@ class FragmentQuizSourceSelection : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -38,23 +29,22 @@ class FragmentQuizSourceSelection : Fragment() {
         __binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container,false)
         binding?.quizCustomWordsButton?.setOnClickListener(){
             val customWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("kelimeler")
-            (activity as TestActivity).changeFragment(customWordsQuizFragment)
+            (activity as MainActivity).changeFragment(customWordsQuizFragment)
         }
         binding?.quizPreparedWordsButton?.setOnClickListener(){
             val preparedWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("preparedWords")
-            (activity as TestActivity).changeFragment(preparedWordsQuizFragment)
+            (activity as MainActivity).changeFragment(preparedWordsQuizFragment)
         }
-        (activity as TestActivity).stopProgressBar()
+        (activity as MainActivity).stopProgressBar()
         return binding?.root
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             FragmentQuizSourceSelection().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }

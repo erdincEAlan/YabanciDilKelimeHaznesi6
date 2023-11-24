@@ -15,26 +15,23 @@ import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 
 private const val WORD_SRC_PARAM = "wordSource"
 
-private var db: FirebaseFirestore? = null
-private var user: FirebaseUser? = null
-private lateinit var uid: String
-private var kelimelerRef : CollectionReference?=null
-private var kullaniciRef : CollectionReference?=null
-private var testSonucIntent: Intent? = null
-private var soruKelime: KelimeModel? = null
-private var soruListe = mutableListOf<KelimeModel?>()
-private var cevapKelime: String? = null
+
 @AndroidEntryPoint
 class FragmentQuiz : Fragment() {
+
+    private var user: FirebaseUser? = null
+    private lateinit var uid: String
+    private var kelimelerRef : CollectionReference?=null
+    private var kullaniciRef : CollectionReference?=null
+    private var testSonucIntent: Intent? = null
+    private var soruKelime: KelimeModel? = null
+    private var cevapKelime: String? = null
     private val wordViewModel : DbWordViewModel by viewModels()
     private var __binding : FragmentQuizBinding?=null
     private val binding get() = __binding
@@ -45,8 +42,6 @@ class FragmentQuiz : Fragment() {
         arguments?.let {
             wordSourceType = it.getString(WORD_SRC_PARAM)
         }
-
-
     }
 
     override fun onCreateView(
@@ -63,27 +58,28 @@ class FragmentQuiz : Fragment() {
     }
 
     private fun prapare() {
-        setFirebase()
-        setDatabaseReferences(wordSourceType!!)
         takeListAndSetQuestKelime()
     }
 
     private fun initUI() {
-        setIntents()
         setButtonClickers()
     }
 
 
     private fun takeListAndSetQuestKelime() {
+        wordViewModel.observeRandomWord(wordSourceType!!)
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){
-            soruKelime = it
-            binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
-        }
-        wordViewModel.observeRandomWord(wordSourceType!!).let {
-            if (!it){
+            if (it.succes){
+                if (it.data != null){
+                    soruKelime = it.data as KelimeModel
+                    binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
+                }
+                (activity as MainActivity).stopProgressBar()
+            }else{
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
                 requireActivity().switchActivity("AnaEkranActivity")
-            } else (activity as TestActivity).stopProgressBar()
+            }
+
         }
 
     }
@@ -91,7 +87,7 @@ class FragmentQuiz : Fragment() {
     private fun setButtonClickers() {
         with(binding!!){
             backButton.setOnClickListener {
-                requireActivity().switchActivity("AnaEkranActivity")
+                (activity as MainActivity).changeFragment(FragmentQuizSourceSelection.newInstance())
             }
             sonrakiKelimeButton.setOnClickListener {
                 increaseKelimePointAndSwitch()
@@ -116,9 +112,8 @@ class FragmentQuiz : Fragment() {
     }
     private fun incorrectAnswer() {
         requireActivity().makeToast("Cevap Yanlış")
-
         val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.kelimeID!!,wordSourceType!!)
-        (activity as TestActivity).changeFragment(fragmentQuizWrongAnswer)
+        (activity as MainActivity).changeFragment(fragmentQuizWrongAnswer)
     }
 
     private fun setStringsFromEditTexts() {
@@ -174,19 +169,8 @@ class FragmentQuiz : Fragment() {
         )
     }
 
-    private fun setIntents() {
-        testSonucIntent = Intent(requireContext(), TestSonucActivity::class.java)
-    }
 
-    private fun setFirebase() {
-        db = Firebase.firestore
-        user = Firebase.auth.currentUser
-        uid = user?.uid.toString()
-    }
-    private fun setDatabaseReferences(wordType : String){
-        kelimelerRef = db?.collection(wordType)
-        kullaniciRef = db?.collection("user")
-    }
+
 
     companion object {
 

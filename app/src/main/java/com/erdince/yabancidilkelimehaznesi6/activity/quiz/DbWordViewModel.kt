@@ -1,30 +1,29 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
-import com.erdince.yabancidilkelimehaznesi6.util.makeToast
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
+import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
-import com.google.firebase.ktx.app
-import java.util.*
+import io.grpc.internal.SharedResourceHolder.Resource
+import java.util.ResourceBundle
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(): ViewModel() {
-var word : KelimeModel? = null
-    var soruListe : MutableList<KelimeModel>?=null
+    var word : KelimeModel? = null
+    var wordLiveData = MutableLiveData<ResourceModel>()
+    var resource : ResourceModel = ResourceModel(false, word)
+    private var wordList = mutableListOf<KelimeModel>()
     private val db : FirebaseFirestore = Firebase.firestore
     private val customWordsDb = db.collection("kelimeler")
     private val publicWordsDb = db.collection("preparedWords")
-    var wordLiveData = MutableLiveData<KelimeModel>()
+
 
 
 
@@ -32,37 +31,63 @@ var word : KelimeModel? = null
         if (wordType == "preparedWords"){
             publicWordsDb.document(id).get().addOnSuccessListener {
                 if (it.toObject<KelimeModel>() != null) {
-                    wordLiveData.postValue(it.toObject<KelimeModel>())
+                    resource.succes = true
+                    resource.data = it.toObject<KelimeModel>()
+                    wordLiveData.postValue(resource)
                 }
             }
         }else if(wordType == "kelimeler"){
             customWordsDb.document(id).get().addOnSuccessListener(){
                 if (it.toObject<KelimeModel>() != null) {
-                    wordLiveData.postValue(it.toObject<KelimeModel>())
-
+                    resource.succes = true
+                    resource.data = it.toObject<KelimeModel>()
+                    wordLiveData.postValue(resource)
                 }
             }
         }
 
 
     }
-    fun observeRandomWord(wordSourceType : String): Boolean{
-        if (wordSourceType == "kelimeler"){
+    fun updateWord(word : KelimeModel, wordId : String){
+        word.kelimeID=wordId
+        publicWordsDb.document(wordId).set(word)
+
+    }
+    fun observeRandomWord(wordSourceType : String) {
+
+        if (wordSourceType == "kelimeler") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("kelimeOgrenmeDurum", 0)
                 .whereEqualTo("kelimeSahipID", Firebase.auth.uid).get().addOnSuccessListener { documents ->
-                   soruListe = documents.toObjects(KelimeModel::class.java)
-                    if(soruListe?.size!! >0){ wordLiveData.postValue(soruListe!!.random()) }
+                    wordList = documents.toObjects(KelimeModel::class.java)
+                    if (wordList.size > 0) {
+                        resource.succes = true
+                        resource.data = wordList.random()
+                        wordLiveData.postValue(resource)
 
+                    }else wordLiveData.postValue(resource)
+
+                }.addOnFailureListener(){
+                    wordLiveData.postValue(resource)
                 }
-        }else if (wordSourceType == "preparedWords"){
+        } else if (wordSourceType == "preparedWords") {
             publicWordsDb.whereEqualTo("kelimeDurum", 1).get().addOnSuccessListener { documents ->
-                for (document in documents){
-                    soruListe?.add(document.toObject(KelimeModel::class.java))
+                for (document in documents) {
+                    wordList.add(document.toObject<KelimeModel>())
                 }
-                if(soruListe?.size!! >0 ) wordLiveData.postValue(soruListe!!.random())
+                if (wordList.size > 0) {
+                    resource.succes = true
+                    resource.data = wordList.random()
+                    wordLiveData.postValue(resource)
+
+                }else wordLiveData.postValue(resource)
+
+            }.addOnFailureListener(){
+
+                wordLiveData.postValue(resource)
             }
+
         }
-        return (soruListe?.size!! > 0)
+
     }
     fun addCustomWord (word : KelimeModel){
         word.kelimeOgrenmeDurum = 0

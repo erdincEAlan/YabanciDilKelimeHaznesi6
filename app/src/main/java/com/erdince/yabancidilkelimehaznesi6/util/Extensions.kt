@@ -9,8 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.activity.*
-import com.erdince.yabancidilkelimehaznesi6.activity.quiz.TestActivity
-import com.erdince.yabancidilkelimehaznesi6.activity.quiz.TestSonucActivity
+import com.erdince.yabancidilkelimehaznesi6.activity.quiz.MainActivity
 
 fun Activity.createAndShowDialog(msg: String, clicked: (Boolean) -> Unit) {
     val alert: AlertDialog.Builder = AlertDialog.Builder(this)
@@ -62,7 +61,6 @@ fun Activity.isOnline(context: Context): Boolean {
             && netInfo.isConnected)
 }
 
-
 fun Activity.switchActivity(activityName: String) {
     if (activityName == "AnaEkranActivity") {
         val activityIntent = Intent(this, AnaEkranActivity::class.java)
@@ -100,12 +98,8 @@ fun Activity.switchActivity(activityName: String) {
         val activityIntent = Intent(this, OgrenilenKelimelerListActivity::class.java)
         startActivity(activityIntent)
     }
-    if (activityName == "TestActivity") {
-        val activityIntent = Intent(this, TestActivity::class.java)
-        startActivity(activityIntent)
-    }
-    if (activityName == "TestSonucActivity") {
-        val activityIntent = Intent(this, TestSonucActivity::class.java)
+    if (activityName == "MainActivity") {
+        val activityIntent = Intent(this, MainActivity::class.java)
         startActivity(activityIntent)
     }
     if (activityName == "ProfilActivity") {

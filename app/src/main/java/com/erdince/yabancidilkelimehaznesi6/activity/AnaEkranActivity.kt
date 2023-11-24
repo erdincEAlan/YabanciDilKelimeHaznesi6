@@ -1,11 +1,13 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.createAndShowDialog
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,7 @@ class AnaEkranActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anaekran)
+        FirebaseApp.initializeApp(applicationContext)
         init()
     }
 
@@ -54,7 +57,7 @@ class AnaEkranActivity : AppCompatActivity() {
             switchActivity("ProfilActivity")
         }
         testButton?.setOnClickListener {
-            switchActivity("TestActivity")
+            switchActivity("MainActivity")
         }
 
         kelimeEkleButton?.setOnClickListener {
