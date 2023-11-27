@@ -18,10 +18,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
-
+@AndroidEntryPoint
 class FragmentHomepage : MainFragment() {
 
     private lateinit var __binding : FragmentHomepageBinding
@@ -44,6 +44,7 @@ class FragmentHomepage : MainFragment() {
     ): View {
         __binding= FragmentHomepageBinding.inflate(inflater,container,false)
         init()
+        stopProgressBar()
         return binding.root
     }
 
