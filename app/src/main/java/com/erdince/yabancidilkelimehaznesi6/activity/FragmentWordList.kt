@@ -122,8 +122,12 @@ private fun observeViewModel(){
         if (listResource.success){
             wordList = listResource.data as MutableList<KelimeModel?>
             updateAdapter()
-        }else makeToast("Kelime bulunamadı")
-        stopProgressBar()
+            stopProgressBar()
+        }else {
+            makeToast("Kelime bulunamadı")
+            stopProgressBar()
+        }
+
     }
 
     private fun updateAdapter(wordsList: MutableList<KelimeModel?> = wordList) {
