@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBackPressed() {
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (fragmentManager.backStackEntryCount > 1) {
