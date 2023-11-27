@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun setBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (fragmentManager.backStackEntryCount > 0) {
+                if (fragmentManager.backStackEntryCount > 1) {
                     fragmentManager.popBackStack()
                 } else {
                     finish()
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
          fragmentTransaction.addToBackStack(null)
-         fragmentTransaction.commit()
+         fragmentTransaction.commitAllowingStateLoss()
 
     }
 
