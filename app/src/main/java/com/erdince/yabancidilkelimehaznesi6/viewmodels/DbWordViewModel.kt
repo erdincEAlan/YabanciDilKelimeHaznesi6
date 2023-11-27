@@ -12,6 +12,8 @@ import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
+import com.google.firebase.firestore.toObjects
+import io.grpc.internal.SharedResourceHolder.Resource
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
@@ -35,7 +37,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordLiveData.postValue(resource)
                 }
             }
-        }else if(wordType == "kelimeler"){
+        }else if(wordType == "customWords"){
             customWordsDb.document(id).get().addOnSuccessListener(){
                 if (it.toObject<KelimeModel>() != null) {
                     resource.success = true
@@ -54,7 +56,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     }
     fun observeRandomWord(wordSourceType : String) {
 
-        if (wordSourceType == "kelimeler") {
+        if (wordSourceType == "customWords") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("kelimeOgrenmeDurum", 0)
                 .whereEqualTo("kelimeSahipID", Firebase.auth.uid).get().addOnSuccessListener { documents ->
                     wordList = documents.toObjects(KelimeModel::class.java)
@@ -88,6 +90,30 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         }
 
     }
+
+    fun getWordList(wordType : String) {
+        if (wordType == "customWords") {
+            customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
+                .addOnSuccessListener { documents ->
+                    resource.success = true
+                    wordList = documents.toObjects(KelimeModel::class.java)
+                    resource.data = wordList
+                    wordLiveData.postValue(resource)
+
+                }.addOnFailureListener() { wordLiveData.postValue(resource)}
+        } else if (wordType == "preparedWords") {
+            publicWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
+                .addOnSuccessListener { documents ->
+                    resource.success = true
+                    wordList = documents.toObjects(KelimeModel::class.java)
+                    resource.data = wordList
+                    wordLiveData.postValue(resource)
+                }.addOnFailureListener { wordLiveData.postValue(resource) }
+
+        }
+
+    }
+
     fun addCustomWord (word : KelimeModel){
         word.kelimeOgrenmeDurum = 0
         word.kelimePuan = 1

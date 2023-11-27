@@ -66,7 +66,7 @@ class FragmentHomepage : MainFragment() {
 
             }
             listeGoruntuleButon.setOnClickListener {
-
+                changeFragment(FragmentWordList.newInstance())
             }
         }
 

@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-
+import com.erdince.yabancidilkelimehaznesi6.util.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var db: FirebaseFirestore? = null
@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
          fragmentTransaction.commitAllowingStateLoss()
 
     }
-
 
     fun returnUid() : String{
         return uid
