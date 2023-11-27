@@ -64,8 +64,7 @@ class EmailVerifyFragment : Fragment() {
     }
 
     private fun switchToMainActivity() {
-        val mainIntent = Intent(context,AnaEkranActivity::class.java)
-        startActivity(mainIntent)
+
     }
 
     private fun sendVerificationMail(){

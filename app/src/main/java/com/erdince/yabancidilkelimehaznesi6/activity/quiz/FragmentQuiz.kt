@@ -1,20 +1,16 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.erdince.yabancidilkelimehaznesi6.R
-import com.erdince.yabancidilkelimehaznesi6.activity.MainActivity
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
-import com.google.firebase.auth.FirebaseUser
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
@@ -68,7 +64,7 @@ class FragmentQuiz : MainFragment() {
     private fun takeListAndSetQuestKelime() {
         wordViewModel.observeRandomWord(wordSourceType!!)
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){
-            if (it.succes){
+            if (it.success){
                 if (it.data != null){
                     soruKelime = it.data as KelimeModel
                     binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())

@@ -1,4 +1,4 @@
-package com.erdince.yabancidilkelimehaznesi6.activity.quiz
+package com.erdince.yabancidilkelimehaznesi6.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -12,8 +12,6 @@ import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
-import io.grpc.internal.SharedResourceHolder.Resource
-import java.util.ResourceBundle
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
@@ -32,7 +30,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         if (wordType == "preparedWords"){
             publicWordsDb.document(id).get().addOnSuccessListener {
                 if (it.toObject<KelimeModel>() != null) {
-                    resource.succes = true
+                    resource.success = true
                     resource.data = it.toObject<KelimeModel>()
                     wordLiveData.postValue(resource)
                 }
@@ -40,7 +38,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         }else if(wordType == "kelimeler"){
             customWordsDb.document(id).get().addOnSuccessListener(){
                 if (it.toObject<KelimeModel>() != null) {
-                    resource.succes = true
+                    resource.success = true
                     resource.data = it.toObject<KelimeModel>()
                     wordLiveData.postValue(resource)
                 }
@@ -61,7 +59,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                 .whereEqualTo("kelimeSahipID", Firebase.auth.uid).get().addOnSuccessListener { documents ->
                     wordList = documents.toObjects(KelimeModel::class.java)
                     if (wordList.size > 0) {
-                        resource.succes = true
+                        resource.success = true
                         resource.data = wordList.random()
                         wordLiveData.postValue(resource)
 
@@ -76,7 +74,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordList.add(document.toObject<KelimeModel>())
                 }
                 if (wordList.size > 0) {
-                    resource.succes = true
+                    resource.success = true
                     resource.data = wordList.random()
                     wordLiveData.postValue(resource)
 

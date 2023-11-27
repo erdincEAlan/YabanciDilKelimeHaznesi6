@@ -62,14 +62,7 @@ fun Activity.isOnline(context: Context): Boolean {
 }
 
 fun Activity.switchActivity(activityName: String) {
-    if (activityName == "AnaEkranActivity") {
-        val activityIntent = Intent(this, AnaEkranActivity::class.java)
-        startActivity(activityIntent)
-    }
-    if (activityName == "GirisYapActivity") {
-        val activityIntent = Intent(this, GirisYapActivity::class.java)
-        startActivity(activityIntent)
-    }
+
     if (activityName == "KayitOlActivity") {
         val activityIntent = Intent(this, KayitOlActivity::class.java)
         startActivity(activityIntent)

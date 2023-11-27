@@ -21,10 +21,11 @@
         <activity android:name=".activity.SifreSifirlaActivity" />
         <activity android:name=".activity.AyarlarActivity" />
         <activity android:name=".activity.KelimeDuzenleActivity" />
-        <activity android:name=".activity.MainActivity" android:exported="true">
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

@@ -49,7 +49,7 @@ class SifreSifirlaActivity : AppCompatActivity() {
 
         backButton?.setOnClickListener {
 
-            startActivity(girisYapIntent)
+
         }
 
         sendMailButton?.setOnClickListener{
@@ -64,7 +64,7 @@ class SifreSifirlaActivity : AppCompatActivity() {
     }
 
     private fun setIntents() {
-        girisYapIntent = Intent(applicationContext, GirisYapActivity::class.java)
+
 
     }
 }

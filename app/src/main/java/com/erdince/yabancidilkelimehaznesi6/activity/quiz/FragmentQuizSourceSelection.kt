@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentQuizSourceSelection : MainFragment() {
     private var __binding : FragmentQuizSourceSelectionBinding?=null
-    val binding get() = __binding
+    private val binding get() = __binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

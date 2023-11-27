@@ -3,6 +3,7 @@ package com.erdince.yabancidilkelimehaznesi6.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var uid: String
     private var progressBar : LinearLayout?=null
     private var fragmentContainer : FragmentContainerView?=null
+    val fragmentManager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
@@ -36,14 +38,32 @@ class MainActivity : AppCompatActivity() {
         setFirebase()
         progressBar = findViewById(R.id.progressBar)
         fragmentContainer = findViewById(R.id.quizFragmentContainer)
+        setBackPressed()
         stopProgressBar()
     }
-     fun changeFragment(fragment: Fragment) {
+
+    private fun setBackPressed() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (fragmentManager.backStackEntryCount > 0) {
+                    fragmentManager.popBackStack()
+                } else {
+                    finish()
+                }
+            }
+        })
+    }
+
+    fun changeFragment(fragment: Fragment) {
          startProgressBar()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
-        fragmentTransaction.commit()
+         fragmentTransaction.addToBackStack(null)
+         fragmentTransaction.commit()
+
     }
+
+
     fun returnUid() : String{
         return uid
     }
