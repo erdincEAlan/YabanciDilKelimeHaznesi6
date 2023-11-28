@@ -37,13 +37,12 @@ class FragmentWordList : MainFragment() {
     }
 
     fun init() {
-        setAdapter()
         initUI()
         observeViewModel()
     }
 
     private fun initUI() {
-
+        setAdapter()
         setButtonClickers()
         setCheckBoxCheckListeners()
         initSearchView()
@@ -51,35 +50,32 @@ class FragmentWordList : MainFragment() {
 
     private fun initSearchView() { 
         var filterProcessList = mutableListOf<KelimeModel>()
-with(binding){
-    searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-        override fun onQueryTextSubmit(p0: String?): Boolean {
-            return true
-        }
-
-        override fun onQueryTextChange(query: String?): Boolean {
-            Log.d("onQueryTextChange", "query: $query")
-            if (query?.isEmpty() == true) {
-                filterList = wordList
-
-            } else {
-                filterProcessList.clear()
-                for (row in wordList) {
-                    if (row.kelimeKendi?.lowercase()
-                            ?.contains(query.toString().lowercase()) == true
-                        || row.kelimeAnlam?.lowercase()
-                            ?.contains(query.toString().lowercase()) == true
-                    ) {
-                        if (!filterProcessList.contains(row)) {
-                            filterProcessList.add(row)
-                        }
-                    }
-
-                }
-                filterList = filterProcessList
+        with(binding){
+            searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return true
             }
-            setAdapter(filterList)
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                Log.d("onQueryTextChange", "query: $query")
+                if (query?.isEmpty() == true) {
+                    filterList = wordList
+
+                } else {
+                    filterProcessList.clear()
+                    for (row in wordList) {
+                        if (row.kelimeKendi?.lowercase()?.contains(query.toString().lowercase()) == true || row.kelimeAnlam?.lowercase()
+                            ?.contains(query.toString().lowercase()) == true)
+                        {
+                            if (!filterProcessList.contains(row)) {
+                                filterProcessList.add(row)
+                            }
+                        }
+
+                    }
+                    filterList = filterProcessList
+                }
+                setAdapter(filterList)
 
             return true
         }
@@ -108,23 +104,21 @@ with(binding){
 
     private fun setButtonClickers() {
         binding.kelimeAraBackButton.setOnClickListener {
-
+            goBack()
         }
     }
 
-private fun observeViewModel(){
-    wordViewModel.getWordList("customWords")
-    wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
-}
+    private fun observeViewModel(){
+        wordViewModel.getWordList("customWords")
+        wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
+    }
 
     private fun handleList(listResource : ResourceModel) {
         if (listResource.success){
             wordList = listResource.data as MutableList<KelimeModel>
-            adapter?.updateList(wordList)
+            setAdapter()
         }else  {makeToast("Kelime bulunamadı")}
-
             stopProgressBar()
-
     }
 
     private fun setAdapter(wordsList: MutableList<KelimeModel> = wordList) {
@@ -135,16 +129,15 @@ private fun observeViewModel(){
 
 
     private fun setCheckboxFilters() {
-    with(binding){
-        val wordStatus = wordItCheckBox.isChecked
-        val wordStatus01 = wordMeaningCheckBox.isChecked
-        val wordStatus02 = wordExampleCheckBox.isChecked
-        adapter?.updateList(wordList, wordStatus, wordStatus01, wordStatus02)
-}
+        with(binding){
+           val wordStatus = wordItCheckBox.isChecked
+            val wordStatus01 = wordMeaningCheckBox.isChecked
+            val wordStatus02 = wordExampleCheckBox.isChecked
+            adapter?.updateList(wordList, wordStatus, wordStatus01, wordStatus02)
+        }
 
 
     }
-
 
 
 
