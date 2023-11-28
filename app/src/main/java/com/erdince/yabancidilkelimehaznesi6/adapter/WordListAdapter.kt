@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.erdince.yabancidilkelimehaznesi6.databinding.RowItemKelimeBinding
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 
 
 class WordListAdapter(
-    private var wordList: MutableList<KelimeModel>,
+    private var wordList: MutableList<WordModel>,
     private val onClick: (String?) -> Unit
 ) : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
     var wordItStatus = true
@@ -63,7 +62,7 @@ class WordListAdapter(
     }
 
     fun updateList(
-        listeKelime: MutableList<KelimeModel>,
+        listeKelime: MutableList<WordModel>,
         wordStatus: Boolean = true,
         meaningStatus1: Boolean = true,
         exampleStatus1: Boolean = true

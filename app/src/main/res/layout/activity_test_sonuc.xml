@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="@+id/kelimeOrnekCumleTextView" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sonrakiKelimeButton"
+        android:id="@+id/nextWordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/two_button_margin"
@@ -100,7 +100,7 @@
         android:text="ornekCumle"
         android:textAlignment="center"
         android:textAppearance="@style/textbox_text_style_high"
-        app:layout_constraintBottom_toTopOf="@+id/sonrakiKelimeButton"
+        app:layout_constraintBottom_toTopOf="@+id/nextWordButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

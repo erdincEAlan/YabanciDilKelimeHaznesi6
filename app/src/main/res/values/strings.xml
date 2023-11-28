@@ -82,5 +82,7 @@
     </string>
     <string name="quiz_title">Sorular için kelime kaynağını seçin</string>
 
+    <string name="word_not_found_err">Kelime Bulunamadı</string>
+
 
 </resources>

@@ -16,13 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/test_rectangle_back_height"
             android:background="@drawable/info_rectangle"
-            app:layout_constraintBottom_toBottomOf="@+id/soruKelimeTextView"
-            app:layout_constraintEnd_toEndOf="@+id/soruKelimeTextView"
-            app:layout_constraintStart_toStartOf="@+id/soruKelimeTextView"
-            app:layout_constraintTop_toTopOf="@+id/soruKelimeTextView" />
+            app:layout_constraintBottom_toBottomOf="@+id/questionTextView"
+            app:layout_constraintEnd_toEndOf="@+id/questionTextView"
+            app:layout_constraintStart_toStartOf="@+id/questionTextView"
+            app:layout_constraintTop_toTopOf="@+id/questionTextView" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sonrakiKelimeButton"
+            android:id="@+id/nextWordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="216dp"
@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/cevapKelimeEditText"
+            android:id="@+id/answerEditText"
             android:layout_width="@dimen/text_box_width"
             android:layout_height="@dimen/text_box_height"
             android:layout_marginBottom="100dp"
@@ -47,26 +47,26 @@
             android:background="@drawable/roundedcorner_textbox"
             android:hint="@string/cevap_edit_text"
             android:textAppearance="@style/textbox_text_style"
-            app:layout_constraintBottom_toTopOf="@+id/cevapButton"
+            app:layout_constraintBottom_toTopOf="@+id/answerButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
         </EditText>
 
         <TextView
-            android:id="@+id/soruKelimeTextView"
+            android:id="@+id/questionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="84dp"
             android:contentDescription="sorulan kelime"
             android:text=" "
             android:textAppearance="@style/test_word"
-            app:layout_constraintBottom_toTopOf="@+id/cevapKelimeEditText"
+            app:layout_constraintBottom_toTopOf="@+id/answerEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/cevapButton"
+            android:id="@+id/answerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -76,7 +76,7 @@
             android:textAllCaps="true"
             android:textAppearance="@style/high_button_text"
             android:textColor="@color/theme_orange_color"
-            app:layout_constraintBottom_toTopOf="@+id/sonrakiKelimeButton"
+            app:layout_constraintBottom_toTopOf="@+id/nextWordButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />

@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -37,7 +37,7 @@ class KelimeEkleActivity : AppCompatActivity() {
     private lateinit var kelimeTxt: String
     private lateinit var anlamTxt: String
     private lateinit var ornekTxt: String
-    private var eklenecekKelime: KelimeModel? = null
+    private var eklenecekKelime: WordModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kelime_ekle)
@@ -108,7 +108,7 @@ class KelimeEkleActivity : AppCompatActivity() {
     }
 
     private fun setNewKelime() {
-        eklenecekKelime = KelimeModel("0", kelimeTxt, anlamTxt, ornekTxt, 1, 0, uid, 0,"customWord")
+        eklenecekKelime = WordModel("0", kelimeTxt, anlamTxt, ornekTxt, 1, 0, uid, 0,"customWord")
     }
 
     private fun addNewKelimeToDatabase() {

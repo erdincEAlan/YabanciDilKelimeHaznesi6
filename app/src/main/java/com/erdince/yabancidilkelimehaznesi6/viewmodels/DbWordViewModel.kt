@@ -3,7 +3,7 @@ package com.erdince.yabancidilkelimehaznesi6.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -15,10 +15,10 @@ import com.google.firebase.firestore.toObject
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
-    var word : KelimeModel? = null
+    var word : WordModel? = null
     var wordLiveData = MutableLiveData<ResourceModel>()
     var resource : ResourceModel = ResourceModel(false, word)
-    private var wordList = mutableListOf<KelimeModel>()
+    private var wordList = mutableListOf<WordModel>()
     private val db : FirebaseFirestore = Firebase.firestore
     private val customWordsDb = db.collection("kelimeler")
     private val publicWordsDb = db.collection("preparedWords")
@@ -29,17 +29,17 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     fun getWordFromId (id : String, wordType : String){
         if (wordType == "preparedWords"){
             publicWordsDb.document(id).get().addOnSuccessListener {
-                if (it.toObject<KelimeModel>() != null) {
+                if (it.toObject<WordModel>() != null) {
                     resource.success = true
-                    resource.data = it.toObject<KelimeModel>()
+                    resource.data = it.toObject<WordModel>()
                     wordLiveData.postValue(resource)
                 }
             }
         }else if(wordType == "customWords"){
             customWordsDb.document(id).get().addOnSuccessListener(){
-                if (it.toObject<KelimeModel>() != null) {
+                if (it.toObject<WordModel>() != null) {
                     resource.success = true
-                    resource.data = it.toObject<KelimeModel>()
+                    resource.data = it.toObject<WordModel>()
                     wordLiveData.postValue(resource)
                 }
             }
@@ -47,7 +47,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
 
     }
-    fun updateWord(word : KelimeModel, wordId : String){
+    fun updateWord(word : WordModel, wordId : String){
         word.kelimeID=wordId
         publicWordsDb.document(wordId).set(word)
 
@@ -57,7 +57,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         if (wordSourceType == "customWords") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("kelimeOgrenmeDurum", 0)
                 .whereEqualTo("kelimeSahipID", Firebase.auth.uid).get().addOnSuccessListener { documents ->
-                    wordList = documents.toObjects(KelimeModel::class.java)
+                    wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size > 0) {
                         resource.success = true
                         resource.data = wordList.random()
@@ -71,7 +71,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         } else if (wordSourceType == "preparedWords") {
             publicWordsDb.whereEqualTo("kelimeDurum", 1).get().addOnSuccessListener { documents ->
                 for (document in documents) {
-                    wordList.add(document.toObject<KelimeModel>())
+                    wordList.add(document.toObject<WordModel>())
                 }
                 if (wordList.size > 0) {
                     resource.success = true
@@ -93,7 +93,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         if (wordType == "customWords") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
                 .addOnSuccessListener { documents ->
-                    wordList = documents.toObjects(KelimeModel::class.java)
+                    wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size>0){
                         resource.data = wordList
                         resource.success = true
@@ -105,7 +105,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
             publicWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
                 .addOnSuccessListener { documents ->
                     resource.success = true
-                    wordList = documents.toObjects(KelimeModel::class.java)
+                    wordList = documents.toObjects(WordModel::class.java)
                     resource.data = wordList
                     wordLiveData.postValue(resource)
                 }.addOnFailureListener { wordLiveData.postValue(resource) }
@@ -114,14 +114,14 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
     }
 
-    fun addPublicWordToCustomWord (word : KelimeModel){
+    fun addPublicWordToCustomWord (word : WordModel){
         word.kelimeOgrenmeDurum = 0
         word.kelimePuan = 0
         word.kelimeSahipID = Firebase.auth.uid
         word.wordType = "preparedWord"
         customWordsDb.add(word)
     }
-    fun addCustomWord (word : KelimeModel){
+    fun addCustomWord (word : WordModel){
         word.kelimeOgrenmeDurum = 0
         word.kelimePuan = 0
         word.kelimeSahipID = Firebase.auth.uid

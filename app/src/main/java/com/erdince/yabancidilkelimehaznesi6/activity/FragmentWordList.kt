@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordListBinding
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,8 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class FragmentWordList : MainFragment() {
     private val wordViewModel : DbWordViewModel by viewModels()
     private var adapter : WordListAdapter?=null
-    private var wordList = mutableListOf<KelimeModel>()
-    private var filterList = mutableListOf<KelimeModel>()
+    private var wordList = mutableListOf<WordModel>()
+    private var filterList = mutableListOf<WordModel>()
     private lateinit var fragmentBinding : FragmentWordListBinding
     private val binding get() = fragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun initSearchView() { 
-        var filterProcessList = mutableListOf<KelimeModel>()
+        var filterProcessList = mutableListOf<WordModel>()
         with(binding){
             searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -115,13 +116,13 @@ class FragmentWordList : MainFragment() {
 
     private fun handleList(listResource : ResourceModel) {
         if (listResource.success){
-            wordList = listResource.data as MutableList<KelimeModel>
+            wordList = listResource.data as MutableList<WordModel>
             setAdapter()
-        }else  {makeToast("Kelime bulunamadı")}
+        }else  {makeToast(getString(R.string.word_not_found_err))}
             stopProgressBar()
     }
 
-    private fun setAdapter(wordsList: MutableList<KelimeModel> = wordList) {
+    private fun setAdapter(wordsList: MutableList<WordModel> = wordList) {
         adapter = WordListAdapter(wordsList){}
         binding.kelimeListeRecyclerView.adapter = adapter
     }

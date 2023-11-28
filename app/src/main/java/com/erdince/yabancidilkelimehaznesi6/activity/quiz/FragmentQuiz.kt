@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -25,7 +25,7 @@ class FragmentQuiz : MainFragment() {
 
     private var kelimelerRef : CollectionReference?=null
     private var kullaniciRef : CollectionReference?=null
-    private var soruKelime: KelimeModel? = null
+    private var soruKelime: WordModel? = null
     private var cevapKelime: String? = null
     private val wordViewModel : DbWordViewModel by viewModels()
     private var __binding : FragmentQuizBinding?=null
@@ -66,8 +66,8 @@ class FragmentQuiz : MainFragment() {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){
             if (it.success){
                 if (it.data != null){
-                    soruKelime = it.data as KelimeModel
-                    binding?.soruKelimeTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
+                    soruKelime = it.data as WordModel
+                    binding?.questionTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
                 }
                 stopProgressBar()
             }else{
@@ -82,12 +82,12 @@ class FragmentQuiz : MainFragment() {
     private fun setButtonClickers() {
         with(binding!!){
             backButton.setOnClickListener {
-                goBack()
+                backToHomepage()
             }
-            sonrakiKelimeButton.setOnClickListener {
+            nextWordButton.setOnClickListener {
                 increaseKelimePointAndSwitch()
             }
-            cevapButton.setOnClickListener {
+            answerButton.setOnClickListener {
                 takeTheAnswerAndInit()
             }
         }
@@ -113,7 +113,7 @@ class FragmentQuiz : MainFragment() {
 
     private fun setStringsFromEditTexts() {
         with(binding!!){
-            cevapKelime = cevapKelimeEditText.text.toString()
+            cevapKelime = answerEditText.text.toString()
         }
 
     }

@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizWrongAnswerBinding
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +18,7 @@ private const val PARAM_QUIZ_TYPE : String = "quizType"
 
 @AndroidEntryPoint
 class FragmentQuizWrongAnswer : MainFragment() {
-    var publicWord : KelimeModel? =null
+    var publicWord : WordModel? =null
     private val wordViewModel : DbWordViewModel by viewModels()
     var db : FirebaseFirestore?=null
     var __binding : FragmentQuizWrongAnswerBinding?=null
@@ -53,7 +52,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     private fun observeData(wordId: String) {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){resource ->
-            publicWord = resource.data as KelimeModel
+            publicWord = resource.data as WordModel
             initTextViews()
             stopProgressBar()
         }
@@ -69,7 +68,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
             quizResultBackButton.setOnClickListener {
                 backToHomepage()
             }
-            sonrakiKelimeButton.setOnClickListener {
+            nextWordButton.setOnClickListener {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
                 changeFragment(quizFragment)
             }

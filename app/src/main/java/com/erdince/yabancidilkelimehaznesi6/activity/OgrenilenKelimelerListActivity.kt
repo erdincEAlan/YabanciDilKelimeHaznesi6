@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -32,10 +32,10 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
     private var kelimeOgrenilenListeGeriButon: ImageButton? = null
     private var ogrenilenKelimelerRecycleView: RecyclerView? = null
     private var searchViewKelime: SearchView? = null
-    private var kelimeListesi = mutableListOf<KelimeModel>()
-    private var filtreListesi = mutableListOf<KelimeModel>()
-    private var filtreListesi2 = mutableListOf<KelimeModel>()
-    private var kelimeCekilen: KelimeModel? = null
+    private var kelimeListesi = mutableListOf<WordModel>()
+    private var filtreListesi = mutableListOf<WordModel>()
+    private var filtreListesi2 = mutableListOf<WordModel>()
+    private var kelimeCekilen: WordModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,7 +130,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
 
     }
 
-    private fun setKelimeAdapter(mutableList: MutableList<KelimeModel>) {
+    private fun setKelimeAdapter(mutableList: MutableList<WordModel>) {
         adapter = WordListAdapter(mutableList) {
             kelimeDuzenleIntent?.putExtra("kelimeID", it)
             startActivity(kelimeDuzenleIntent)

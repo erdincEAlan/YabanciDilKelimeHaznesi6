@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.R
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -27,7 +27,7 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     private var uid : String?=null
     private lateinit var kullaniciRef : DocumentReference
     private var kelimeDocumentReference : DocumentReference?=null
-    private var kelimeEski: KelimeModel? = null
+    private var kelimeEski: WordModel? = null
     private var kelimeId: String? = null
     private lateinit var kelimeKendiString: String
     private lateinit var kelimeAnlamString: String
@@ -119,7 +119,7 @@ class KelimeDuzenleActivity : AppCompatActivity() {
 
     private fun takeKelimeAndSet() {
         kelimeDocumentReference?.get()?.addOnSuccessListener { kelimeDoc ->
-            kelimeEski = kelimeDoc.toObject<KelimeModel>()
+            kelimeEski = kelimeDoc.toObject<WordModel>()
             setEditTextTexts()
             setOgrenmeButtonVisibility(kelimeEski?.kelimeOgrenmeDurum)
         }

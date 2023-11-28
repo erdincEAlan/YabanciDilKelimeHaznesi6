@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordAddBinding
-import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
+import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,7 +80,7 @@ class FragmentWordAdd : MainFragment() {
 
     private fun saveTheWord() {
         wordViewModel.addCustomWord(
-            KelimeModel(
+            WordModel(
             kelimeKendi = binding.kelimeEkleKelimeGiris.text.toString(),
             kelimeAnlam = binding.kelimeEkleAnlamGiris.text.toString(),
             kelimeOrnekCumle = binding.kelimeEkleOrnekCumleGiris.text.toString()
