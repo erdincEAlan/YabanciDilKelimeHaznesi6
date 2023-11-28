@@ -9,7 +9,7 @@
 
 
     <CheckBox
-        android:id="@+id/kelimeOrnekCheckBox"
+        android:id="@+id/wordExampleCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/kelimeAraBackButton" />
 
     <CheckBox
-        android:id="@+id/kelimeAnlamCheckBox"
+        android:id="@+id/wordMeaningCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,13 +34,13 @@
         android:text="@string/checkbox_anlam"
         android:textColor="@color/white"
         android:buttonTint="@color/theme_orange_color"
-        app:layout_constraintBottom_toBottomOf="@+id/kelimeOrnekCheckBox"
-        app:layout_constraintEnd_toStartOf="@+id/kelimeOrnekCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/wordExampleCheckBox"
+        app:layout_constraintEnd_toStartOf="@+id/wordExampleCheckBox"
         app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toEndOf="@+id/kelimeCheckBox" />
+        app:layout_constraintStart_toEndOf="@+id/wordItCheckBox" />
 
     <CheckBox
-        android:id="@+id/kelimeCheckBox"
+        android:id="@+id/wordItCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -49,7 +49,7 @@
         android:text="@string/checkbox_kelime"
         android:textColor="@color/white"
         android:buttonTint="@color/theme_orange_color"
-        app:layout_constraintBottom_toBottomOf="@+id/kelimeAnlamCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/wordMeaningCheckBox"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton

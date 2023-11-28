@@ -83,10 +83,7 @@ fun Activity.switchActivity(activityName: String) {
         val activityIntent = Intent(this, KelimeEkleActivity::class.java)
         startActivity(activityIntent)
     }
-    if (activityName == "KelimeListeActivity") {
-        val activityIntent = Intent(this, KelimeListeActivity::class.java)
-        startActivity(activityIntent)
-    }
+
     if (activityName == "OgrenilenKelimelerListActivity") {
         val activityIntent = Intent(this, OgrenilenKelimelerListActivity::class.java)
         startActivity(activityIntent)

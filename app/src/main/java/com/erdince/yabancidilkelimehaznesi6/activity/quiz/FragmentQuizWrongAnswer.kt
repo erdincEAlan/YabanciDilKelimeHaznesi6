@@ -67,7 +67,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
     private fun setButtonClickers() {
         with(binding){
             quizResultBackButton.setOnClickListener {
-                requireActivity().switchActivity("AnaEkranActivity")
+                backToHomepage()
             }
             sonrakiKelimeButton.setOnClickListener {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
@@ -75,7 +75,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
             }
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {
-                    wordViewModel.addCustomWord(it!!)
+                    wordViewModel.addPublicWordToCustomWord(it!!)
                 }
                 it.isClickable = false
                 it.alpha = 0.5f

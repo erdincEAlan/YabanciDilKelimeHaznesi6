@@ -82,7 +82,7 @@ class FragmentQuiz : MainFragment() {
     private fun setButtonClickers() {
         with(binding!!){
             backButton.setOnClickListener {
-                changeFragment(FragmentQuizSourceSelection.newInstance())
+                goBack()
             }
             sonrakiKelimeButton.setOnClickListener {
                 increaseKelimePointAndSwitch()

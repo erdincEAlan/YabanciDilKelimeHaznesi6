@@ -1,6 +1,5 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import com.erdince.yabancidilkelimehaznesi6.adapter.KelimeAdapter
+import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordListBinding
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
@@ -18,10 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentWordList : MainFragment() {
     private val wordViewModel : DbWordViewModel by viewModels()
-    private var adapter: KelimeAdapter? = null
-    private var wordList = mutableListOf<KelimeModel?>()
-    private var filtreListesi = mutableListOf<KelimeModel?>()
-    private var filtreListesi2 = mutableListOf<KelimeModel?>()
+    private var adapter : WordListAdapter?=null
+    private var wordList = mutableListOf<KelimeModel>()
+    private var filterList = mutableListOf<KelimeModel>()
     private lateinit var fragmentBinding : FragmentWordListBinding
     private val binding get() = fragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +37,9 @@ class FragmentWordList : MainFragment() {
     }
 
     fun init() {
-        observeViewModel()
+        setAdapter()
         initUI()
+        observeViewModel()
     }
 
     private fun initUI() {
@@ -50,8 +49,8 @@ class FragmentWordList : MainFragment() {
         initSearchView()
     }
 
-    private fun initSearchView() {
-
+    private fun initSearchView() { 
+        var filterProcessList = mutableListOf<KelimeModel>()
 with(binding){
     searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -62,25 +61,25 @@ with(binding){
         override fun onQueryTextChange(query: String?): Boolean {
             Log.d("onQueryTextChange", "query: $query")
             if (query?.isEmpty() == true) {
-                filtreListesi = wordList
+                filterList = wordList
 
             } else {
-                filtreListesi2.clear()
+                filterProcessList.clear()
                 for (row in wordList) {
-                    if (row?.kelimeKendi?.lowercase()
+                    if (row.kelimeKendi?.lowercase()
                             ?.contains(query.toString().lowercase()) == true
-                        || row?.kelimeAnlam?.lowercase()
+                        || row.kelimeAnlam?.lowercase()
                             ?.contains(query.toString().lowercase()) == true
                     ) {
-                        if (!filtreListesi2.contains(row)) {
-                            filtreListesi2.add(row)
+                        if (!filterProcessList.contains(row)) {
+                            filterProcessList.add(row)
                         }
                     }
 
                 }
-                filtreListesi = filtreListesi2
+                filterList = filterProcessList
             }
-            updateAdapter(filtreListesi)
+            setAdapter(filterList)
 
             return true
         }
@@ -91,16 +90,16 @@ with(binding){
 
     private fun setCheckBoxCheckListeners() {
         with(binding){
-            kelimeCheckBox.setOnCheckedChangeListener { _, _ ->
-                checkBoxFiltre()
+            wordItCheckBox.setOnCheckedChangeListener { _, _ ->
+                setCheckboxFilters()
 
             }
-            kelimeAnlamCheckBox.setOnCheckedChangeListener { _, _ ->
-                checkBoxFiltre()
+            wordMeaningCheckBox.setOnCheckedChangeListener { _, _ ->
+                setCheckboxFilters()
 
             }
-            kelimeOrnekCheckBox.setOnCheckedChangeListener { _, _ ->
-                checkBoxFiltre()
+            wordExampleCheckBox.setOnCheckedChangeListener { _, _ ->
+                setCheckboxFilters()
 
             }
         }
@@ -120,32 +119,27 @@ private fun observeViewModel(){
 
     private fun handleList(listResource : ResourceModel) {
         if (listResource.success){
-            wordList = listResource.data as MutableList<KelimeModel?>
-            updateAdapter()
+            wordList = listResource.data as MutableList<KelimeModel>
+            adapter?.updateList(wordList)
+        }else  {makeToast("Kelime bulunamadı")}
+
             stopProgressBar()
-        }else {
-            makeToast("Kelime bulunamadı")
-            stopProgressBar()
-        }
 
     }
 
-    private fun updateAdapter(wordsList: MutableList<KelimeModel?> = wordList) {
-        adapter = KelimeAdapter(wordsList) {
-            //kelimeDuzenleIntent?.putExtra("kelimeID", it)
-            //startActivity(kelimeDuzenleIntent)
-        }
+    private fun setAdapter(wordsList: MutableList<KelimeModel> = wordList) {
+        adapter = WordListAdapter(wordsList){}
         binding.kelimeListeRecyclerView.adapter = adapter
     }
 
 
 
-    private fun checkBoxFiltre() {
+    private fun setCheckboxFilters() {
     with(binding){
-        val kelimeDurumm1 = kelimeCheckBox.isChecked
-        val kelimeAnlamDurumm1 = kelimeAnlamCheckBox.isChecked
-        val kelimeOrnekDurumm1 = kelimeOrnekCheckBox.isChecked
-        adapter?.updateList(wordList, kelimeDurumm1, kelimeAnlamDurumm1, kelimeOrnekDurumm1)
+        val wordStatus = wordItCheckBox.isChecked
+        val wordStatus01 = wordMeaningCheckBox.isChecked
+        val wordStatus02 = wordExampleCheckBox.isChecked
+        adapter?.updateList(wordList, wordStatus, wordStatus01, wordStatus02)
 }
 
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.databinding.RowItemKelimeBinding
-
+/*
 
 class KelimeAdapter(kelimeListesi : MutableList<KelimeModel?>, var onClik :(String?) -> Unit) : RecyclerView.Adapter<KelimeAdapter.ViewHolder>() {
 
@@ -96,4 +96,4 @@ class KelimeAdapter(kelimeListesi : MutableList<KelimeModel?>, var onClik :(Stri
 
 
 
-}
+}*/

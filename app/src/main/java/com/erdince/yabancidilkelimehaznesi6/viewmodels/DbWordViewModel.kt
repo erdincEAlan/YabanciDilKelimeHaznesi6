@@ -12,8 +12,6 @@ import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
-import com.google.firebase.firestore.toObjects
-import io.grpc.internal.SharedResourceHolder.Resource
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
@@ -95,9 +93,11 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         if (wordType == "customWords") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
                 .addOnSuccessListener { documents ->
-                    resource.success = true
                     wordList = documents.toObjects(KelimeModel::class.java)
-                    resource.data = wordList
+                    if (wordList.size>0){
+                        resource.data = wordList
+                        resource.success = true
+                    }
                     wordLiveData.postValue(resource)
 
                 }.addOnFailureListener() { wordLiveData.postValue(resource)}
@@ -114,11 +114,18 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
     }
 
-    fun addCustomWord (word : KelimeModel){
+    fun addPublicWordToCustomWord (word : KelimeModel){
         word.kelimeOgrenmeDurum = 0
-        word.kelimePuan = 1
+        word.kelimePuan = 0
         word.kelimeSahipID = Firebase.auth.uid
         word.wordType = "preparedWord"
+        customWordsDb.add(word)
+    }
+    fun addCustomWord (word : KelimeModel){
+        word.kelimeOgrenmeDurum = 0
+        word.kelimePuan = 0
+        word.kelimeSahipID = Firebase.auth.uid
+        word.wordType = "customWord"
         customWordsDb.add(word)
     }
 

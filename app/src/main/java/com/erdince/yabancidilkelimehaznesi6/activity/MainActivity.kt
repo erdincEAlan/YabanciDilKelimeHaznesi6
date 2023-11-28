@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentManager
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.erdince.yabancidilkelimehaznesi6.util.isOnline
@@ -46,12 +47,24 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (fragmentManager.backStackEntryCount > 1) {
-                    fragmentManager.popBackStack()
+                    goBack()
                 } else {
                     finish()
                 }
             }
         })
+    }
+    fun backToHomepage(){
+        startProgressBar()
+        supportFragmentManager.popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        supportFragmentManager.beginTransaction()
+            .add(R.id.quizFragmentContainer, FragmentHomepage.newInstance())
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
+
+    }
+    fun goBack() {
+        fragmentManager.popBackStack()
     }
 
     fun changeFragment(fragment: Fragment) {
@@ -62,11 +75,24 @@ class MainActivity : AppCompatActivity() {
          fragmentTransaction.commitAllowingStateLoss()
 
     }
+    fun changeFragmentWithoutLoadingBar(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commitAllowingStateLoss()
+
+    }
+    fun restartFragment(fragment: Fragment){
+        startProgressBar()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
+        fragmentTransaction.commit()
+    }
 
     fun returnUid() : String{
         return uid
     }
-    fun startProgressBar(){
+    private fun startProgressBar(){
         fragmentContainer?.isVisible = false
         progressBar?.isVisible = true
 
@@ -91,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun checkIsSignedInAndSwitchActivity() {
-        val currentUser = auth?.currentUser
+        val currentUser = auth.currentUser
         if (currentUser != null) {
             changeFragment(FragmentHomepage.newInstance())
         }else{

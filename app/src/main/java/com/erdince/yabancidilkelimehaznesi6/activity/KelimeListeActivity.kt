@@ -11,7 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.adapter.KelimeAdapter
+
 import com.erdince.yabancidilkelimehaznesi6.model.KelimeModel
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
 import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
@@ -22,7 +22,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-
+/*
 class KelimeListeActivity : AppCompatActivity() {
 
     private var db: FirebaseFirestore? = null
@@ -136,9 +136,9 @@ class KelimeListeActivity : AppCompatActivity() {
         kelimeListRecyclerView = findViewById(R.id.kelimeListeRecyclerView)
         kelimeListRecyclerView!!.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        kelimeCheckBox = findViewById(R.id.kelimeCheckBox)
-        kelimeAnlamCheckBox = findViewById(R.id.kelimeAnlamCheckBox)
-        kelimeOrnekCheckBox = findViewById(R.id.kelimeOrnekCheckBox)
+        kelimeCheckBox = findViewById(R.id.wordItCheckBox)
+        kelimeAnlamCheckBox = findViewById(R.id.wordMeaningCheckBox)
+        kelimeOrnekCheckBox = findViewById(R.id.wordExampleCheckBox)
         kelimeListeGeriButon = findViewById(R.id.kelimeAraBackButton)
     }
 
@@ -193,3 +193,4 @@ class KelimeListeActivity : AppCompatActivity() {
     }
 
 }
+*/

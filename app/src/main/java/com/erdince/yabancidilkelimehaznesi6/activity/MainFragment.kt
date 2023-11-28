@@ -25,5 +25,17 @@ open class MainFragment : Fragment() {
     fun makeToast(msg : String){
         (activity as MainActivity).makeToast(msg)
     }
+    fun restartFragment(currentFragment : Fragment){
+        (activity as MainActivity).restartFragment(currentFragment)
+    }
+    fun goBack(){
+        (activity as MainActivity).goBack()
+    }
+    fun changeFragmentWithoutLoadingBar(fragment : Fragment){
+        (activity as MainActivity).changeFragmentWithoutLoadingBar(fragment)
+    }
+    fun backToHomepage(){
+        (activity as MainActivity).backToHomepage()
+    }
 
 }

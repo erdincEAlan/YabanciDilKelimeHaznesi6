@@ -60,10 +60,10 @@ class FragmentHomepage : MainFragment() {
 
             }
             testButon.setOnClickListener {
-                changeFragment(FragmentQuizSourceSelection.newInstance())
+                changeFragmentWithoutLoadingBar(FragmentQuizSourceSelection.newInstance())
             }
             kelimeEkleButon.setOnClickListener {
-
+                changeFragmentWithoutLoadingBar(FragmentWordAdd.newInstance())
             }
             listeGoruntuleButon.setOnClickListener {
                 changeFragment(FragmentWordList.newInstance())
