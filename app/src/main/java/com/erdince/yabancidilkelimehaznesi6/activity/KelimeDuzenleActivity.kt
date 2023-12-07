@@ -150,13 +150,13 @@ class KelimeDuzenleActivity : AppCompatActivity() {
     }
 
     private fun setUI() {
-        kelimeSilButon = findViewById(R.id.kelimeSilButton)
-        ogrenmeDurumButon = findViewById(R.id.kelimeDuzenleOgrenilmeIsaretButton)
-        duzenleKaydetButton = findViewById(R.id.kelimeDuzenKaydetButon)
-        kelimeEdit = findViewById(R.id.kelimeKendiEditText)
-        kelimeAnlamEdit = findViewById(R.id.kelimeAnlamEditText)
-        kelimeOrnekEdit = findViewById(R.id.kelimeOrnekEditText)
-        backButton = findViewById(R.id.kelimeDuzenleBackButton)
+        kelimeSilButon = findViewById(R.id.deleteButton)
+        ogrenmeDurumButon = findViewById(R.id.removeFromLearnedWordsButton)
+        duzenleKaydetButton = findViewById(R.id.saveButton)
+        kelimeEdit = findViewById(R.id.wordItEditText)
+        kelimeAnlamEdit = findViewById(R.id.wordMeaningEditText)
+        kelimeOrnekEdit = findViewById(R.id.wordExampleEditText)
+        backButton = findViewById(R.id.backButton)
     }
     private fun setFirebase(){
          db = Firebase.firestore

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordListBinding
@@ -43,6 +44,9 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun initUI() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.wordListRcv.layoutManager = layoutManager
+        setAdapter()
         setAdapter()
         setButtonClickers()
         setCheckBoxCheckListeners()
@@ -50,7 +54,7 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun initSearchView() { 
-        var filterProcessList = mutableListOf<WordModel>()
+        val filterProcessList = mutableListOf<WordModel>()
         with(binding){
             searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -76,7 +80,7 @@ class FragmentWordList : MainFragment() {
                     }
                     filterList = filterProcessList
                 }
-                setAdapter(filterList)
+                adapter?.updateList(filterList)
 
             return true
         }
@@ -117,27 +121,31 @@ class FragmentWordList : MainFragment() {
     private fun handleList(listResource : ResourceModel) {
         if (listResource.success){
             wordList = listResource.data as MutableList<WordModel>
-            setAdapter()
-        }else  {makeToast(getString(R.string.word_not_found_err))}
+            adapter?.updateList(wordList)
             stopProgressBar()
+        }else  {
+            makeToast(getString(R.string.word_not_found_err))
+            goBack()
+        }
+
     }
 
     private fun setAdapter(wordsList: MutableList<WordModel> = wordList) {
-        adapter = WordListAdapter(wordsList){}
-        binding.kelimeListeRecyclerView.adapter = adapter
+        adapter = WordListAdapter(wordsList){
+            changeFragment(FragmentWordEdit.newInstance(it.toString()))
+        }
+        binding.wordListRcv.adapter = adapter
     }
 
 
 
     private fun setCheckboxFilters() {
         with(binding){
-           val wordStatus = wordItCheckBox.isChecked
+            val wordStatus = wordItCheckBox.isChecked
             val wordStatus01 = wordMeaningCheckBox.isChecked
             val wordStatus02 = wordExampleCheckBox.isChecked
             adapter?.updateList(wordList, wordStatus, wordStatus01, wordStatus02)
         }
-
-
     }
 
 

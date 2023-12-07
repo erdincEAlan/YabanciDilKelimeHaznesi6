@@ -15,9 +15,10 @@ import com.google.firebase.firestore.toObject
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
-    var word : WordModel? = null
+    private var responseCode : Int = 0
+    private var word : WordModel? = null
     var wordLiveData = MutableLiveData<ResourceModel>()
-    var resource : ResourceModel = ResourceModel(false, word)
+    private var resource : ResourceModel = ResourceModel(false, word)
     private var wordList = mutableListOf<WordModel>()
     private val db : FirebaseFirestore = Firebase.firestore
     private val customWordsDb = db.collection("kelimeler")
@@ -27,7 +28,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
 
     fun getWordFromId (id : String, wordType : String){
-        if (wordType == "preparedWords"){
+        if (wordType == "preparedWord"){
             publicWordsDb.document(id).get().addOnSuccessListener {
                 if (it.toObject<WordModel>() != null) {
                     resource.success = true
@@ -35,7 +36,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordLiveData.postValue(resource)
                 }
             }
-        }else if(wordType == "customWords"){
+        }else if(wordType == "customWord"){
             customWordsDb.document(id).get().addOnSuccessListener(){
                 if (it.toObject<WordModel>() != null) {
                     resource.success = true
@@ -47,10 +48,22 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
 
     }
-    fun updateWord(word : WordModel, wordId : String){
+    fun deleteWord(wordId: String) : Int{
+        customWordsDb.document(wordId).delete().addOnSuccessListener {
+            responseCode = 200
+        }.addOnFailureListener {
+            responseCode = 400
+        }
+        return responseCode
+    }
+    fun updateWord(word : WordModel, wordId : String) : Int{
         word.kelimeID=wordId
-        publicWordsDb.document(wordId).set(word)
-
+        customWordsDb.document(wordId).set(word).addOnSuccessListener {
+            responseCode = 200
+        }.addOnFailureListener {
+            responseCode = 400
+        }
+       return responseCode
     }
     fun observeRandomWord(wordSourceType : String) {
 
@@ -122,11 +135,15 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         customWordsDb.add(word)
     }
     fun addCustomWord (word : WordModel){
+        word.kelimeDurum = 1
         word.kelimeOgrenmeDurum = 0
         word.kelimePuan = 0
         word.kelimeSahipID = Firebase.auth.uid
         word.wordType = "customWord"
-        customWordsDb.add(word)
+        customWordsDb.add(word).addOnSuccessListener {
+            word.kelimeID = it.id
+            it.set(word)
+        }
     }
 
 

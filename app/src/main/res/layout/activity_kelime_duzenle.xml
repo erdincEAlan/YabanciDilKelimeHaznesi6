@@ -7,7 +7,7 @@
     android:background="@color/theme_primary_color">
 
     <EditText
-        android:id="@+id/kelimeOrnekEditText"
+        android:id="@+id/wordExampleEditText"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
@@ -17,13 +17,13 @@
         android:hint="Örnek Cumle"
         android:inputType="textMultiLine"
         android:scrollHorizontally="false"
-        app:layout_constraintBottom_toTopOf="@+id/kelimeDuzenKaydetButon"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/kelimeAnlamEditText"
+        android:id="@+id/wordMeaningEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -31,13 +31,13 @@
         android:layout_marginBottom="56dp"
         android:background="@drawable/roundedcorner_textbox"
         android:hint="Kelime Anlam"
-        app:layout_constraintBottom_toTopOf="@+id/kelimeOrnekEditText"
+        app:layout_constraintBottom_toTopOf="@+id/wordExampleEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/kelimeKendiEditText"
+        android:id="@+id/wordItEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -46,13 +46,13 @@
         android:background="@drawable/roundedcorner_textbox"
         android:hint="Kelime"
 
-        app:layout_constraintBottom_toTopOf="@+id/kelimeAnlamEditText"
+        app:layout_constraintBottom_toTopOf="@+id/wordMeaningEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/kelimeDuzenKaydetButon"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
@@ -65,7 +65,7 @@
         app:srcCompat="@drawable/ic_button_save" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/kelimeSilButton"
+        android:id="@+id/deleteButton"
         android:layout_width="99dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/kelimeDuzenleOgrenilmeIsaretButton"
+        android:id="@+id/removeFromLearnedWordsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
@@ -89,11 +89,11 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/kelimeSilButton"
-        app:layout_constraintTop_toTopOf="@+id/kelimeSilButton" />
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        app:layout_constraintTop_toTopOf="@+id/deleteButton" />
 
     <ImageButton
-        android:id="@+id/kelimeDuzenleBackButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"

@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun goBack() {
         fragmentManager.popBackStack()
+        startProgressBar()
     }
 
     fun changeFragment(fragment: Fragment) {

@@ -62,12 +62,12 @@ class WordListAdapter(
     }
 
     fun updateList(
-        listeKelime: MutableList<WordModel>,
+        wordList: MutableList<WordModel>,
         wordStatus: Boolean = true,
         meaningStatus1: Boolean = true,
         exampleStatus1: Boolean = true
     ) {
-        wordList = listeKelime
+        this.wordList = wordList
         wordItStatus = wordStatus
         meaningStatus = meaningStatus1
         exampleStatus = exampleStatus1
