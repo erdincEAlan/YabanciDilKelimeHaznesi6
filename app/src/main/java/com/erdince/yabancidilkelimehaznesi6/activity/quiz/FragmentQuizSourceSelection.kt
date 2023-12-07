@@ -28,11 +28,11 @@ class FragmentQuizSourceSelection : MainFragment() {
     ): View? {
         __binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container,false)
         binding?.quizCustomWordsButton?.setOnClickListener(){
-            val customWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("kelimeler")
+            val customWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("customWord")
             changeFragment(customWordsQuizFragment)
         }
         binding?.quizPreparedWordsButton?.setOnClickListener(){
-            val preparedWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("preparedWords")
+            val preparedWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("preparedWord")
             changeFragment(preparedWordsQuizFragment)
         }
         stopProgressBar()

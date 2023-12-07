@@ -52,9 +52,15 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     private fun observeData(wordId: String) {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){resource ->
-            publicWord = resource.data as WordModel
-            initTextViews()
-            stopProgressBar()
+            if (resource.success){
+                publicWord = resource.data as WordModel
+                initTextViews()
+                stopProgressBar()
+            }else{
+                makeToast("Bir sorun oluştu, internet bağlantınızı kontrol edin")
+                goBack()
+                stopProgressBar()
+            }
         }
         wordViewModel.getWordFromId(wordId,quizType.toString())
     }

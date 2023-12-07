@@ -48,14 +48,14 @@ class FragmentWordEdit : MainFragment() {
         with(binding){
             saveButton.setOnClickListener(){
                 updateTheWord()
-                goBack()
+                changeFragment(FragmentWordList.newInstance(),false)
             }
             backButton.setOnClickListener(){
-                goBack()
+                changeFragment(FragmentWordList.newInstance(),false)
             }
             deleteButton.setOnClickListener(){
                 dBWordViewModel.deleteWord(wordId!!)
-                goBack()
+                changeFragment(FragmentWordList.newInstance(),false)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,13 +45,16 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun initUI() {
-        val layoutManager = LinearLayoutManager(requireContext())
-        binding.wordListRcv.layoutManager = layoutManager
-        setAdapter()
-        setAdapter()
+        prepareTheRecyclerView()
         setButtonClickers()
         setCheckBoxCheckListeners()
         initSearchView()
+    }
+
+    private fun prepareTheRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.wordListRcv.layoutManager = layoutManager
+        setAdapter()
     }
 
     private fun initSearchView() { 
@@ -114,7 +118,7 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun observeViewModel(){
-        wordViewModel.getWordList("customWords")
+        wordViewModel.getWordList("customWord")
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
     }
 
@@ -132,7 +136,7 @@ class FragmentWordList : MainFragment() {
 
     private fun setAdapter(wordsList: MutableList<WordModel> = wordList) {
         adapter = WordListAdapter(wordsList){
-            changeFragment(FragmentWordEdit.newInstance(it.toString()))
+            changeFragment(FragmentWordEdit.newInstance(it.toString()),false)
         }
         binding.wordListRcv.adapter = adapter
     }
@@ -159,4 +163,5 @@ class FragmentWordList : MainFragment() {
                 }
             }
     }
+
 }

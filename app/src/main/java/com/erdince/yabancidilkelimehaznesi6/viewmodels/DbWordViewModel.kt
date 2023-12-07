@@ -67,7 +67,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     }
     fun observeRandomWord(wordSourceType : String) {
 
-        if (wordSourceType == "customWords") {
+        if (wordSourceType == "customWord") {
             customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("kelimeOgrenmeDurum", 0)
                 .whereEqualTo("kelimeSahipID", Firebase.auth.uid).get().addOnSuccessListener { documents ->
                     wordList = documents.toObjects(WordModel::class.java)
@@ -81,7 +81,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                 }.addOnFailureListener(){
                     wordLiveData.postValue(resource)
                 }
-        } else if (wordSourceType == "preparedWords") {
+        } else if (wordSourceType == "preparedWord") {
             publicWordsDb.whereEqualTo("kelimeDurum", 1).get().addOnSuccessListener { documents ->
                 for (document in documents) {
                     wordList.add(document.toObject<WordModel>())
@@ -103,8 +103,8 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     }
 
     fun getWordList(wordType : String) {
-        if (wordType == "customWords") {
-            customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
+        if (wordType == "customWord") {
+            customWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("kelimeSahipID",Firebase.auth.uid).get()
                 .addOnSuccessListener { documents ->
                     wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size>0){
@@ -114,25 +114,18 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordLiveData.postValue(resource)
 
                 }.addOnFailureListener() { wordLiveData.postValue(resource)}
-        } else if (wordType == "preparedWords") {
-            publicWordsDb.whereEqualTo("kelimeDurum", 1).whereEqualTo("wordType", "customWord").get()
-                .addOnSuccessListener { documents ->
-                    resource.success = true
-                    wordList = documents.toObjects(WordModel::class.java)
-                    resource.data = wordList
-                    wordLiveData.postValue(resource)
-                }.addOnFailureListener { wordLiveData.postValue(resource) }
-
         }
-
     }
 
     fun addPublicWordToCustomWord (word : WordModel){
+        word.kelimeDurum = 1
         word.kelimeOgrenmeDurum = 0
         word.kelimePuan = 0
         word.kelimeSahipID = Firebase.auth.uid
-        word.wordType = "preparedWord"
-        customWordsDb.add(word)
+        customWordsDb.add(word).addOnSuccessListener {
+            word.kelimeID = it.id
+            it.set(word)
+        }
     }
     fun addCustomWord (word : WordModel){
         word.kelimeDurum = 1

@@ -68,11 +68,11 @@ class MainActivity : AppCompatActivity() {
         startProgressBar()
     }
 
-    fun changeFragment(fragment: Fragment) {
+    fun changeFragment(fragment: Fragment, addToBackStack : Boolean = true) {
          startProgressBar()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
-         fragmentTransaction.addToBackStack(null)
+        if (addToBackStack){fragmentTransaction.addToBackStack(null)}
          fragmentTransaction.commitAllowingStateLoss()
 
     }

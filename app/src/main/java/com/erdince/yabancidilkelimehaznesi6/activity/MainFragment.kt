@@ -13,8 +13,8 @@ open class MainFragment : Fragment() {
 
     }
     }
-    fun changeFragment(fragment : Fragment){
-        (activity as MainActivity).changeFragment(fragment)
+    fun changeFragment(fragment : Fragment, addTobackStack : Boolean = true){
+        (activity as MainActivity).changeFragment(fragment, addTobackStack)
     }
     fun stopProgressBar(){
         (activity as MainActivity).stopProgressBar()
