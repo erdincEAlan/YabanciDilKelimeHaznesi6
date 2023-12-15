@@ -35,28 +35,28 @@ class WordListAdapter(
 
         with(holder.binding) {
             if (wordItStatus) {
-                txtWord.text = wordItem.kelimeKendi
+                txtWord.text = wordItem.wordIt
                 txtWord.visibility = View.VISIBLE
             } else {
                 txtWord.visibility = View.GONE
             }
 
             if (meaningStatus) {
-                txtMeaning.text = wordItem.kelimeAnlam
+                txtMeaning.text = wordItem.wordMeaning
                 txtMeaning.visibility = View.VISIBLE
             } else {
                 txtMeaning.visibility = View.GONE
             }
 
             if (exampleStatus) {
-                txtExample.text = wordItem.kelimeOrnekCumle
+                txtExample.text = wordItem.wordExample
                 txtExample.visibility = View.VISIBLE
             } else {
                 txtExample.visibility = View.GONE
             }
 
             wordEditButton.setOnClickListener {
-                onClick(wordItem.kelimeID)
+                onClick(wordItem.wordId)
             }
         }
     }

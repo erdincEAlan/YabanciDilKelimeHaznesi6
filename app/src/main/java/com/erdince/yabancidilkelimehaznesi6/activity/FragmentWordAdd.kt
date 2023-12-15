@@ -81,9 +81,9 @@ class FragmentWordAdd : MainFragment() {
     private fun saveTheWord() {
         wordViewModel.addCustomWord(
             WordModel(
-            kelimeKendi = binding.kelimeEkleKelimeGiris.text.toString(),
-            kelimeAnlam = binding.kelimeEkleAnlamGiris.text.toString(),
-            kelimeOrnekCumle = binding.kelimeEkleOrnekCumleGiris.text.toString()
+            wordIt = binding.kelimeEkleKelimeGiris.text.toString(),
+            wordMeaning = binding.kelimeEkleAnlamGiris.text.toString(),
+            wordExample = binding.kelimeEkleOrnekCumleGiris.text.toString()
             )
         )
     }

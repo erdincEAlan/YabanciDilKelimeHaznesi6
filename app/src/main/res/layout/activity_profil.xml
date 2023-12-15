@@ -15,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/info_button_margin_buttom"
         android:background="@drawable/info_rectangle"
-        app:layout_constraintBottom_toTopOf="@+id/profilOgrenilenKelimelerButton"
-        app:layout_constraintStart_toStartOf="@+id/profilOgrenilenKelimelerButton" />
+        app:layout_constraintBottom_toTopOf="@+id/learnedWordsListButton"
+        app:layout_constraintStart_toStartOf="@+id/learnedWordsListButton" />
 
     <TextView
         android:id="@+id/toplamKelimeSayisiTxt"
@@ -45,11 +45,11 @@
         android:gravity="center_vertical"
         android:text="@string/info_number_txt"
         android:textAppearance="@style/small_text"
-        app:layout_constraintBottom_toBottomOf="@+id/kelimeSayisiTextView"
-        app:layout_constraintStart_toEndOf="@+id/kelimeSayisiTextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/totalWordCountTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalWordCountTextView" />
 
     <TextView
-        android:id="@+id/kelimeSayisiTextView"
+        android:id="@+id/totalWordCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ibm_plex_mono"
@@ -70,7 +70,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/info_rectangle_margin"
         android:background="@drawable/info_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/profilOgrenilenKelimelerButton"
+        app:layout_constraintEnd_toEndOf="@+id/learnedWordsListButton"
         app:layout_constraintStart_toEndOf="@+id/rectangle_toplam_kelime"
         app:layout_constraintTop_toTopOf="@+id/rectangle_toplam_kelime" />
     <TextView
@@ -82,10 +82,10 @@
         android:gravity="center_vertical"
         android:text="@string/info_number_txt"
         android:textAppearance="@style/small_text"
-        app:layout_constraintBottom_toBottomOf="@+id/ogrenilenKelimeSayiTextView"
-        app:layout_constraintStart_toEndOf="@+id/ogrenilenKelimeSayiTextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/totalLearnedWordsCountTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalLearnedWordsCountTextView" />
     <TextView
-        android:id="@+id/ogrenilenKelimeSayiTextView"
+        android:id="@+id/totalLearnedWordsCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ibm_plex_mono"
@@ -143,7 +143,7 @@
         app:srcCompat="@drawable/ic_anaekran_profile" />
 
     <TextView
-        android:id="@+id/profilKullaniciAdiTxt"
+        android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_username_margin_start"
@@ -158,7 +158,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/profilOgrenilenKelimelerButton"
+        android:id="@+id/learnedWordsListButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/text_box_height"
         android:layout_marginBottom="@dimen/button_frame_margin_bottom"
@@ -173,7 +173,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/profilAyarlarButton"
+        android:id="@+id/settingsButton"
         android:layout_width="@dimen/back_button_height_and_width"
         android:layout_height="@dimen/back_button_height_and_width"
         android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"

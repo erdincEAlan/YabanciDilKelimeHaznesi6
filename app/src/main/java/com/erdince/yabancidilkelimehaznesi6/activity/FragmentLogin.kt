@@ -14,7 +14,6 @@ import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuiz
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLoginBinding
 import com.erdince.yabancidilkelimehaznesi6.util.GoogleSavedPreference
 import com.erdince.yabancidilkelimehaznesi6.util.GoogleServerClientId
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

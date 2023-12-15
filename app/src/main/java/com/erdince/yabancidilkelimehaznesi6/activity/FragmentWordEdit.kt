@@ -1,12 +1,10 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordEditBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -61,9 +59,9 @@ class FragmentWordEdit : MainFragment() {
     }
     private fun updateTheWord(){
         with(binding){
-            theWord?.kelimeKendi = wordItEditText.text.toString()
-            theWord?.kelimeAnlam = wordMeaningEditText.text.toString()
-            theWord?.kelimeOrnekCumle = wordExampleEditText.text.toString()
+            theWord?.wordIt = wordItEditText.text.toString()
+            theWord?.wordMeaning = wordMeaningEditText.text.toString()
+            theWord?.wordExample = wordExampleEditText.text.toString()
             dBWordViewModel.updateWord(theWord!!,wordId!!)
         }
 
@@ -74,9 +72,9 @@ class FragmentWordEdit : MainFragment() {
             dBWordViewModel.wordLiveData.observe(viewLifecycleOwner){
                 if (it.success){
                     theWord = it.data as WordModel
-                    wordItEditText.setText(theWord?.kelimeKendi)
-                    wordMeaningEditText.setText(theWord?.kelimeAnlam)
-                    wordExampleEditText.setText(theWord?.kelimeOrnekCumle)
+                    wordItEditText.setText(theWord?.wordIt)
+                    wordMeaningEditText.setText(theWord?.wordMeaning)
+                    wordExampleEditText.setText(theWord?.wordExample)
                     stopProgressBar()
                 }else{
                     goBack()

@@ -92,9 +92,9 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     private fun initTextViews() {
         with(binding){
-            kelimeKendiTextView.text = publicWord?.kelimeKendi
-            kelimeAnlamTextView.text = publicWord?.kelimeAnlam
-            kelimeOrnekCumleTextView.text = publicWord?.kelimeOrnekCumle
+            kelimeKendiTextView.text = publicWord?.wordIt
+            kelimeAnlamTextView.text = publicWord?.wordMeaning
+            kelimeOrnekCumleTextView.text = publicWord?.wordExample
         }
 
     }

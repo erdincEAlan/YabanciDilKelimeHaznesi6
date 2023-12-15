@@ -14,7 +14,6 @@ import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.erdince.yabancidilkelimehaznesi6.util.isOnline
 import com.erdince.yabancidilkelimehaznesi6.util.openNetworkSettings
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -114,7 +113,9 @@ class MainActivity : AppCompatActivity() {
         networkCheck()
         setFirebase()
     }
-
+    fun throwDefaultWarning(){
+        makeToast(getString(R.string.default_network_exception_msg))
+    }
 
 
     private fun checkIsSignedInAndSwitchActivity() {

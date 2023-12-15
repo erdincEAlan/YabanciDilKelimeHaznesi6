@@ -9,7 +9,6 @@ import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
@@ -67,12 +66,11 @@ class FragmentQuiz : MainFragment() {
             if (it.success){
                 if (it.data != null){
                     soruKelime = it.data as WordModel
-                    binding?.questionTextView?.text = soruKelime?.kelimeKendi?.capitalize(Locale.getDefault())
+                    binding?.questionTextView?.text = soruKelime?.wordIt?.capitalize(Locale.getDefault())
                 }
                 stopProgressBar()
             }else{
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
-                requireActivity().switchActivity("AnaEkranActivity")
             }
 
         }
@@ -96,7 +94,7 @@ class FragmentQuiz : MainFragment() {
 
     private fun takeTheAnswerAndInit() {
         setStringsFromEditTexts()
-        if (takeStringsAndMakeReadyToQuestioning(soruKelime?.kelimeAnlam!!)== takeStringsAndMakeReadyToQuestioning(cevapKelime!!)) {
+        if (takeStringsAndMakeReadyToQuestioning(soruKelime?.wordMeaning!!)== takeStringsAndMakeReadyToQuestioning(cevapKelime!!)) {
             correctAnswer()
         } else {
             incorrectAnswer()
@@ -106,8 +104,7 @@ class FragmentQuiz : MainFragment() {
         return text.lowercase().replace("\\p{Punct}|\\s".toRegex(), "")
     }
     private fun incorrectAnswer() {
-        requireActivity().makeToast("Cevap Yanlış")
-        val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.kelimeID!!,wordSourceType!!)
+        val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(soruKelime?.wordId!!,wordSourceType!!)
         changeFragment(fragmentQuizWrongAnswer)
     }
 
@@ -125,7 +122,7 @@ class FragmentQuiz : MainFragment() {
 
     private fun increaseKelimePointAndSwitch() {
         if (wordSourceType == "kelimeler"){
-            kelimelerRef?.document(soruKelime?.kelimeID.toString())?.update("kelimePuan", FieldValue.increment(1))
+            kelimelerRef?.document(soruKelime?.wordId.toString())?.update("kelimePuan", FieldValue.increment(1))
             checkKelimeLearnedAndUpdate()
             requireActivity().makeToast("Kelimeye puan eklendi")
         }
@@ -140,14 +137,14 @@ class FragmentQuiz : MainFragment() {
 
 
     private fun checkKelimeLearnedAndUpdate() {
-        if (soruKelime?.kelimePuan == 6) {
+        if (soruKelime?.wordPoint == 6) {
             setKelimeLearned()
             updateUserOgrenilenKelimeNumber()
         }
     }
 
     private fun setKelimeLearned() {
-        kelimelerRef?.document(soruKelime?.kelimeID.toString())?.update("kelimeOgrenmeDurum", 1)
+        kelimelerRef?.document(soruKelime?.wordId.toString())?.update("kelimeOgrenmeDurum", 1)
     }
 
     private fun updateUserOgrenilenKelimeNumber() {

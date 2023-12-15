@@ -14,7 +14,6 @@ import com.erdince.yabancidilkelimehaznesi6.adapter.WordListAdapter
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.util.restartActivity
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -71,7 +70,6 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
 
     private fun setButtonClickers() {
         kelimeOgrenilenListeGeriButon?.setOnClickListener {
-            switchActivity("ProfilActivity")
         }
     }
 
@@ -91,9 +89,9 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
                 } else {
                     filtreListesi2.clear()
                     for (row in kelimeListesi) {
-                        if (row?.kelimeKendi?.lowercase()
+                        if (row?.wordIt?.lowercase()
                                 ?.contains(query.toString().lowercase()) == true
-                            || row?.kelimeAnlam?.lowercase()
+                            || row?.wordMeaning?.lowercase()
                                 ?.contains(query.toString().lowercase()) == true
                         ) {
                             if (!filtreListesi2.contains(row)) {
@@ -119,7 +117,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
                 ?.addOnSuccessListener { documents ->
                     for (document in documents) {
                         kelimeCekilen = document.toObject()
-                        kelimeCekilen?.kelimeID = document.id
+                        kelimeCekilen?.wordId = document.id
                         kelimeListesi.add(kelimeCekilen!!)
                     }
                     setKelimeAdapter(kelimeListesi)
@@ -141,8 +139,7 @@ class OgrenilenKelimelerListActivity : AppCompatActivity() {
     }
 
     private fun initIntents() {
-        kelimeDuzenleIntent =
-            Intent(this@OgrenilenKelimelerListActivity, KelimeDuzenleActivity::class.java)
+
     }
     private fun checkListChangesAndUpdate() {
         if (kelimeListesi.isNotEmpty()) {

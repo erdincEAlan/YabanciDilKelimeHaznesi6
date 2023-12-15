@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.isOnline
 import com.erdince.yabancidilkelimehaznesi6.util.openNetworkSettings
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -35,9 +34,7 @@ class SplashActivity:AppCompatActivity() {
     private fun checkIsSignedInAndSwitchActivity() {
         val currentUser = auth?.currentUser
         if (currentUser != null) {
-            switchActivity("AnaEkranActivity")
         }else{
-            switchActivity("GirisYapActivity")
         }
     }
 

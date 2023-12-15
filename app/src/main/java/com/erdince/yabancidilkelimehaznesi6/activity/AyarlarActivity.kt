@@ -11,7 +11,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -25,7 +24,9 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 
 @Suppress("OverrideDeprecatedMigration", "OverrideDeprecatedMigration")
+
 class AyarlarActivity : AppCompatActivity() {
+
     private var pickFileButton: Button? = null
     private var saveButton: ImageButton? = null
     private var ayarlarBackButton: ImageButton? = null
@@ -82,7 +83,6 @@ class AyarlarActivity : AppCompatActivity() {
         }
 
         ayarlarBackButton?.setOnClickListener() {
-            switchActivity("ProfilActivity")
         }
 
 
@@ -173,7 +173,6 @@ class AyarlarActivity : AppCompatActivity() {
     private fun signOut() {
         Firebase.auth.signOut()
         finish()
-        switchActivity("GirisYapActivity")
     }
 
     private fun takeTextAndUpdateUser() {

@@ -1,7 +1,7 @@
 package com.erdince.yabancidilkelimehaznesi6.model
 
 data class WordModel(
-    var kelimeID: String? = null, var kelimeKendi: String? = null, var kelimeAnlam: String? = null,
-    var kelimeOrnekCumle: String? = null, var kelimeDurum: Int? = null, var kelimeOgrenmeDurum: Int? = null,
-    var kelimeSahipID: String? = null, var kelimePuan: Int? = 0, var wordType : String?=null
+    var wordId: String? = null, var wordIt: String? = null, var wordMeaning: String? = null,
+    var wordExample: String? = null, var wordStatus: Boolean? = null, var wordLearningStatus: Boolean? = null,
+    var wordOwnerId: String? = null, var wordPoint: Int? = 0, var wordType : String?=null
 )

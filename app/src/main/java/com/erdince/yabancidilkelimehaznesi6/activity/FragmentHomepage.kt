@@ -11,7 +11,6 @@ import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSele
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentHomepageBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.util.createAndShowDialog
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -57,7 +56,7 @@ class FragmentHomepage : MainFragment() {
     private fun setButtons() {
         with(binding){
             profilButon.setOnClickListener {
-
+                changeFragment(FragmentProfile.newInstance())
             }
             testButon.setOnClickListener {
                 changeFragmentWithoutLoadingBar(FragmentQuizSourceSelection.newInstance())
@@ -75,16 +74,16 @@ class FragmentHomepage : MainFragment() {
 
 
     private fun userDatabaseDocumentControl() {
-        db?.collection("user")?.document(uid)?.get()?.addOnSuccessListener { document ->
+        db?.collection("users")?.document(uid)?.get()?.addOnSuccessListener { document ->
             if (!document.exists()) {
                 val kullanici = mutableMapOf(
-                    "uid" to uid,
-                    "kullaniciAdi" to user?.displayName,
-                    "kelimeSayisi" to 0,
-                    "ogrenilenKelimeSayisi" to 0,
-                    "dogrulamaTuru" to "google"
+                    "userId" to uid,
+                    "userName" to user?.displayName,
+                    "userStatus" to true,
+                    "learnedWordsCount" to 0,
+                    "authMethod" to "google"
                 )
-                db?.collection("user")?.document(uid)?.set(kullanici)
+                db?.collection("users")?.document(uid)?.set(kullanici)
             }
         }
     }

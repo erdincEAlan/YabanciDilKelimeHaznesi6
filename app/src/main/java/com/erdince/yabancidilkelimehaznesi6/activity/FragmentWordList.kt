@@ -1,6 +1,5 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -73,7 +72,7 @@ class FragmentWordList : MainFragment() {
                 } else {
                     filterProcessList.clear()
                     for (row in wordList) {
-                        if (row.kelimeKendi?.lowercase()?.contains(query.toString().lowercase()) == true || row.kelimeAnlam?.lowercase()
+                        if (row.wordIt?.lowercase()?.contains(query.toString().lowercase()) == true || row.wordMeaning?.lowercase()
                             ?.contains(query.toString().lowercase()) == true)
                         {
                             if (!filterProcessList.contains(row)) {
@@ -122,7 +121,7 @@ class FragmentWordList : MainFragment() {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
     }
 
-    private fun handleList(listResource : ResourceModel) {
+    private fun handleList(listResource : ResourceModel<Any?>) {
         if (listResource.success){
             wordList = listResource.data as MutableList<WordModel>
             adapter?.updateList(wordList)

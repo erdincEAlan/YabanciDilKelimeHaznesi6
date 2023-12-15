@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erdince.yabancidilkelimehaznesi6.R
-import com.erdince.yabancidilkelimehaznesi6.util.switchActivity
 import com.google.firebase.auth.FirebaseUser
 
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class ProfilActivity : AppCompatActivity() {
+    /*
     private var kullaniciAdiTextView: TextView?=null
     private var profilKelimeSayisiTextView: TextView?=null
     private var profilOgrenilenKelimeSayiTextView: TextView?=null
@@ -77,11 +77,11 @@ class ProfilActivity : AppCompatActivity() {
     private fun setUI() {
         profilPhoto = findViewById(R.id.profilPhotoImageView)
         profilGeriButton = findViewById(R.id.profilGeriButton)
-        ogrenilenKelimelerButton = findViewById(R.id.profilOgrenilenKelimelerButton)
-        profilAyarButton = findViewById(R.id.profilAyarlarButton)
-        kullaniciAdiTextView = findViewById(R.id.profilKullaniciAdiTxt)
-        profilKelimeSayisiTextView = findViewById(R.id.kelimeSayisiTextView)
-        profilOgrenilenKelimeSayiTextView = findViewById(R.id.ogrenilenKelimeSayiTextView)
+        ogrenilenKelimelerButton = findViewById(R.id.learnedWordsListButton)
+        profilAyarButton = findViewById(R.id.settingsButton)
+        kullaniciAdiTextView = findViewById(R.id.userNameTextView)
+        profilKelimeSayisiTextView = findViewById(R.id.totalWordCountTextView)
+        profilOgrenilenKelimeSayiTextView = findViewById(R.id.totalLearnedWordsCountTextView)
 
     }
 
@@ -108,5 +108,5 @@ class ProfilActivity : AppCompatActivity() {
         userDatabaseRef = db?.collection("user")?.document(user!!.uid)
         photoUri = user?.photoUrl
     }
-
+*/
 }

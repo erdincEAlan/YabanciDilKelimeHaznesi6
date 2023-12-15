@@ -83,6 +83,7 @@
     <string name="quiz_title">Sorular için kelime kaynağını seçin</string>
 
     <string name="word_not_found_err">Kelime Bulunamadı</string>
-
+    <!-- Warnings -->
+    <string name="default_network_exception_msg">Bir sorun oluştu, internet bağlantınızı kontrol edin</string>
 
 </resources>
