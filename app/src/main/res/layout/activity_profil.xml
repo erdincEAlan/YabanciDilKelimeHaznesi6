@@ -118,7 +118,7 @@
 
 
     <ImageButton
-        android:id="@+id/profilGeriButton"
+        android:id="@+id/backButton"
         android:layout_width="@dimen/back_button_height_and_width"
         android:layout_height="@dimen/back_button_height_and_width"
         android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
@@ -138,7 +138,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilGeriButton"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
         app:layout_constraintVertical_bias="0.428"
         app:srcCompat="@drawable/ic_anaekran_profile" />
 

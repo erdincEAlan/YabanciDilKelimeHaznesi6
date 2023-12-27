@@ -56,7 +56,7 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun initUI() {
-        setButtonClickers()
+        setButtons()
     }
 
 
@@ -77,7 +77,7 @@ class FragmentQuiz : MainFragment() {
 
     }
 
-    private fun setButtonClickers() {
+    private fun setButtons() {
         with(binding!!){
             backButton.setOnClickListener {
                 backToHomepage()

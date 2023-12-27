@@ -13,14 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YabanciDilKelimeHaznesi6">
-        <activity android:name=".activity.KayitOlActivity" />
-        <activity android:name=".activity.KelimeEkleActivity" />
-        <activity android:name=".activity.KelimeListeActivity" />
         <activity android:name=".activity.OgrenilenKelimelerListActivity" />
-        <activity android:name=".activity.ProfilActivity" />
-        <activity android:name=".activity.SifreSifirlaActivity" />
-        <activity android:name=".activity.AyarlarActivity" />
-        <activity android:name=".activity.KelimeDuzenleActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

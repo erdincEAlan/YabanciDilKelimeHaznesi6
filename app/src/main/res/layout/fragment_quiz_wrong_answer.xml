@@ -10,14 +10,14 @@ android:background="@color/theme_primary_color">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+    >
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/quizResultBackButton"
             android:layout_width="@dimen/back_button_height_and_width"
             android:layout_height="@dimen/back_button_height_and_width"
-            android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
             android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+            android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
             android:background="@drawable/ic_button_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -25,13 +25,13 @@ android:background="@color/theme_primary_color">
             android:id="@+id/cevapTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_title"
             android:textAppearance="@style/main_high_title"
-            app:layout_constraintBottom_toTopOf="@+id/testDogrusuTxt"
-            app:layout_constraintEnd_toEndOf="@+id/testDogrusuTxt"
-            app:layout_constraintStart_toStartOf="@+id/testDogrusuTxt" />
+            app:layout_constraintBottom_toTopOf="@+id/testDogrusuTxt" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quizResultBackButton"/>
+
 
         <TextView
             android:id="@+id/testDogrusuTxt"
@@ -43,67 +43,67 @@ android:background="@color/theme_primary_color">
             android:textAppearance="@style/under_text"
             app:layout_constraintBottom_toTopOf="@+id/testDogrusuAnlamTxt"
             app:layout_constraintEnd_toEndOf="@+id/view"
-            app:layout_constraintStart_toStartOf="@+id/view" />
+            app:layout_constraintStart_toStartOf="@+id/view"/>
 
         <TextView
             android:id="@+id/testDogrusuKelimeTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+            android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_correct_kelime_txt"
             android:textAppearance="@style/textbox_title"
-            android:fontFamily="@font/ibm_plex_mono"
             app:layout_constraintBottom_toTopOf="@+id/kelimeKendiTextView"
-            app:layout_constraintStart_toStartOf="@+id/kelimeKendiTextView" />
+            app:layout_constraintStart_toStartOf="@+id/kelimeKendiTextView"/>
 
         <TextView
             android:id="@+id/testDogrusuAnlamTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+            android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_correct_anlam_txt"
             android:textAppearance="@style/textbox_title"
-            android:fontFamily="@font/ibm_plex_mono"
             app:layout_constraintBottom_toTopOf="@+id/kelimeAnlamTextView"
-            app:layout_constraintStart_toStartOf="@+id/kelimeAnlamTextView" />
+            app:layout_constraintStart_toStartOf="@+id/kelimeAnlamTextView"/>
 
         <TextView
             android:id="@+id/testDogrusuOrnekTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
+            android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/test_sonuc_yanlis_correct_ornekCumle_txt"
             android:textAppearance="@style/textbox_title"
-            android:fontFamily="@font/ibm_plex_mono"
             app:layout_constraintBottom_toTopOf="@+id/kelimeOrnekCumleTextView"
             app:layout_constraintHorizontal_bias="0.464"
-            app:layout_constraintStart_toStartOf="@+id/kelimeOrnekCumleTextView" />
+            app:layout_constraintStart_toStartOf="@+id/kelimeOrnekCumleTextView"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/nextWordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/two_button_margin"
+            android:layout_marginBottom="180dp"
             android:background="@drawable/roundedcorner"
-            android:text="@string/test_sonuc_yanlis_next_button"
             android:padding="@dimen/button_text_padding"
+            android:text="@string/test_sonuc_yanlis_next_button"
             android:textAppearance="@style/button_text"
-            app:layout_constraintBottom_toTopOf="@+id/addToMyCustomWords"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/addToMyCustomWords"
-            app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords" />
+            app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addToMyCustomWords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/button_frame_margin_bottom"
+            android:layout_marginBottom="100dp"
             android:background="@drawable/roundedcorner"
-            android:text="Kelimelerime ekle"
             android:padding="@dimen/button_text_padding"
+            android:text="Kelimelerime ekle"
             android:textAppearance="@style/button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/kelimeOrnekCumleTextView"
@@ -119,7 +119,7 @@ android:background="@color/theme_primary_color">
             android:textAppearance="@style/textbox_text_style_high"
             app:layout_constraintBottom_toTopOf="@+id/nextWordButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/kelimeKendiTextView"
@@ -135,7 +135,7 @@ android:background="@color/theme_primary_color">
             android:textAppearance="@style/textbox_text_style_high"
             app:layout_constraintBottom_toTopOf="@+id/testDogrusuOrnekTxt"
             app:layout_constraintEnd_toStartOf="@+id/view"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/kelimeAnlamTextView"
@@ -151,7 +151,7 @@ android:background="@color/theme_primary_color">
             android:textAppearance="@style/textbox_text_style_high"
             app:layout_constraintBottom_toTopOf="@+id/testDogrusuOrnekTxt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view" />
+            app:layout_constraintStart_toEndOf="@+id/view"/>
 
         <View
             android:id="@+id/view"

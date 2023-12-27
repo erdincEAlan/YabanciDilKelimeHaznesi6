@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
-        FirebaseApp.initializeApp(applicationContext)
+        FirebaseApp.initializeApp(baseContext)
         setFirebase()
         progressBar = findViewById(R.id.progressBar)
         fragmentContainer = findViewById(R.id.quizFragmentContainer)
@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         setNetworkAlert()
-        networkCheck()
         setFirebase()
+        networkCheck()
     }
     fun throwDefaultWarning(){
         makeToast(getString(R.string.default_network_exception_msg))

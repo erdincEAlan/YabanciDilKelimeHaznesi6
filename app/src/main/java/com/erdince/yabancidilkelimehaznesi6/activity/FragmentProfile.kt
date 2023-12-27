@@ -1,17 +1,16 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.erdince.yabancidilkelimehaznesi6.R
+import com.bumptech.glide.Glide
+import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLearnedWordsBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentProfileBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.UserModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,21 +35,34 @@ class FragmentProfile : MainFragment() {
     }
 
     private fun init() {
+        setButtons()
         observeUserData()
     }
-
+    private fun setButtons(){
+        with(binding){
+            settingsButton.setOnClickListener(){
+                changeFragment(FragmentSettings.newInstance())
+            }
+            backButton.setOnClickListener(){
+                goBack()
+            }
+            learnedWordsListButton.setOnClickListener(){
+                changeFragment(LearnedWordsFragment.newInstance())
+            }
+        }
+    }
     private fun observeUserData() {
-        dbUserViewModel.photoUrlLiveData?.observe(viewLifecycleOwner, ::setTheProfilePhoto)
-        dbUserViewModel.userLiveData?.observe(viewLifecycleOwner, ::handleUserData)
+        dbUserViewModel.photoUrlLiveData.observe(viewLifecycleOwner, ::getTheProfilePhoto)
+        dbUserViewModel.userLiveData.observe(viewLifecycleOwner, ::handleUserData)
         dbUserViewModel.getUserData()
         dbUserViewModel.getProfilePhoto()
 
     }
 
-    private fun setTheProfilePhoto(photoUrlResource: ResourceModel<String>) {
+    private fun getTheProfilePhoto(photoUrlResource: ResourceModel<String>) {
         if (photoUrlResource.success) {
             photoUrlResource.data.let { url ->
-                Picasso.get().load(url).into(binding.profilPhotoImageView)
+               Glide.with(this).load(url).centerCrop().into(binding.profilPhotoImageView)
             }
         }
     }

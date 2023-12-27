@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuiz
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLoginBinding
 import com.erdince.yabancidilkelimehaznesi6.util.GoogleSavedPreference
 import com.erdince.yabancidilkelimehaznesi6.util.GoogleServerClientId
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,6 +40,7 @@ class FragmentLogin : MainFragment() {
     private val regCode: Int = 123
     private val auth = Firebase.auth
     private var gso: GoogleSignInOptions? = null
+    private val dbUserViewModel : DbUserViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +53,7 @@ class FragmentLogin : MainFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentBinding = FragmentLoginBinding.inflate(inflater,container,false)
         init()
         stopProgressBar()
@@ -77,7 +80,9 @@ class FragmentLogin : MainFragment() {
                 signInGoogle()
             }
 
-            /* loginButton?.setOnClickListener {
+            /*
+            //Login with mail and pass auth. Suspended because of the personal info policies of Google
+            loginButton?.setOnClickListener {
 
          takeInfosFromEditTexts()
 
@@ -171,6 +176,7 @@ class FragmentLogin : MainFragment() {
             if (task.isSuccessful) {
                 GoogleSavedPreference.setEmail(requireContext(), account.email.toString())
                 GoogleSavedPreference.setUsername(requireContext(), account.displayName.toString())
+                dbUserViewModel.createUserData(account.email.toString(),account.displayName.toString(),auth.uid.toString(), authMethod = "Google")
                 changeFragment(FragmentHomepage.newInstance())
 
             }
@@ -180,7 +186,7 @@ class FragmentLogin : MainFragment() {
     companion object {
         @JvmStatic
         fun newInstance() =
-            FragmentHomepage().apply {
+            FragmentLogin().apply {
                 arguments = Bundle().apply {
 
                 }

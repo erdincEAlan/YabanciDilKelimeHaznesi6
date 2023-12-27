@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizWrongAnswerBinding
@@ -78,6 +79,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
                 changeFragment(quizFragment)
             }
+            if (publicWord?.wordType != "preparedWord") addToMyCustomWords.isVisible = false
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {
                     wordViewModel.addPublicWordToCustomWord(it!!)

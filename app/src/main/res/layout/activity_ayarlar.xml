@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/ayarlarKaydetButon"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -89,7 +89,7 @@
             android:textAppearance="@style/textbox_title" />
 
         <EditText
-            android:id="@+id/ayarlarYeniKullaniciAdiEditText"
+            android:id="@+id/newUsernameEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/text_box_height"
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
@@ -133,7 +133,7 @@
 
 
     <ImageButton
-        android:id="@+id/ayarlarKaydetButon"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"

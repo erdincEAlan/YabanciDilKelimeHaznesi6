@@ -251,10 +251,10 @@ class AyarlarActivity : AppCompatActivity() {
 
     private fun setUI() {
         pickFileButton = findViewById(R.id.fileButton)
-        saveButton = findViewById(R.id.ayarlarKaydetButon)
+        saveButton = findViewById(R.id.saveButton)
         ayarlarBackButton = findViewById(R.id.ayarlarGeriButon)
         signOutButton = findViewById(R.id.cikisImageButton)
-        newUserNameEditText = findViewById(R.id.ayarlarYeniKullaniciAdiEditText)
+        newUserNameEditText = findViewById(R.id.newUsernameEditText)
       //  newPassEditText = findViewById(R.id.ayarlarYeniSifreEditText)
         profilePhoto = findViewById(R.id.ayarlarProfilePhoto)
         photoUploadButton = findViewById(R.id.uploadButton)

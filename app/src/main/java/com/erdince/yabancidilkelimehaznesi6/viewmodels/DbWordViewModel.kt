@@ -102,9 +102,10 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
     }
 
-    fun getWordList(wordType : String) {
+    fun getWordList(wordType : String, learnedStatus : Boolean = false) {
         if (wordType == "customWord") {
-            customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordOwnerId",Firebase.auth.uid).get()
+            customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordOwnerId",Firebase.auth.uid)
+                .whereEqualTo("wordLearningStatus",learnedStatus).get()
                 .addOnSuccessListener { documents ->
                     wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size>0){

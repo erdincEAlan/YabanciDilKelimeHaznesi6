@@ -25,9 +25,7 @@ class FragmentHomepage : MainFragment() {
 
     private lateinit var __binding : FragmentHomepageBinding
     private val binding get() = __binding
-    private var db: FirebaseFirestore? = null
-    private var user: FirebaseUser? = null
-    private lateinit var uid: String
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +46,7 @@ class FragmentHomepage : MainFragment() {
     }
 
     private fun init() {
-        setFirebase()
-        userDatabaseDocumentControl()
+
         setButtons()
     }
 
@@ -73,29 +70,8 @@ class FragmentHomepage : MainFragment() {
 
 
 
-    private fun userDatabaseDocumentControl() {
-        db?.collection("users")?.document(uid)?.get()?.addOnSuccessListener { document ->
-            if (!document.exists()) {
-                val kullanici = mutableMapOf(
-                    "userId" to uid,
-                    "userName" to user?.displayName,
-                    "userStatus" to true,
-                    "learnedWordsCount" to 0,
-                    "authMethod" to "google"
-                )
-                db?.collection("users")?.document(uid)?.set(kullanici)
-            }
-        }
-    }
 
 
-    private fun setFirebase() {
-
-        db = Firebase.firestore
-        user = Firebase.auth.currentUser
-        uid = user!!.uid
-
-    }
 
 
     companion object {
