@@ -62,6 +62,10 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
 
     }
+    fun signOut(){
+        auth.signOut()
+        restartActivity()
+    }
     fun goBack() {
         fragmentManager.popBackStack()
         startProgressBar()

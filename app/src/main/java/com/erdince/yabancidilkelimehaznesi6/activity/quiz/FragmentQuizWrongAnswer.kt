@@ -79,7 +79,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
                 changeFragment(quizFragment)
             }
-            if (publicWord?.wordType != "preparedWord") addToMyCustomWords.isVisible = false
+            addToMyCustomWords.isVisible = if (publicWord?.wordType != "preparedWord") true else false
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {
                     wordViewModel.addPublicWordToCustomWord(it!!)

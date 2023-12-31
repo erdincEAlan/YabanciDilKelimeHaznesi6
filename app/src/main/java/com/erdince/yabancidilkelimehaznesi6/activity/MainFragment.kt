@@ -40,5 +40,8 @@ open class MainFragment : Fragment() {
     fun backToHomepage(){
         (activity as MainActivity).backToHomepage()
     }
+    fun signOut(){
+        (activity as MainActivity).signOut()
+    }
 
 }

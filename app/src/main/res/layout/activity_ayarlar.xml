@@ -7,7 +7,7 @@
     android:background="@color/theme_primary_color">
 
     <ImageButton
-        android:id="@+id/ayarlarGeriButon"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
@@ -28,7 +28,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ayarlarGeriButon">
+        app:layout_constraintTop_toBottomOf="@+id/backButton">
 
         <ImageView
             android:id="@+id/ayarlarProfilePhoto"
@@ -153,11 +153,11 @@
 
         android:text="Çıkış Yap"
         android:textAppearance="@style/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/cikisImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/cikisImageButton" />
+        app:layout_constraintEnd_toEndOf="@+id/logOutButton"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
 
     <ImageButton
-        android:id="@+id/cikisImageButton"
+        android:id="@+id/logOutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"

@@ -10,8 +10,11 @@ import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentSettingsBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.UserModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedImagePicker
+import kotlin.math.sign
 
 @AndroidEntryPoint
 class FragmentSettings : MainFragment() {
@@ -66,6 +69,12 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
             saveButton.setOnClickListener(){
                 updateTheUsername()
                 backToHomepage()
+            }
+            backButton.setOnClickListener(){
+                goBack()
+            }
+            logOutButton.setOnClickListener(){
+                signOut()
             }
         }
     }

@@ -35,7 +35,6 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
             userResource.success = false
             userLiveData.postValue(userResource)
         }
-
     }
     fun updateUserData(userModel : UserModel?){
         getUserData()
@@ -45,12 +44,13 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
         }
     }
 
-    fun checkIfUserDocExists(uid: String) : Boolean{
+    fun checkIfUserDocExists() : Boolean{
         getUserData()
         return userResource.success
     }
-    fun createUserData(email : String, displayName : String,uid : String,authMethod : String){
-        if (!checkIfUserDocExists(uid)){
+    fun createUserData(email : String, displayName : String,uidNew : String,authMethod : String){
+        uid = uidNew
+        if (checkIfUserDocExists()){
             var newUserModel : UserModel = UserModel(
                 userName = displayName,
                 authMethod = authMethod,
