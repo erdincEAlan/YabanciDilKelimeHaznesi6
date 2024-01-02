@@ -63,6 +63,8 @@
             android:layout_height="48dp"
             android:background="@null"
             android:src="@drawable/ic_button_back"
+            android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+            android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck"

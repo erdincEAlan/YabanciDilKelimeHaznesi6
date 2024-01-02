@@ -55,6 +55,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
         wordViewModel.wordLiveData.observe(viewLifecycleOwner){resource ->
             if (resource.success){
                 publicWord = resource.data as WordModel
+                binding.addToMyCustomWords.isVisible = publicWord?.wordType == "preparedWord"
                 initTextViews()
                 stopProgressBar()
             }else{
@@ -79,7 +80,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
                 val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
                 changeFragment(quizFragment)
             }
-            addToMyCustomWords.isVisible = publicWord?.wordType == "preparedWord"
+
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {
                     wordViewModel.addPublicWordToCustomWord(it!!)

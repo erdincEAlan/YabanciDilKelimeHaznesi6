@@ -71,9 +71,9 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
         profilePhotoDirectoryRef.downloadUrl.addOnSuccessListener {
             var profileUpdate = userProfileChangeRequest {
                 photoUri = it
-                newUserDoc?.profilePhotoUrl = it.toString()
-                updateUserData(newUserDoc)
             }
+            newUserDoc?.profilePhotoUrl = it.toString()
+            updateUserData(newUserDoc)
             Firebase.auth.currentUser?.updateProfile(profileUpdate)?.addOnSuccessListener {
                 Log.d("Firebase Photo Update","COMPLETED")
             }?.addOnFailureListener {

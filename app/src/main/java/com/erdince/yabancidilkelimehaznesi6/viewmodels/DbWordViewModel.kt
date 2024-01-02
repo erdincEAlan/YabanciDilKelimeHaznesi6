@@ -52,7 +52,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     }
     fun increaseWordPoint(word : WordModel){
         customWordsDb.document(word.wordId.toString() ).update("wordPoint", FieldValue.increment(1))
-        if (word.wordPoint?.plus(1) == 7){
+        if (word.wordPoint?.plus(1)!! >= 7){
             customWordsDb.document(word.wordId.toString()).update("wordLearningStatus", true)
             increaseLearnedWordsCount()
         }
@@ -112,11 +112,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
     }
 
-    fun getWordList(wordType : String, learnedStatus : Boolean = false) {
+    fun getWordList(wordType : String, learnedStatus : Boolean? = null) {
         if (wordType == "customWord") {
-            customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordOwnerId",Firebase.auth.uid)
-                .whereEqualTo("wordLearningStatus",learnedStatus).get()
-                .addOnSuccessListener { documents ->
+            var listRequest = customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordOwnerId",Firebase.auth.uid)
+                if (learnedStatus !=null){
+                    listRequest = listRequest.whereEqualTo("wordLearningStatus",learnedStatus)
+                }
+                listRequest.get().addOnSuccessListener { documents ->
                     wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size>0){
                         resource.data = wordList

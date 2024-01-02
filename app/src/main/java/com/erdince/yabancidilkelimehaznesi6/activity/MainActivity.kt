@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
 
     }
+
     fun signOut(){
         auth.signOut()
         restartActivity()
@@ -88,9 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun restartFragment(fragment: Fragment){
         startProgressBar()
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
-        fragmentTransaction.commit()
+        changeFragment(fragment, false)
     }
 
     fun returnUid() : String{

@@ -7,7 +7,15 @@
              tools:context=".activity.quiz.FragmentQuizSourceSelection">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="vertical">
-
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
+            android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
+            android:background="@null"
+            android:layout_gravity="start"
+            android:src="@drawable/ic_button_back" />
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="@string/quiz_title"
@@ -40,6 +48,7 @@
                 android:background="@drawable/roundedcorner"
                 android:text="Rastgele Kelimelerden"/>
         </LinearLayout>
+
     </LinearLayout>
 
 

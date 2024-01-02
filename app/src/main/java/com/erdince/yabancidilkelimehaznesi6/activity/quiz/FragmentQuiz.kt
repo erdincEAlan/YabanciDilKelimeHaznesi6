@@ -71,6 +71,7 @@ class FragmentQuiz : MainFragment() {
                 stopProgressBar()
             }else{
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
+                goBack()
             }
 
         }
@@ -124,14 +125,10 @@ class FragmentQuiz : MainFragment() {
         if (wordSourceType == "customWord"){
             soruKelime?.let { wordViewModel.increaseWordPoint(it) }
         }
-        refreshTheFragment()
-
+        changeFragment(FragmentQuiz.newInstance(wordSourceType.toString()), false)
     }
 
-    private fun refreshTheFragment() {
-        val thisFragment = newInstance(wordSourceType!!)
-        changeFragment(thisFragment)
-    }
+
 
     companion object {
 

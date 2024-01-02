@@ -64,7 +64,6 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
         with(binding){
             fileButton.setOnClickListener(){
                 pickAndUploadProfilePhoto()
-                backToHomepage()
             }
             saveButton.setOnClickListener(){
                 updateTheUsername()
@@ -85,7 +84,6 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
     private fun pickAndUploadProfilePhoto() {
         TedImagePicker.with(requireContext()).start { uri ->
             dbUserViewModel.updateProfilePhoto(uri)
-            restartFragment(this)
         }
     }
 

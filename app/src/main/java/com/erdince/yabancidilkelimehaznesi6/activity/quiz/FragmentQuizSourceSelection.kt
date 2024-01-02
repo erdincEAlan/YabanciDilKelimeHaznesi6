@@ -27,6 +27,9 @@ class FragmentQuizSourceSelection : MainFragment() {
         savedInstanceState: Bundle?
     ): View? {
         __binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container,false)
+        binding?.backButton?.setOnClickListener(){
+            goBack()
+        }
         binding?.quizCustomWordsButton?.setOnClickListener(){
             val customWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("customWord")
             changeFragment(customWordsQuizFragment)
