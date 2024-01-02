@@ -1,6 +1,5 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import com.erdince.yabancidilkelimehaznesi6.*
-import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.erdince.yabancidilkelimehaznesi6.util.isOnline
 import com.erdince.yabancidilkelimehaznesi6.util.openNetworkSettings
 import com.google.firebase.FirebaseApp
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     val fragmentManager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.activity_main)
         FirebaseApp.initializeApp(baseContext)
         setFirebase()
         progressBar = findViewById(R.id.progressBar)
