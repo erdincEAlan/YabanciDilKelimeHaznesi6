@@ -121,10 +121,8 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun increaseKelimePointAndSwitch() {
-        if (wordSourceType == "kelimeler"){
-            kelimelerRef?.document(soruKelime?.wordId.toString())?.update("kelimePuan", FieldValue.increment(1))
-            checkKelimeLearnedAndUpdate()
-            requireActivity().makeToast("Kelimeye puan eklendi")
+        if (wordSourceType == "customWord"){
+            soruKelime?.let { wordViewModel.increaseWordPoint(it) }
         }
         refreshTheFragment()
 
@@ -134,28 +132,6 @@ class FragmentQuiz : MainFragment() {
         val thisFragment = newInstance(wordSourceType!!)
         changeFragment(thisFragment)
     }
-
-
-    private fun checkKelimeLearnedAndUpdate() {
-        if (soruKelime?.wordPoint == 6) {
-            setKelimeLearned()
-            updateUserOgrenilenKelimeNumber()
-        }
-    }
-
-    private fun setKelimeLearned() {
-        kelimelerRef?.document(soruKelime?.wordId.toString())?.update("kelimeOgrenmeDurum", 1)
-    }
-
-    private fun updateUserOgrenilenKelimeNumber() {
-        kullaniciRef?.document(Firebase.auth.currentUser!!.uid)?.update(
-            "ogrenilenKelimeSayisi",
-            FieldValue.increment(1)
-        )
-    }
-
-
-
 
     companion object {
 

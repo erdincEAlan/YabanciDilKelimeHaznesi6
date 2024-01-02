@@ -50,7 +50,7 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
     }
     fun createUserData(email : String, displayName : String,uidNew : String,authMethod : String){
         uid = uidNew
-        if (checkIfUserDocExists()){
+        if (!checkIfUserDocExists()){
             var newUserModel : UserModel = UserModel(
                 userName = displayName,
                 authMethod = authMethod,

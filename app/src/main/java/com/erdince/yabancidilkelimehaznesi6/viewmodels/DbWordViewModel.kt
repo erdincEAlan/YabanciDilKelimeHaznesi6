@@ -3,15 +3,18 @@ package com.erdince.yabancidilkelimehaznesi6.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
+import dagger.hilt.android.AndroidEntryPoint
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
@@ -21,6 +24,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     private var resource : ResourceModel<Any?> = ResourceModel(false, null)
     private var wordList = mutableListOf<WordModel>()
     private val db : FirebaseFirestore = Firebase.firestore
+    private val userDb = db.collection("users")
     private val customWordsDb = db.collection("customWords")
     private val publicWordsDb = db.collection("preparedWords")
 
@@ -45,7 +49,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                 }
             }
         }
-
+    }
+    fun increaseWordPoint(word : WordModel){
+        customWordsDb.document(word.wordId.toString() ).update("wordPoint", FieldValue.increment(1))
+        if (word.wordPoint?.plus(1) == 7){
+            customWordsDb.document(word.wordId.toString()).update("wordLearningStatus", true)
+            increaseLearnedWordsCount()
+        }
 
     }
     fun deleteWord(wordId: String) : Int{
@@ -126,6 +136,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         customWordsDb.add(word).addOnSuccessListener {
             word.wordId = it.id
             it.set(word)
+            increaseTotalWordsCount()
         }
     }
     fun addCustomWord (word : WordModel){
@@ -137,9 +148,15 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         customWordsDb.add(word).addOnSuccessListener {
             word.wordId = it.id
             it.set(word)
+            increaseTotalWordsCount()
         }
     }
 
-
+    private fun increaseTotalWordsCount() {
+        userDb.document(Firebase.auth.uid.toString()).update("totalWordCount", FieldValue.increment(1))
+    }
+    private fun increaseLearnedWordsCount() {
+        userDb.document(Firebase.auth.uid.toString()).update("learnedWordsCount", FieldValue.increment(1))
+    }
 
 }

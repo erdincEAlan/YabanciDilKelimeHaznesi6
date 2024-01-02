@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yabancı Dil Kelime Haznesi</string>
+    <string name="app_name">SozLook</string>
     <!-- Splash -->
     <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
     <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet
