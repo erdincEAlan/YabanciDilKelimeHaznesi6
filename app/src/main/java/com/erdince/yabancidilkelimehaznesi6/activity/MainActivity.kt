@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FirebaseApp.initializeApp(baseContext)
         setFirebase()
         progressBar = findViewById(R.id.progressBar)
         fragmentContainer = findViewById(R.id.quizFragmentContainer)
@@ -66,12 +65,13 @@ class MainActivity : AppCompatActivity() {
         restartActivity()
     }
     fun goBack() {
-        fragmentManager.popBackStack()
         startProgressBar()
+        supportFragmentManager.popBackStack()
+
     }
 
-    fun changeFragment(fragment: Fragment, addToBackStack : Boolean = true) {
-         startProgressBar()
+    fun changeFragment(fragment: Fragment, addToBackStack : Boolean = true, loadingBar : Boolean = true) {
+        if (loadingBar){ startProgressBar()}
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
         if (addToBackStack){fragmentTransaction.addToBackStack(null)}
@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun restartFragment(fragment: Fragment){
-        startProgressBar()
         changeFragment(fragment, false)
     }
 
