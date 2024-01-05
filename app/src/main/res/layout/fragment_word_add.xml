@@ -29,6 +29,7 @@
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
             android:layout_marginBottom="@dimen/process_button_content_margin"
+            android:padding="10dp"
             android:background="@drawable/roundedcorner_textbox"
             android:hint="@string/kelime_ekle_anlam_hint"
             android:textAppearance="@style/textbox_text_style"
@@ -80,6 +81,7 @@
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
             android:layout_marginBottom="@dimen/process_button_content_margin"
+            android:padding="10dp"
             android:background="@drawable/roundedcorner_textbox"
             android:textAppearance="@style/textbox_text_style"
             android:hint="@string/kelime_ekle_kelime_hint"
@@ -96,6 +98,7 @@
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
             android:layout_marginBottom="@dimen/process_button_content_margin"
+            android:padding="10dp"
             android:background="@drawable/roundedcorner_textbox"
             android:ellipsize="none"
             android:hint="@string/kelime_ekle_ornek_hint"
@@ -110,7 +113,7 @@
             app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/kelimeKaydetButton"
             android:layout_width="@dimen/process_button_height_and_width"
             android:layout_height="@dimen/process_button_height_and_width"

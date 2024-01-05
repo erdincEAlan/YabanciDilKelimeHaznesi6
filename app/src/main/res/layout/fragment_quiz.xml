@@ -21,13 +21,14 @@
             app:layout_constraintStart_toStartOf="@+id/questionTextView"
             app:layout_constraintTop_toTopOf="@+id/questionTextView" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/nextWordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="216dp"
             android:background="@drawable/roundedcorner"
             android:fontFamily="@font/ibm_plex_mono"
+            android:elevation="3dp"
             android:text="@string/sonraki_buton"
             android:textAlignment="center"
             android:textAllCaps="true"
@@ -65,13 +66,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/answerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:background="@drawable/roundedcorner"
             android:fontFamily="@font/ibm_plex_mono"
+            android:elevation="3dp"
             android:text="@string/cevap_buton"
             android:textAllCaps="true"
             android:textAppearance="@style/high_button_text"

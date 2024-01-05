@@ -76,7 +76,7 @@
                     android:textColor="@color/white" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
                 android:id="@+id/wordEditButton"
                 android:layout_width="70dp"
                 android:layout_height="48dp"

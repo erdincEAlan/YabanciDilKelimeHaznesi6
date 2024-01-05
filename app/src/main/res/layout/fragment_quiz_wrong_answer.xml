@@ -79,11 +79,12 @@ android:background="@color/theme_primary_color">
             app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="@+id/kelimeOrnekCumleTextView"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/nextWordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="180dp"
+            android:elevation="3dp"
             android:background="@drawable/roundedcorner"
             android:padding="@dimen/button_text_padding"
             android:text="@string/test_sonuc_yanlis_next_button"
@@ -92,11 +93,12 @@ android:background="@color/theme_primary_color">
             app:layout_constraintEnd_toEndOf="@+id/addToMyCustomWords"
             app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/addToMyCustomWords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
+            android:elevation="3dp"
             android:background="@drawable/roundedcorner"
             android:padding="@dimen/button_text_padding"
             android:text="Kelimelerime ekle"
@@ -108,12 +110,14 @@ android:background="@color/theme_primary_color">
         <TextView
             android:id="@+id/kelimeOrnekCumleTextView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_big_height"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
             android:layout_marginBottom="@dimen/button_frame_margin_bottom"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="ornekCumle"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
@@ -128,6 +132,9 @@ android:background="@color/theme_primary_color">
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="44dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:minHeight="70dp"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="ornekKelime"
@@ -142,11 +149,14 @@ android:background="@color/theme_primary_color">
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:padding="10dp"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+            android:gravity="center"
+            android:minHeight="70dp"
             android:layout_marginBottom="44dp"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
-            android:text="ornekAnlam"
+            android:text="ornekAnlamaaaaaaaaaaaaaaa"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
             app:layout_constraintBottom_toTopOf="@+id/testDogrusuOrnekTxt"

@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatImageButton
 
 
-class GeneralButton : AppCompatImageButton {
+class GeneralImageButton : AppCompatImageButton {
 
 
     @SuppressLint("ClickableViewAccessibility")

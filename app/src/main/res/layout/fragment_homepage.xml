@@ -55,7 +55,7 @@
             app:layout_constraintBottom_toTopOf="@+id/testButon"
             app:layout_constraintStart_toEndOf="@+id/testButon" />
 
-        <com.erdince.yabancidilkelimehaznesi6.util.GeneralButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/profilButon"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -66,7 +66,7 @@
             app:srcCompat="@drawable/ic_anaekran_profile"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.erdince.yabancidilkelimehaznesi6.util.GeneralButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/kelimeEkleButon"
             android:layout_width="@dimen/anaekran_main_icon_h_and_w"
             android:layout_height="@dimen/anaekran_main_icon_h_and_w"
@@ -78,7 +78,7 @@
             app:srcCompat="@drawable/ic_anaekran_kelime_ekle"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.erdince.yabancidilkelimehaznesi6.util.GeneralButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/listeGoruntuleButon"
             android:layout_width="@dimen/anaekran_main_icon_h_and_w"
             android:layout_height="@dimen/anaekran_main_icon_h_and_w"
@@ -90,7 +90,7 @@
             app:srcCompat="@drawable/ic_anaekran_list_goruntule"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.erdince.yabancidilkelimehaznesi6.util.GeneralButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/testButon"
             android:layout_width="@dimen/anaekran_main_icon_h_and_w"
             android:layout_height="@dimen/anaekran_main_icon_h_and_w"

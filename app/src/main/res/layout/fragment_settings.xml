@@ -42,11 +42,15 @@
                 android:layout_marginBottom="12dp"
                 app:srcCompat="@drawable/ic_anaekran_profile" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
                 android:id="@+id/fileButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:elevation="3dp"
+                android:gravity="center"
+
                 android:background="@drawable/roundedcorner"
                 android:text="Profil Fotoğrafı Seç"
                 android:textAppearance="@style/textbox_text_style"
@@ -83,6 +87,7 @@
                 android:layout_marginStart="@dimen/text_box_margin_start_and_end"
                 android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
                 android:layout_marginBottom="@dimen/process_button_content_margin"
+                android:padding="10dp"
                 android:background="@drawable/roundedcorner_textbox"
                 android:hint="@string/ayarlar_kullanici_adi_hint"
                 android:inputType="textPersonName"
@@ -144,7 +149,7 @@
             app:layout_constraintEnd_toEndOf="@+id/logOutButton"
             app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
 
-        <ImageButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/logOutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
