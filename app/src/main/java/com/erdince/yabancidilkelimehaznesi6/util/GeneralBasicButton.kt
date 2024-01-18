@@ -25,6 +25,8 @@ class GeneralBasicButton : AppCompatButton{
         return false
     }
 
+
+
     constructor(context: Context) : super(context) {
 
     }
