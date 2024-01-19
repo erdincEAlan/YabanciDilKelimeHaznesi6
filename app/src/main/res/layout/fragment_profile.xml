@@ -178,7 +178,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
+            <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/settingsButton"
             android:layout_width="@dimen/back_button_height_and_width"
             android:layout_height="@dimen/back_button_height_and_width"
