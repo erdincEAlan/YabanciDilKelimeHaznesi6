@@ -30,6 +30,7 @@ class FragmentQuiz : MainFragment() {
     private lateinit var __binding: FragmentQuizBinding
     private val binding get() = __binding
     private var wordSourceType: String? = null
+    private var onceCounter : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +104,12 @@ class FragmentQuiz : MainFragment() {
                 backToHomepage()
             }
             answerButton.setOnClickListener {
-                takeTheAnswerAndInit()
+                if (onceCounter > 0){
+                    takeTheAnswerAndInit()
+                }else{
+                    it.alpha = 0.5f
+                    makeToast("Seçim yapmadınız")
+                }
             }
         }
 
@@ -111,46 +117,58 @@ class FragmentQuiz : MainFragment() {
     private fun checkBoxListeners(){
         with(binding){
             choiceLayout.choice1.choiceLl.setOnClickListener(){
+                setTheAnswer(choiceWords[0])
                 choiceLayout.choice1.checkBox.isChecked = true
                 choiceLayout.choice3.checkBox.isChecked  = false
                 choiceLayout.choice2.checkBox.isChecked  = false
-                answerText = choiceWords[0]
                 updateCheckboxClickables()
             }
             choiceLayout.choice2.choiceLl.setOnClickListener(){
+                setTheAnswer(choiceWords[1])
                 choiceLayout.choice2.checkBox.isChecked  = true
                 choiceLayout.choice1.checkBox.isChecked  = false
                 choiceLayout.choice3.checkBox.isChecked  = false
-                answerText = choiceWords[1]
                 updateCheckboxClickables()
             }
             choiceLayout.choice3.choiceLl.setOnClickListener(){
+                setTheAnswer(choiceWords[2])
                 choiceLayout.choice3.checkBox.isChecked  = true
                 choiceLayout.choice1.checkBox.isChecked  = false
                 choiceLayout.choice2.checkBox.isChecked   = false
-                answerText = choiceWords[2]
                 updateCheckboxClickables()
             }
 
+
         }
 
+    }
+    private fun setTheAnswer(newAnswerText : String){
+        binding.answerButton.isClickable = false
+        answerText = newAnswerText
+       binding.answerButton.isClickable = true
     }
 
     private fun FragmentQuizBinding.updateCheckboxClickables() {
         choiceLayout.choice1.checkBox.isClickable = !choiceLayout.choice1.checkBox.isChecked
         choiceLayout.choice2.checkBox.isClickable = !choiceLayout.choice2.checkBox.isChecked
         choiceLayout.choice3.checkBox.isClickable = !choiceLayout.choice3.checkBox.isChecked
+        answerButton.alpha = 1f
+        if (onceCounter < 1){
+            onceCounter++
+        }
+
     }
 
     private fun takeTheAnswerAndInit() {
-        if (takeStringsAndMakeReadyToQuestioning(questionWord?.wordMeaning!!) == takeStringsAndMakeReadyToQuestioning(
-                answerText!!
-            )
-        ) {
-            correctAnswer()
-        } else {
-            incorrectAnswer()
+        if (answerText.isNotEmpty()){
+            if (takeStringsAndMakeReadyToQuestioning(questionWord?.wordMeaning!!) == takeStringsAndMakeReadyToQuestioning(answerText)
+            ) {
+                correctAnswer()
+            } else {
+                incorrectAnswer()
+            }
         }
+
     }
 
     private fun takeStringsAndMakeReadyToQuestioning(text: String): String {
