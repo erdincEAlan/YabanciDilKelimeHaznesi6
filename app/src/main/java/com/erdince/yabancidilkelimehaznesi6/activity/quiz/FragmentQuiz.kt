@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
@@ -92,10 +93,16 @@ class FragmentQuiz : MainFragment() {
 
     private fun setTextViews() {
         choiceWords.shuffle()
+        if (questionWord?.wordPoint != null && questionWord?.wordPoint != 0){
+            val wordPointAsString = questionWord?.wordPoint.toString()+getString(R.string.quiz_word_point_status_text)
+            binding.questionWordPointStatus.text = wordPointAsString
+            binding.questionWordPointStatus.isVisible = true
+        }
         binding.choiceLayout.choice1.choiceText.text = choiceWords[0].capitalize(Locale.getDefault())
         binding.choiceLayout.choice2.choiceText.text = choiceWords[1].capitalize(Locale.getDefault())
         binding.choiceLayout.choice3.choiceText.text = choiceWords[2].capitalize(Locale.getDefault())
         binding.questionTextView.text = questionWord?.wordIt?.capitalize(Locale.getDefault())
+
     }
 
     private fun setButtons() {

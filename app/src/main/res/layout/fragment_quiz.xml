@@ -10,31 +10,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary_color">
+        <LinearLayout android:id="@+id/questionWordLl" android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="15dp"
+                      android:orientation="vertical"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/backButton">
 
-        <TextView
-            android:id="@+id/questionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="84dp"
-            android:gravity="center"
-            android:background="@drawable/roundedcorner"
-            android:padding="20dp"
-            android:textAppearance="@style/test_word"
-            app:layout_constraintBottom_toTopOf="@+id/choiceLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/backButton"/>
+            <TextView   android:id="@+id/questionWordPointStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:background="@drawable/roundedcorner"
+                      android:padding="10dp"
+                        android:visibility="gone"
+                      android:textAlignment="center"
+                      android:textColor="@color/theme_orange_color"
+                      android:textSize="@dimen/main_title_text_size"/>
+            <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/roundedcorner"
+                android:gravity="center"
+                android:padding="20dp"
+                android:textAppearance="@style/test_word"
+            />
+
+        </LinearLayout>
 
 
         <include android:id="@+id/choiceLayout" layout="@layout/test_choice_item"
+                 android:layout_width="@dimen/text_box_width"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="@dimen/text_box_margin_start_and_end"
+                 android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
+                 android:layout_marginBottom="100dp"
+                 android:layout_marginTop="40dp"
                  app:layout_constraintBottom_toTopOf="@+id/answerButton"
                  app:layout_constraintEnd_toEndOf="parent"
                  app:layout_constraintStart_toStartOf="parent"
-                 android:layout_width="@dimen/text_box_width"
-                 android:layout_height="wrap_content"
-                 android:layout_marginBottom="100dp"
-                 android:layout_marginStart="@dimen/text_box_margin_start_and_end"
-                 android:layout_marginEnd="@dimen/text_box_margin_start_and_end"/>
+                 app:layout_constraintTop_toBottomOf="@+id/questionWordLl"/>
 
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
@@ -46,12 +61,13 @@
             android:alpha="0.5"
             android:background="@drawable/roundedcorner"
             android:elevation="3dp"
+            android:layout_marginTop="80dp"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/cevap_buton"
             android:textAllCaps="true"
             android:textAppearance="@style/high_button_text"
             android:textColor="@color/theme_orange_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/choiceLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498" app:layout_constraintStart_toStartOf="parent"/>
 
