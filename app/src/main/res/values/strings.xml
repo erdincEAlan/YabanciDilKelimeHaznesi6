@@ -18,6 +18,7 @@
     <string name="test_sonuc_yanlis_correct_ornekCumle_txt">Ornek Cumle</string>
     <string name="test_sonuc_yanlis_next_button">Sonraki kelime</string>
     <string name="test_sonuc_yanlis_finish_button">Bitir</string>
+    <string name="quiz_word_point_status_text">/10</string>
     <!-- Profil -->
     <string name="profil_kullanici_adi">Kullanici Adi</string>
     <string name="profil_toplam_kelime_txt">TOPLAM KELİME</string>

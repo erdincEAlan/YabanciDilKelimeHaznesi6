@@ -52,7 +52,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     }
     fun increaseWordPoint(word : WordModel){
         customWordsDb.document(word.wordId.toString() ).update("wordPoint", FieldValue.increment(1))
-        if (word.wordPoint?.plus(1)!! >= 7){
+        if (word.wordPoint?.plus(1)!! >= 10){
             customWordsDb.document(word.wordId.toString()).update("wordLearningStatus", true)
             increaseLearnedWordsCount()
         }
