@@ -1,10 +1,12 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
+import android.animation.Animator
+import android.animation.Animator.AnimatorListener
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -122,12 +124,14 @@ class FragmentQuiz : MainFragment() {
     private fun checkBoxListeners(){
         with(binding){
             choiceLayout.choice1.choiceLl.setOnClickListener(){
+                changeTapStates(1)
                 choiceLayout.choice1.checkBox.isChecked = true
                 choiceLayout.choice3.checkBox.isChecked  = false
                 choiceLayout.choice2.checkBox.isChecked  = false
                 updateCheckboxClickables()
             }
             choiceLayout.choice2.choiceLl.setOnClickListener(){
+                changeTapStates(2)
                 choiceLayout.choice2.checkBox.isChecked  = true
                 choiceLayout.choice1.checkBox.isChecked  = false
                 choiceLayout.choice3.checkBox.isChecked  = false
@@ -135,6 +139,7 @@ class FragmentQuiz : MainFragment() {
 
             }
             choiceLayout.choice3.choiceLl.setOnClickListener(){
+                changeTapStates(3)
                 choiceLayout.choice3.checkBox.isChecked  = true
                 choiceLayout.choice1.checkBox.isChecked  = false
                 choiceLayout.choice2.checkBox.isChecked   = false
@@ -160,6 +165,36 @@ class FragmentQuiz : MainFragment() {
         }
 
     }
+
+    private fun changeTapStates(selectedChoice : Int?){
+        with(binding){
+            choiceLayout.choice1.animation.root.alpha = 1f
+            choiceLayout.choice2.animation.root.alpha = 1f
+            choiceLayout.choice3.animation.root.alpha = 1f
+            choiceLayout.choice1.choiceText.setTextColor(resources.getColor(R.color.white))
+            choiceLayout.choice2.choiceText.setTextColor(resources.getColor(R.color.white))
+            choiceLayout.choice3.choiceText.setTextColor(resources.getColor(R.color.white))
+            //selectedChoice?.alpha = 0.5f
+            when(selectedChoice){
+                1 ->{
+                    choiceLayout.choice1.animation.root.alpha = 0.5f
+                    choiceLayout.choice1.choiceText.setTextColor(resources.getColor(R.color.theme_orange_color))
+                }
+                2 -> {
+                    choiceLayout.choice2.animation.root.alpha = 0.5f
+                    choiceLayout.choice2.choiceText.setTextColor(resources.getColor(R.color.theme_orange_color))
+
+                }
+                3 -> {
+                    choiceLayout.choice3.animation.root.alpha = 0.5f
+                    choiceLayout.choice3.choiceText.setTextColor(resources.getColor(R.color.theme_orange_color))
+                }
+
+            }
+
+        }
+
+    }
     private fun setTheAnswer(newAnswerText : String){
         answerText = newAnswerText
         answerReady = true
@@ -174,6 +209,7 @@ class FragmentQuiz : MainFragment() {
 
     private fun takeTheAnswerAndInit() {
         if (answerText.isNotEmpty()){
+            changeTapStates(null)
             if (takeStringsAndMakeReadyToQuestioning(questionWord?.wordMeaning!!) == takeStringsAndMakeReadyToQuestioning(answerText)
             ) {
                 correctAnswer()
@@ -189,14 +225,78 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun incorrectAnswer() {
+        configureAnimationsAndStart(false)
+    }
+
+    private fun switchToWrongAnswerPage() {
         val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(questionWord?.wordId!!, wordSourceType!!)
         changeFragment(fragmentQuizWrongAnswer)
     }
 
 
     private fun correctAnswer() {
-        requireActivity().makeToast("Cevap Doğru")
-        increaseKelimePointAndSwitch()
+       configureAnimationsAndStart(true)
+
+    }
+
+    private fun startAnimation(isAnswerTrue: Boolean) {
+        with(binding){
+            if (choiceLayout.choice1.checkBox.isChecked){
+                if (!isAnswerTrue){
+                    binding.choiceLayout.choice1.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                }
+                binding.choiceLayout.choice1.animation.animationView.playAnimation()
+
+
+            }else if(choiceLayout.choice2.checkBox.isChecked){
+                if (!isAnswerTrue){
+                    binding.choiceLayout.choice2.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                }
+                binding.choiceLayout.choice2.animation.animationView.playAnimation()
+
+
+            }else if (choiceLayout.choice3.checkBox.isChecked){
+                if (!isAnswerTrue){
+                    binding.choiceLayout.choice3.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                }
+                binding.choiceLayout.choice3.animation.animationView.playAnimation()
+
+
+            } else{}
+        }
+
+    }
+
+    private fun configureAnimationsAndStart(isAnswerTrue : Boolean) {
+        val animationListener = object : AnimatorListener{
+            override fun onAnimationStart(animation: Animator) {
+                Log.d("Lottie","Animation Started")
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                if (isAnswerTrue) {
+                    increaseKelimePointAndSwitch()
+                }else{
+                    switchToWrongAnswerPage()
+                }
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                Log.d("Lottie","Animation has been cancelled")
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                Log.d("Lottie","Animation repeat")
+            }
+
+        }
+        binding.choiceLayout.choice1.animation.animationView.speed = 1.6f
+        binding.choiceLayout.choice2.animation.animationView.speed = 1.6f
+        binding.choiceLayout.choice3.animation.animationView.speed = 1.6f
+        binding.choiceLayout.choice1.animation.animationView.addAnimatorListener(animationListener)
+        binding.choiceLayout.choice2.animation.animationView.addAnimatorListener(animationListener)
+        binding.choiceLayout.choice3.animation.animationView.addAnimatorListener(animationListener)
+        startAnimation(isAnswerTrue)
     }
 
     private fun increaseKelimePointAndSwitch() {
