@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".activity.FragmentWordEdit">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary_color">
@@ -21,6 +20,7 @@
             android:background="@drawable/roundedcorner_textbox"
             android:hint="Örnek Cumle"
             android:inputType="textMultiLine"
+            android:gravity="center"
             android:scrollHorizontally="false"
             app:layout_constraintBottom_toTopOf="@+id/saveButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,7 @@
             android:layout_marginBottom="56dp"
             android:background="@drawable/roundedcorner_textbox"
             android:hint="Kelime Anlam"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/wordExampleEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -48,6 +49,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="56dp"
+            android:gravity="center"
             android:background="@drawable/roundedcorner_textbox"
             android:hint="Kelime"
 
@@ -56,7 +58,7 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <ImageButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_button_save"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/deleteButton"
             android:layout_width="99dp"
             android:layout_height="48dp"
@@ -83,19 +85,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/removeFromLearnedWordsButton"
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
+            android:id="@+id/resetWordStatusBt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/roundedcorner"
+            android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/abril_fatface"
-            android:text="Öğrenilenlerden kaldır"
+            android:text="Öğrenme Durumunu Sıfırla"
             android:textAllCaps="false"
+            android:padding="10dp"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintTop_toTopOf="@+id/deleteButton"/>
+
+        <LinearLayout android:id="@+id/wordInfoLl" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:layout_constraintEnd_toEndOf="@+id/resetWordStatusBt"
+                      android:layout_marginTop="5dp"
+
+                      app:layout_constraintStart_toStartOf="@id/resetWordStatusBt"
+                      app:layout_constraintTop_toBottomOf="@id/resetWordStatusBt">
+            <TextView android:id="@+id/wordPointStatusInfo" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:alpha="0.6"
+                      android:textAppearance="@style/small_text" android:text="Puan : 4"/>
+            <View android:layout_width="2dp" android:layout_height="match_parent"
+                  android:layout_marginHorizontal="2dp" android:layout_marginVertical="3dp"
+                  android:background="@color/theme_secondary_color"/>
+            <TextView android:id="@+id/wordLearnStatusInfo" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:alpha="0.6"
+                      android:textAppearance="@style/small_text"
+                      android:text="Durum : Öğrenilmiş"/>
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/backButton"
