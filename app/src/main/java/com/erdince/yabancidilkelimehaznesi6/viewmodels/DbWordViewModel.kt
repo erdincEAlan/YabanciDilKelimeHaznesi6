@@ -3,7 +3,6 @@ package com.erdince.yabancidilkelimehaznesi6.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.google.firebase.auth.ktx.auth
@@ -14,7 +13,6 @@ import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
-import dagger.hilt.android.AndroidEntryPoint
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
@@ -27,7 +25,6 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
     private val userDb = db.collection("users")
     private val customWordsDb = db.collection("customWords")
     private val publicWordsDb = db.collection("preparedWords")
-
 
 
 
@@ -75,7 +72,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         }
        return responseCode
     }
-    fun observeRandomWord(wordSourceType : String) {
+    fun observeRandomWord(wordSourceType : String, lastWordId : String? = null) {
 
         if (wordSourceType == "customWord") {
             customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordLearningStatus", false)
@@ -83,7 +80,16 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordList = documents.toObjects(WordModel::class.java)
                     if (wordList.size > 0) {
                         resource.success = true
-                        resource.data = wordList.random()
+                        while (resource.data == null){
+                            wordList.random().let {
+                                if (wordList.size >1){
+                                    if (it.wordId != lastWordId){
+                                        resource.data = it
+                                    }
+                                }else resource.data = it ;
+                            }
+                        }
+
                         wordLiveData.postValue(resource)
 
                     }else wordLiveData.postValue(resource)
@@ -98,7 +104,16 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                 }
                 if (wordList.size > 0) {
                     resource.success = true
-                    resource.data = wordList.random()
+                    while (resource.data !=null){
+                        wordList.random().let {
+                            if (wordList.size >1){
+                                if (it.wordId != lastWordId){
+                                    resource.data = it
+                                }
+                            }else resource.data = it
+                        }
+                    }
+
                     wordLiveData.postValue(resource)
 
                 }else wordLiveData.postValue(resource)
