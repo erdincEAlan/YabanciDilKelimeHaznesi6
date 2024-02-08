@@ -16,7 +16,7 @@ import com.google.firebase.firestore.toObject
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): ViewModel() {
-    private var responseCode : Int = 0
+    private var responseCode: Int = 400
     private var word : WordModel? = null
     var wordLiveData = MutableLiveData<ResourceModel<Any?>>()
     private var resource : ResourceModel<Any?> = ResourceModel(false, null)
@@ -63,14 +63,17 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         }
         return responseCode
     }
-    fun updateWord(word : WordModel, wordId : String) : Int{
-        word.wordId=wordId
-        customWordsDb.document(wordId).set(word).addOnSuccessListener {
-            responseCode = 200
-        }.addOnFailureListener {
-            responseCode = 400
+
+    fun updateWord(word: WordModel?): Int {
+        word?.let {
+            customWordsDb.document(word.wordId!!).set(word).addOnSuccessListener {
+                responseCode = 200
+            }.addOnFailureListener {
+                responseCode = 400
+            }
+            return responseCode
         }
-       return responseCode
+        return responseCode
     }
     fun observeRandomWord(wordSourceType : String, lastWordId : String? = null) {
 
@@ -104,13 +107,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                 }
                 if (wordList.size > 0) {
                     resource.success = true
-                    while (resource.data !=null){
+                    while (resource.data == null) {
                         wordList.random().let {
                             if (wordList.size >1){
                                 if (it.wordId != lastWordId){
                                     resource.data = it
                                 }
-                            }else resource.data = it
+                            } else resource.data = it;
                         }
                     }
 
@@ -145,6 +148,10 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         }
     }
 
+    fun resetTheWordStatus(word: WordModel?) {
+        word?.merge(WordModel(wordLearningStatus = false, wordPoint = 0))
+        updateWord(word)
+    }
     fun addPublicWordToCustomWord (word : WordModel){
         word.wordStatus = true
         word.wordLearningStatus = false

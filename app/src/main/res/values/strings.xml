@@ -86,5 +86,8 @@
     <string name="word_not_found_err">Kelime Bulunamadı</string>
     <!-- Warnings -->
     <string name="default_network_exception_msg">Bir sorun oluştu, internet bağlantınızı kontrol edin</string>
+    <string name="learnedWordStatusText">Öğrenilmiş</string>
+    <string name="unLearnedWordStatusText">Öğreniliyor</string>
+    <string name="of10">/10</string>
 
 </resources>
