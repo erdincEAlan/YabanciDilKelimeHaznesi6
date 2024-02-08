@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
-import com.erdince.yabancidilkelimehaznesi6.model.QuestionWordModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -20,13 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 private const val WORD_SRC_PARAM = "wordSource"
+private const val PRE_WORD_PARAM = "lastWord"
 
 
 @AndroidEntryPoint
 class FragmentQuiz : MainFragment() {
 
     private var questionWord: WordModel? = null
-    private var questionWordsList: MutableList<QuestionWordModel>? = null
+   private var lastWordId : String?=null
     private var choiceWords: MutableList<String> = mutableListOf()
     private var answerText: String = ""
     private val wordViewModel: DbWordViewModel by viewModels()
@@ -39,6 +39,7 @@ class FragmentQuiz : MainFragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             wordSourceType = it.getString(WORD_SRC_PARAM)
+            lastWordId = it.getString(PRE_WORD_PARAM)
         }
     }
 
@@ -303,17 +304,18 @@ class FragmentQuiz : MainFragment() {
         if (wordSourceType == "customWord") {
             questionWord?.let { wordViewModel.increaseWordPoint(it) }
         }
-        changeFragment(FragmentQuiz.newInstance(wordSourceType.toString()), false)
+        changeFragment(FragmentQuiz.newInstance(wordSourceType.toString(), questionWord?.wordId), false)
     }
 
 
     companion object {
 
         @JvmStatic
-        fun newInstance(wordSource: String) =
+        fun newInstance(wordSource: String, previousWordId : String?=null) =
             FragmentQuiz().apply {
                 arguments = Bundle().apply {
                     putString(WORD_SRC_PARAM, wordSource)
+                    putString(PRE_WORD_PARAM, previousWordId)
 
                 }
             }
