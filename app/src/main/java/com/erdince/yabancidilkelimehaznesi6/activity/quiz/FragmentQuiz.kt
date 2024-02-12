@@ -116,8 +116,8 @@ class FragmentQuiz : MainFragment() {
             answerButton.setOnClickListener {
                 if (answerReady){
                     takeTheAnswerAndInit()
-                }else it.alpha = 0.5f
-
+                }
+                answerButton.disableButton()
             }
         }
 
@@ -199,7 +199,7 @@ class FragmentQuiz : MainFragment() {
     private fun setTheAnswer(newAnswerText : String){
         answerText = newAnswerText
         answerReady = true
-        binding.answerButton.alpha = 1f
+        binding.answerButton.enableButton()
     }
 
     private fun FragmentQuizBinding.updateCheckboxClickables() {
