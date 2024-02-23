@@ -13,6 +13,7 @@ import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
+import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,6 @@ class FragmentQuiz : MainFragment() {
     private val binding get() = __binding
     private var wordSourceType: String? = null
     private var answerReady = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,6 +55,7 @@ class FragmentQuiz : MainFragment() {
     fun init() {
         prapare()
         initUI()
+
     }
 
     private fun prapare() {
@@ -301,7 +302,7 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun increaseKelimePointAndSwitch() {
-        if (wordSourceType == "customWord") {
+        if (wordSourceType == WordType.CustomWord.wordType) {
             questionWord?.let { wordViewModel.increaseWordPoint(it) }
         }
         changeFragment(FragmentQuiz.newInstance(wordSourceType.toString(), questionWord?.wordId), false)

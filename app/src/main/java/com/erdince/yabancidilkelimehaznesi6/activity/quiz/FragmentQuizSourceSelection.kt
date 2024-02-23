@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.erdince.yabancidilkelimehaznesi6.activity.MainActivity
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizSourceSelectionBinding
+import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,11 +32,11 @@ class FragmentQuizSourceSelection : MainFragment() {
             goBack()
         }
         binding?.quizCustomWordsButton?.setOnClickListener(){
-            val customWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("customWord")
+            val customWordsQuizFragment: FragmentQuiz = FragmentQuiz.newInstance(WordType.CustomWord.wordType)
             changeFragment(customWordsQuizFragment)
         }
         binding?.quizPreparedWordsButton?.setOnClickListener(){
-            val preparedWordsQuizFragment : FragmentQuiz = FragmentQuiz.newInstance("preparedWord")
+            val preparedWordsQuizFragment: FragmentQuiz = FragmentQuiz.newInstance(WordType.PreparedWord.wordType)
             changeFragment(preparedWordsQuizFragment)
         }
         stopProgressBar()

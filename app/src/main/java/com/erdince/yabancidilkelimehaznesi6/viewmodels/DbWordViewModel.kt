@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
+import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.ktx.Firebase
@@ -76,41 +77,51 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         return responseCode
     }
     fun observeRandomWord(wordSourceType : String, lastWordId : String? = null) {
+        if (wordSourceType == WordType.CustomWord.wordType) {
+            generateCustomWord(lastWordId)
+        } else if (wordSourceType == WordType.PreparedWord.wordType) {
+            generatePreparedWord(lastWordId)
 
-        if (wordSourceType == "customWord") {
-            customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordLearningStatus", false)
-                .whereEqualTo("wordOwnerId", Firebase.auth.uid).get().addOnSuccessListener { documents ->
-                    wordList = documents.toObjects(WordModel::class.java)
-                    if (wordList.size > 0) {
-                        resource.success = true
-                        while (resource.data == null){
-                            wordList.random().let {
-                                if (wordList.size >1){
-                                    if (it.wordId != lastWordId){
-                                        resource.data = it
-                                    }
-                                }else resource.data = it ;
+        }
+    }
+
+    private fun generatePreparedWord(lastWordId: String?) {
+        publicWordsDb.whereEqualTo("wordStatus", true).get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                wordList.add(document.toObject<WordModel>())
+            }
+            if (wordList.size > 0) {
+                resource.success = true
+                while (resource.data == null) {
+                    wordList.random().let {
+                        if (wordList.size > 1) {
+                            if (it.wordId != lastWordId) {
+                                resource.data = it
                             }
-                        }
-
-                        wordLiveData.postValue(resource)
-
-                    }else wordLiveData.postValue(resource)
-
-                }.addOnFailureListener(){
-                    wordLiveData.postValue(resource)
+                        } else resource.data = it;
+                    }
                 }
-        } else if (wordSourceType == "preparedWord") {
-            publicWordsDb.whereEqualTo("wordStatus", true).get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    wordList.add(document.toObject<WordModel>())
-                }
+
+                wordLiveData.postValue(resource)
+
+            } else wordLiveData.postValue(resource)
+
+        }.addOnFailureListener() {
+
+            wordLiveData.postValue(resource)
+        }
+    }
+
+    private fun generateCustomWord(lastWordId: String?) {
+        customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordLearningStatus", false)
+            .whereEqualTo("wordOwnerId", Firebase.auth.uid).get().addOnSuccessListener { documents ->
+                wordList = documents.toObjects(WordModel::class.java)
                 if (wordList.size > 0) {
                     resource.success = true
                     while (resource.data == null) {
                         wordList.random().let {
-                            if (wordList.size >1){
-                                if (it.wordId != lastWordId){
+                            if (wordList.size > 1) {
+                                if (it.wordId != lastWordId) {
                                     resource.data = it
                                 }
                             } else resource.data = it;
@@ -119,15 +130,11 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
                     wordLiveData.postValue(resource)
 
-                }else wordLiveData.postValue(resource)
+                } else wordLiveData.postValue(resource)
 
-            }.addOnFailureListener(){
-
+            }.addOnFailureListener() {
                 wordLiveData.postValue(resource)
             }
-
-        }
-
     }
 
     fun getWordList(wordType : String, learnedStatus : Boolean? = null) {
