@@ -68,8 +68,8 @@
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/kelimeEkleButon"
-            android:layout_width="@dimen/anaekran_main_icon_h_and_w"
-            android:layout_height="@dimen/anaekran_main_icon_h_and_w"
+            android:layout_width="@dimen/mainscreen_icons_size"
+            android:layout_height="@dimen/mainscreen_icons_size"
             android:layout_marginBottom="5dp"
             android:background="@drawable/roundedcorner"
             android:elevation="3dp"
@@ -80,8 +80,8 @@
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/listeGoruntuleButon"
-            android:layout_width="@dimen/anaekran_main_icon_h_and_w"
-            android:layout_height="@dimen/anaekran_main_icon_h_and_w"
+            android:layout_width="@dimen/mainscreen_icons_size"
+            android:layout_height="@dimen/mainscreen_icons_size"
             android:layout_marginBottom="4dp"
             android:elevation="3dp"
             android:background="@drawable/roundedcorner"
@@ -92,8 +92,8 @@
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/testButon"
-            android:layout_width="@dimen/anaekran_main_icon_h_and_w"
-            android:layout_height="@dimen/anaekran_main_icon_h_and_w"
+            android:layout_width="@dimen/mainscreen_icons_size"
+            android:layout_height="@dimen/mainscreen_icons_size"
             android:layout_marginBottom="4dp"
             android:elevation="3dp"
             android:background="@drawable/roundedcorner"

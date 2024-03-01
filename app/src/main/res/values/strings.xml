@@ -8,24 +8,24 @@
     <string name="network_dialog_wifi_button">WIFI ayarlarını aç</string>
     <string name="network_dialog_mobile_data_button">Mobil veri ayarlarını aç</string>
     <!-- Test -->
-    <string name="cevap_buton">Cevapla</string>
-    <string name="sonraki_buton">Bu kelimeyi biliyorum, sonraki kelimeye geç</string>
-    <string name="cevap_edit_text">cevap</string>
-    <string name="test_sonuc_yanlis_title">Cevap Yanlış</string>
-    <string name="test_sonuc_yanlis_correct_answer_txt">Doğrusu:</string>
-    <string name="test_sonuc_yanlis_correct_kelime_txt">Kelime</string>
-    <string name="test_sonuc_yanlis_correct_anlam_txt">Anlam</string>
-    <string name="test_sonuc_yanlis_correct_ornekCumle_txt">Ornek Cumle</string>
-    <string name="test_sonuc_yanlis_next_button">Sonraki kelime</string>
-    <string name="test_sonuc_yanlis_finish_button">Bitir</string>
+    <string name="answer_button">Cevapla</string>
+    <string name="next_button">Bu kelimeyi biliyorum, sonraki kelimeye geç</string>
+    <string name="answer_edit_text">cevap</string>
+    <string name="quiz_wrong_answer_title">Cevap Yanlış</string>
+    <string name="quiz_answer">Doğrusu:</string>
+    <string name="quiz_answer_word">Kelime</string>
+    <string name="quiz_answer_meaning">Anlam</string>
+    <string name="quiz_answer_example">Ornek Cumle</string>
+    <string name="next_word_button">Sonraki kelime</string>
+    <string name="quiz_finish_button">Bitir</string>
     <string name="quiz_word_point_status_text">/10</string>
     <!-- Profil -->
-    <string name="profil_kullanici_adi">Kullanici Adi</string>
-    <string name="profil_toplam_kelime_txt">TOPLAM KELİME</string>
-    <string name="profil_ogrenilen_kelime_txt">ÖĞRENİLEN KELİME</string>
-    <string name="profil_ogrenilen_kelimeler_button_txt">Öğrenilen Kelimeler</string>
-    <string name="profil_ayarlar_button_txt">Ayarlar</string>
-    <string name="profil_ogrenilen_kelimeler_button">Öğrenilen Kelimeler</string>
+    <string name="profile_username">Kullanici Adi</string>
+    <string name="profile_total_word">TOPLAM KELİME</string>
+    <string name="profile_learned_words_count">ÖĞRENİLEN KELİME</string>
+    <string name="profile_learned_words_button_txt">Öğrenilen Kelimeler</string>
+    <string name="profile_settings_button_txt">Ayarlar</string>
+    <string name="profile_learned_words_button">Öğrenilen Kelimeler</string>
     <string name="info_number_txt">adet</string>
     <!-- Ayarlar -->
     <string name="ayarlar_yeni_kullanici_adi">Yeni Kullanıcı Adı</string>

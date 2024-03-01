@@ -4,7 +4,7 @@
     <dimen name="splash_logo_width">285dp</dimen>
     <dimen name="splash_logo_height">380dp</dimen>
     <!--Sifre Sifirla-->
-    <dimen name="sifre_sifirla_send_button_margin_bottom">176dp</dimen>
+    <dimen name="pass_reset_send_button_margin_bottom">176dp</dimen>
     <!--Giris Yap-->
     <dimen name="login_button_content_margin">110dp</dimen>
 
@@ -49,9 +49,9 @@
     <dimen name="main_title_margin_bottom">50dp</dimen>
     <dimen name="main_title_text_size">20sp</dimen>
     <dimen name="text_box_title_margin_bottom">2dp</dimen>
-    <dimen name="anaekran_main_icon_h_and_w">115dp</dimen>
+    <dimen name="mainscreen_icons_size">115dp</dimen>
     <dimen name="icon_radius">30dp</dimen>
-    <dimen name="genel_giris_textler_arasi_bosluk">30dp</dimen>
+    <dimen name="general_edit_text_margin">30dp</dimen>
     <dimen name="button_text_padding">8dp</dimen>
 
 
