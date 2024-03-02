@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
@@ -20,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 private const val WORD_SRC_PARAM = "wordSource"
-private const val PRE_WORD_PARAM = "lastWord"
+private const val PRE_WORD_PARAM = "lastWordId"
 
 
 @AndroidEntryPoint
@@ -87,7 +89,7 @@ class FragmentQuiz : MainFragment() {
                 stopProgressBar()
             } else {
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
-                goBack()
+                findNavController().navigateUp()
             }
 
         }
@@ -112,7 +114,7 @@ class FragmentQuiz : MainFragment() {
     private fun setButtons() {
         with(binding) {
             backButton.setOnClickListener {
-                backToHomepage()
+                findNavController().navigateUp()
             }
             answerButton.setOnClickListener {
                 if (answerReady){
@@ -231,8 +233,11 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun switchToWrongAnswerPage() {
-        val fragmentQuizWrongAnswer = FragmentQuizWrongAnswer.newInstance(questionWord?.wordId!!, wordSourceType!!)
-        changeFragment(fragmentQuizWrongAnswer)
+        findNavController().navigate(
+            R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
+                Pair(WordType.WordTypeKey.value, wordSourceType), Pair(PRE_WORD_PARAM, questionWord?.wordId)
+            )
+        )
     }
 
 
@@ -302,15 +307,23 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun increaseKelimePointAndSwitch() {
-        if (wordSourceType == WordType.CustomWord.wordType) {
+        if (wordSourceType == WordType.CustomWord.value) {
             questionWord?.let { wordViewModel.increaseWordPoint(it) }
         }
-        changeFragment(FragmentQuiz.newInstance(wordSourceType.toString(), questionWord?.wordId), false)
+        findNavController().apply {
+            currentDestination?.id?.let {
+                navigate(
+                    it, bundleOf(
+                        Pair(WordType.WordTypeKey.value, wordSourceType),
+                        Pair(PRE_WORD_PARAM, questionWord?.wordId)
+                    )
+                )
+            }
+        }
     }
 
 
     companion object {
-
         @JvmStatic
         fun newInstance(wordSource: String, previousWordId : String?=null) =
             FragmentQuiz().apply {

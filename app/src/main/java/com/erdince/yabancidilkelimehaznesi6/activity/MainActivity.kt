@@ -9,10 +9,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.erdince.yabancidilkelimehaznesi6.*
 import com.erdince.yabancidilkelimehaznesi6.util.isOnline
 import com.erdince.yabancidilkelimehaznesi6.util.openNetworkSettings
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,14 +31,37 @@ class MainActivity : AppCompatActivity() {
     private var progressBar : LinearLayout?=null
     private var fragmentContainer : FragmentContainerView?=null
     val fragmentManager = supportFragmentManager
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setFirebase()
         progressBar = findViewById(R.id.progressBar)
-        fragmentContainer = findViewById(R.id.quizFragmentContainer)
+        fragmentContainer = findViewById(R.id.mainFragmentContainer)
+        setNavController()
         setBackPressed()
         stopProgressBar()
+    }
+
+    private fun setNavController() {
+        navController =
+            (supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment).navController
+        navController.addOnDestinationChangedListener() { naviController, destination, bundle ->
+            bundle?.getString(Keys.PreviousWordKey.key).let {
+                if (it != null) {
+
+                }
+            }
+
+            startProgressBar()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setNetworkAlert()
+        setFirebase()
+        networkCheck()
     }
 
     private fun setBackPressed() {
@@ -54,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         startProgressBar()
         supportFragmentManager.popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
-            .add(R.id.quizFragmentContainer, FragmentHomepage.newInstance())
+            .add(R.id.mainFragmentContainer, FragmentHomepage.newInstance())
             .addToBackStack(null)
             .commitAllowingStateLoss()
 
@@ -70,17 +95,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     fun changeFragment(fragment: Fragment, addToBackStack : Boolean = true, loadingBar : Boolean = true) {
         if (loadingBar){ startProgressBar()}
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
+        fragmentTransaction.replace(R.id.mainFragmentContainer, fragment)
         if (addToBackStack){fragmentTransaction.addToBackStack(null)}
          fragmentTransaction.commitAllowingStateLoss()
 
     }
     fun changeFragmentWithoutLoadingBar(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.quizFragmentContainer, fragment)
+        fragmentTransaction.replace(R.id.mainFragmentContainer, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commitAllowingStateLoss()
 
@@ -107,12 +133,7 @@ class MainActivity : AppCompatActivity() {
         user = Firebase.auth.currentUser
         uid = user?.uid.toString()
     }
-    override fun onStart() {
-        super.onStart()
-        setNetworkAlert()
-        setFirebase()
-        networkCheck()
-    }
+
     fun throwDefaultWarning(){
         makeToast(getString(R.string.default_network_exception_msg))
     }
@@ -121,9 +142,9 @@ class MainActivity : AppCompatActivity() {
     private fun checkIsSignedInAndSwitchActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            changeFragment(FragmentHomepage.newInstance())
+            navController.navigate(R.id.fragmentHomepage)
         }else{
-            changeFragment(FragmentLogin.newInstance())
+            navController.navigate(R.id.fragmentLogin)
         }
     }
 

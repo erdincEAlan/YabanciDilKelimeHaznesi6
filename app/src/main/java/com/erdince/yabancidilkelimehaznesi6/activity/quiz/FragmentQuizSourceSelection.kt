@@ -1,11 +1,12 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.erdince.yabancidilkelimehaznesi6.activity.MainActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizSourceSelectionBinding
 import com.erdince.yabancidilkelimehaznesi6.util.WordType
@@ -29,15 +30,21 @@ class FragmentQuizSourceSelection : MainFragment() {
     ): View? {
         __binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container,false)
         binding?.backButton?.setOnClickListener(){
-            goBack()
+            findNavController().navigateUp()
         }
         binding?.quizCustomWordsButton?.setOnClickListener(){
-            val customWordsQuizFragment: FragmentQuiz = FragmentQuiz.newInstance(WordType.CustomWord.wordType)
-            changeFragment(customWordsQuizFragment)
+            findNavController().navigate(
+                R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
+                    Pair(WordType.WordTypeKey.value, WordType.CustomWord.value)
+                )
+            )
         }
         binding?.quizPreparedWordsButton?.setOnClickListener(){
-            val preparedWordsQuizFragment: FragmentQuiz = FragmentQuiz.newInstance(WordType.PreparedWord.wordType)
-            changeFragment(preparedWordsQuizFragment)
+            findNavController().navigate(
+                R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
+                    Pair(WordType.WordTypeKey.value, WordType.PreparedWord.value)
+                )
+            )
         }
         stopProgressBar()
         return binding?.root

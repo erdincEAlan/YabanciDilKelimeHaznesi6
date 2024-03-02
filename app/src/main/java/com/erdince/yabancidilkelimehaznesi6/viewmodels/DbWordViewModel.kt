@@ -77,9 +77,9 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
         return responseCode
     }
     fun observeRandomWord(wordSourceType : String, lastWordId : String? = null) {
-        if (wordSourceType == WordType.CustomWord.wordType) {
+        if (wordSourceType == WordType.CustomWord.value) {
             generateCustomWord(lastWordId)
-        } else if (wordSourceType == WordType.PreparedWord.wordType) {
+        } else if (wordSourceType == WordType.PreparedWord.value) {
             generatePreparedWord(lastWordId)
 
         }

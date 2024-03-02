@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentHomepageBinding
@@ -56,16 +57,17 @@ class FragmentHomepage : MainFragment() {
     private fun setButtons() {
         with(binding){
             profilButon.setOnClickListener {
-                changeFragment(FragmentProfile.newInstance())
+                findNavController().navigate(R.id.action_fragmentHomepage_to_fragmentProfile)
             }
             testButon.setOnClickListener {
-                changeFragmentWithoutLoadingBar(FragmentQuizSourceSelection.newInstance())
+                findNavController().navigate(R.id.action_fragmentHomepage_to_fragmentQuizSourceSelection)
             }
             kelimeEkleButon.setOnClickListener {
-                changeFragmentWithoutLoadingBar(FragmentWordAdd.newInstance())
+                findNavController().navigate(R.id.action_fragmentHomepage_to_fragmentWordAdd)
+
             }
             listeGoruntuleButon.setOnClickListener {
-                changeFragment(FragmentWordList.newInstance())
+                findNavController().navigate(R.id.action_fragmentHomepage_to_fragmentWordList)
             }
         }
 

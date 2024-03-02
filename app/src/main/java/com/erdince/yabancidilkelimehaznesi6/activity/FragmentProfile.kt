@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLearnedWordsBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentProfileBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
@@ -41,13 +43,14 @@ class FragmentProfile : MainFragment() {
     private fun setButtons(){
         with(binding){
             settingsButton.setOnClickListener(){
-                changeFragment(FragmentSettings.newInstance())
+                findNavController().navigate(R.id.action_fragmentProfile_to_fragmentSettings)
+
             }
             backButton.setOnClickListener(){
-                goBack()
+                findNavController().navigateUp()
             }
             learnedWordsListButton.setOnClickListener(){
-                changeFragment(LearnedWordsFragment.newInstance())
+                findNavController().navigate(R.id.action_fragmentProfile_to_learnedWordsFragment)
             }
         }
     }

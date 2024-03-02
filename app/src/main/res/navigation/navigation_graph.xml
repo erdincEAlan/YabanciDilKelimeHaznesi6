@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_graph"
+            app:startDestination="@id/fragmentLogin">
+
+    <fragment android:id="@+id/fragmentLogin" android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentLogin"
+              android:label="fragment_login" tools:layout="@layout/fragment_login">
+        <action android:id="@+id/action_fragmentLogin_to_fragmentHomepage" app:destination="@id/fragmentHomepage"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentHomepage"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentHomepage"
+              android:label="fragment_homepage" tools:layout="@layout/fragment_homepage">
+        <action android:id="@+id/action_fragmentHomepage_to_fragmentWordAdd" app:destination="@id/fragmentWordAdd"/>
+        <action android:id="@+id/action_fragmentHomepage_to_fragmentWordList" app:destination="@id/fragmentWordList"/>
+        <action android:id="@+id/action_fragmentHomepage_to_fragmentQuizSourceSelection"
+                app:destination="@id/fragmentQuizSourceSelection"/>
+        <action android:id="@+id/action_fragmentHomepage_to_fragmentProfile" app:destination="@id/fragmentProfile"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentWordAdd"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentWordAdd"
+              android:label="fragment_word_add" tools:layout="@layout/fragment_word_add"/>
+    <fragment android:id="@+id/fragmentWordList"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentWordList"
+              android:label="fragment_word_list" tools:layout="@layout/fragment_word_list">
+        <action android:id="@+id/action_fragmentWordList_to_fragmentWordEdit" app:destination="@id/fragmentWordEdit"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentWordEdit"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentWordEdit"
+              android:label="fragment_word_edit" tools:layout="@layout/fragment_word_edit"/>
+    <fragment android:id="@+id/fragmentQuiz"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuiz"
+              android:label="fragment_quiz" tools:layout="@layout/fragment_quiz">
+        <action android:id="@+id/action_fragmentQuiz_to_fragmentQuizWrongAnswer"
+                app:destination="@id/fragmentQuizWrongAnswer"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentQuizSourceSelection"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection"
+              android:label="fragment_quiz_source_selection" tools:layout="@layout/fragment_quiz_source_selection">
+        <action android:id="@+id/action_fragmentQuizSourceSelection_to_fragmentQuiz"
+                app:destination="@id/fragmentQuiz"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentQuizWrongAnswer"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizWrongAnswer"
+              android:label="fragment_quiz_wrong_answer" tools:layout="@layout/fragment_quiz_wrong_answer"/>
+    <fragment android:id="@+id/fragmentProfile"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentProfile"
+              android:label="fragment_profile" tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_fragmentProfile_to_fragmentSettings" app:destination="@id/fragmentSettings"/>
+        <action android:id="@+id/action_fragmentProfile_to_learnedWordsFragment"
+                app:destination="@id/learnedWordsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentSettings"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentSettings"
+              android:label="fragment_settings" tools:layout="@layout/fragment_settings"/>
+    <fragment android:id="@+id/learnedWordsFragment"
+              android:name="com.erdince.yabancidilkelimehaznesi6.activity.LearnedWordsFragment"
+              android:label="fragment_learned_words" tools:layout="@layout/fragment_learned_words"/>
+</navigation>
