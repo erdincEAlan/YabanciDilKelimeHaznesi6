@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.input.key.Key
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizWrongAnswerBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
+import com.erdince.yabancidilkelimehaznesi6.util.Keys
+import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +36,8 @@ class FragmentQuizWrongAnswer : MainFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            wordId = it.getString(PARAM_WORD_ID)
-            quizType= it.getString(PARAM_QUIZ_TYPE)
+            wordId = it.getString(Keys.WordIdKey.key)
+            quizType = it.getString(Keys.WordTypeKey.key)
 
         }
     }
@@ -60,7 +66,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
                 stopProgressBar()
             }else{
                 makeToast("Bir sorun oluştu, internet bağlantınızı kontrol edin")
-                goBack()
+                findNavController().navigateUp()
                 stopProgressBar()
             }
         }
@@ -74,19 +80,22 @@ class FragmentQuizWrongAnswer : MainFragment() {
     private fun setButtonClickers() {
         with(binding){
             quizResultBackButton.setOnClickListener {
-                backToHomepage()
+                findNavController().navigateUp()
             }
             nextWordButton.setOnClickListener {
-                val quizFragment : FragmentQuiz = FragmentQuiz.newInstance(quizType.toString())
-                changeFragment(quizFragment)
+                findNavController().navigate(
+                    R.id.fragmentQuiz, bundleOf(
+                        Pair(Keys.WordTypeKey.key, publicWord?.wordType),
+                        Pair(Keys.PreviousWordKey.key, publicWord?.wordId)
+                    )
+                )
             }
 
             addToMyCustomWords.setOnClickListener(){
                 publicWord.let {
                     wordViewModel.addPublicWordToCustomWord(it!!)
                 }
-                it.isClickable = false
-                it.alpha = 0.5f
+                addToMyCustomWords.disableButton()
             }
         }
 

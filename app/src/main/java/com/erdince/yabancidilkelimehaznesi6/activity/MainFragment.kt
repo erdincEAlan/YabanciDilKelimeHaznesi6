@@ -2,6 +2,7 @@ package com.erdince.yabancidilkelimehaznesi6.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +16,10 @@ open class MainFragment : Fragment() {
     }
     fun changeFragment(fragment : Fragment, addTobackStack : Boolean = true){
         (activity as MainActivity).changeFragment(fragment, addTobackStack)
+    }
+
+    fun navigateWithCleaningLastBackStack(naviController: NavController, destinationId: Int, bundle: Bundle? = null) {
+        (activity as MainActivity).navigateWithCleaningLastBackStack(naviController, destinationId, bundle)
     }
     fun throwDefaultWarning(){
         (activity as MainActivity).throwDefaultWarning()

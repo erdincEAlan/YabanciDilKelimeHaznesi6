@@ -15,6 +15,7 @@ import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
+import com.erdince.yabancidilkelimehaznesi6.util.Keys
 import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.util.makeToast
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -234,10 +235,11 @@ class FragmentQuiz : MainFragment() {
 
     private fun switchToWrongAnswerPage() {
         findNavController().navigate(
-            R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
-                Pair(WordType.WordTypeKey.value, wordSourceType), Pair(PRE_WORD_PARAM, questionWord?.wordId)
+            R.id.action_fragmentQuiz_to_fragmentQuizWrongAnswer, bundleOf(
+                Pair(Keys.WordIdKey.key, questionWord?.wordId), Pair(Keys.WordTypeKey.key, wordSourceType)
             )
         )
+
     }
 
 
@@ -314,12 +316,16 @@ class FragmentQuiz : MainFragment() {
             currentDestination?.id?.let {
                 navigate(
                     it, bundleOf(
-                        Pair(WordType.WordTypeKey.value, wordSourceType),
+                        Pair(Keys.WordTypeKey.key, wordSourceType),
                         Pair(PRE_WORD_PARAM, questionWord?.wordId)
                     )
                 )
             }
         }
+        /*findNavController().apply { navigateWithCleaningLastBackStack(this,currentDestination!!.id,bundleOf(
+            Pair(WordType.WordTypeKey.value, wordSourceType),
+            Pair(PRE_WORD_PARAM, questionWord?.wordId)
+        )) }*/
     }
 
 

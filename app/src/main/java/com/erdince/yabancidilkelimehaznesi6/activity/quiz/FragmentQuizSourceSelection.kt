@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizSourceSelectionBinding
+import com.erdince.yabancidilkelimehaznesi6.util.Keys
 import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,14 +36,14 @@ class FragmentQuizSourceSelection : MainFragment() {
         binding?.quizCustomWordsButton?.setOnClickListener(){
             findNavController().navigate(
                 R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
-                    Pair(WordType.WordTypeKey.value, WordType.CustomWord.value)
+                    Pair(Keys.WordTypeKey.key, WordType.CustomWord.value)
                 )
             )
         }
         binding?.quizPreparedWordsButton?.setOnClickListener(){
             findNavController().navigate(
                 R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
-                    Pair(WordType.WordTypeKey.value, WordType.PreparedWord.value)
+                    Pair(Keys.WordTypeKey.key, WordType.PreparedWord.value)
                 )
             )
         }

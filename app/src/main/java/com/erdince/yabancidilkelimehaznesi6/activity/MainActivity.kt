@@ -5,11 +5,13 @@ import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.input.key.Key
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.erdince.yabancidilkelimehaznesi6.*
@@ -47,13 +49,48 @@ class MainActivity : AppCompatActivity() {
         navController =
             (supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment).navController
         navController.addOnDestinationChangedListener() { naviController, destination, bundle ->
-            bundle?.getString(Keys.PreviousWordKey.key).let {
-                if (it != null) {
+            naviController.apply {
 
-                }
             }
 
+
+            handleQuizNavigation(bundle, naviController, destination)
             startProgressBar()
+        }
+
+    }
+
+    private fun handleQuizNavigation(
+        bundle: Bundle?,
+        naviController: NavController,
+        destination: NavDestination
+    ) {
+        bundle?.getBoolean(BundleSets.NavigationLoopBreaker.keyOfBundle)?.let { loopBreaker ->
+            if (!loopBreaker) {
+                if (bundle.getString(Keys.PreviousWordKey.key) != null) {
+                    naviController.apply {
+                        navigateWithCleaningLastBackStack(this, destination.id, bundle)
+                    }
+                }
+                if (destination.label == "fragment_quiz_wrong_answer" && naviController.currentBackStack.value.last().destination.label == "fragment_quiz") {
+                    naviController.apply {
+                        navigateWithCleaningLastBackStack(this, destination.id, bundle)
+                    }
+                }
+                if (naviController.currentBackStack.value.last().destination.label == "fragment_quiz_wrong_answer") {
+                    naviController.apply {
+                        navigateWithCleaningLastBackStack(this, destination.id, bundle)
+                    }
+                }
+            }
+        }
+    }
+
+    fun navigateWithCleaningLastBackStack(naviController: NavController, destinationId: Int, bundle: Bundle? = null) {
+        naviController.apply {
+            popBackStack(naviController.currentBackStack.value.let { it[it.lastIndex - 1] }.destination.id, false)
+            bundle?.putAll(BundleSets.NavigationLoopBreaker.bundlePair)
+            navigate(destinationId, bundle)
         }
     }
 
@@ -67,8 +104,10 @@ class MainActivity : AppCompatActivity() {
     private fun setBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (fragmentManager.backStackEntryCount > 1) {
-
+                if (navController.currentBackStack.value.size > 2) {
+                    if (navController.currentBackStack.value.last().destination.label != "fragment_homepage") {
+                        navController.navigateUp()
+                    }
                 } else {
                     finish()
                 }

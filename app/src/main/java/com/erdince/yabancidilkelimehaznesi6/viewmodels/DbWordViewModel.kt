@@ -30,7 +30,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
 
 
     fun getWordFromId (id : String, wordType : String){
-        if (wordType == "preparedWord"){
+        if (wordType == WordType.PreparedWord.value) {
             publicWordsDb.document(id).get().addOnSuccessListener {
                 if (it.toObject<WordModel>() != null) {
                     resource.success = true
@@ -38,7 +38,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?): 
                     wordLiveData.postValue(resource)
                 }
             }
-        }else if(wordType == "customWord"){
+        } else if (wordType == WordType.CustomWord.value) {
             customWordsDb.document(id).get().addOnSuccessListener(){
                 if (it.toObject<WordModel>() != null) {
                     resource.success = true

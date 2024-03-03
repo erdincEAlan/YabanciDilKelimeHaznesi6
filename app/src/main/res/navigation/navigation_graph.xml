@@ -6,7 +6,8 @@
 
     <fragment android:id="@+id/fragmentLogin" android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentLogin"
               android:label="fragment_login" tools:layout="@layout/fragment_login">
-        <action android:id="@+id/action_fragmentLogin_to_fragmentHomepage" app:destination="@id/fragmentHomepage"/>
+        <action android:id="@+id/action_fragmentLogin_to_fragmentHomepage" app:destination="@id/fragmentHomepage"
+        />
     </fragment>
     <fragment android:id="@+id/fragmentHomepage"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentHomepage"
@@ -42,7 +43,9 @@
     </fragment>
     <fragment android:id="@+id/fragmentQuizWrongAnswer"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizWrongAnswer"
-              android:label="fragment_quiz_wrong_answer" tools:layout="@layout/fragment_quiz_wrong_answer"/>
+              android:label="fragment_quiz_wrong_answer" tools:layout="@layout/fragment_quiz_wrong_answer">
+        <action android:id="@+id/action_fragmentQuizWrongAnswer_to_fragmentQuiz" app:destination="@id/fragmentQuiz"/>
+    </fragment>
     <fragment android:id="@+id/fragmentProfile"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentProfile"
               android:label="fragment_profile" tools:layout="@layout/fragment_profile">

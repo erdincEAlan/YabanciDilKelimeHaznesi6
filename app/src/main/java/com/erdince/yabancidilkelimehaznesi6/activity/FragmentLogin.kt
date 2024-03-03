@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuiz
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLoginBinding
@@ -177,7 +178,7 @@ class FragmentLogin : MainFragment() {
                 GoogleSavedPreference.setEmail(requireContext(), account.email.toString())
                 GoogleSavedPreference.setUsername(requireContext(), account.displayName.toString())
                 dbUserViewModel.createUserData(account.email.toString(),account.displayName.toString(),auth.uid.toString(), authMethod = "Google")
-                changeFragment(FragmentHomepage.newInstance())
+                navigateWithCleaningLastBackStack(findNavController(), R.id.action_fragmentLogin_to_fragmentHomepage)
 
             }
         }
