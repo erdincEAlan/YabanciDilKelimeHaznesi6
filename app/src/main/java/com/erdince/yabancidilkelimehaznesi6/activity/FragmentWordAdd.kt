@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordAddBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -14,8 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class FragmentWordAdd : MainFragment() {
 
     private val wordViewModel : DbWordViewModel by viewModels()
-    private lateinit var fragmentBinding : FragmentWordAddBinding
-    private val binding get() = fragmentBinding
+    private var binding: FragmentWordAddBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -26,11 +27,11 @@ class FragmentWordAdd : MainFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        fragmentBinding = FragmentWordAddBinding.inflate(inflater,container,false)
+    ): View? {
+        binding = FragmentWordAddBinding.inflate(inflater, container, false)
         init()
         stopProgressBar()
-        return binding.root
+        return binding?.root
     }
 
     private fun init() {
@@ -44,12 +45,12 @@ class FragmentWordAdd : MainFragment() {
 
 
     private fun setButtonClickers() {
-        with(binding){
+        binding?.apply {
             kelimeKaydetButton.setOnClickListener {
                 saveKelime()
             }
             kelimeEkleBackButton.setOnClickListener {
-                goBack()
+                findNavController().navigateUp()
             }
         }
     }
@@ -65,31 +66,33 @@ class FragmentWordAdd : MainFragment() {
 
 
     private fun checkIfFieldsEmpty() : Boolean {
-        with(binding){
-            return if (kelimeEkleKelimeGiris.text.isEmpty() || kelimeEkleAnlamGiris.text.isEmpty()){
+        binding?.apply {
+            if (kelimeEkleKelimeGiris.text.isEmpty() || kelimeEkleAnlamGiris.text.isEmpty()) {
                 makeToast("Lütfen zorunlu olan kelime ve anlam alanlarını doldurduğunuzdan emin olun")
-                false
-            }else{
-                true
+                return false
             }
-
         }
-
-
+        return true
     }
 
     private fun saveTheWord() {
-        wordViewModel.addCustomWord(
-            WordModel(
-            wordIt = binding.kelimeEkleKelimeGiris.text.toString(),
-            wordMeaning = binding.kelimeEkleAnlamGiris.text.toString(),
-            wordExample = binding.kelimeEkleOrnekCumleGiris.text.toString()
+        binding?.apply {
+            wordViewModel.addCustomWord(
+                WordModel(
+                    wordIt = kelimeEkleKelimeGiris.text.toString(),
+                    wordMeaning = kelimeEkleAnlamGiris.text.toString(),
+                    wordExample = kelimeEkleOrnekCumleGiris.text.toString()
+                )
             )
-        )
+        }
+
     }
 
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 
 

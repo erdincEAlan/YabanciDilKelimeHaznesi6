@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var uid: String
     private var progressBar : LinearLayout?=null
     private var fragmentContainer : FragmentContainerView?=null
-    val fragmentManager = supportFragmentManager
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -210,6 +209,14 @@ class MainActivity : AppCompatActivity() {
             openNetworkSettings("Mobile")
         }
     return alert
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        progressBar = null
+        fragmentContainer = null
+        user = null
+        db = null
     }
 
 }

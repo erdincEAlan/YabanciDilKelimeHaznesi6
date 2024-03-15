@@ -27,8 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentHomepage : MainFragment() {
 
-    private lateinit var __binding : FragmentHomepageBinding
-    private val binding get() = __binding
+    private var binding: FragmentHomepageBinding? = null
+
 
 
 
@@ -42,20 +42,19 @@ class FragmentHomepage : MainFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        __binding= FragmentHomepageBinding.inflate(inflater,container,false)
+    ): View? {
+        binding = FragmentHomepageBinding.inflate(inflater, container, false)
         init()
         stopProgressBar()
-        return binding.root
+        return binding?.root
     }
 
     private fun init() {
-
         setButtons()
     }
 
     private fun setButtons() {
-        with(binding){
+        binding?.apply {
             profilButon.setOnClickListener {
                 findNavController().navigate(R.id.action_fragmentHomepage_to_fragmentProfile)
             }
@@ -73,7 +72,10 @@ class FragmentHomepage : MainFragment() {
 
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 
 
