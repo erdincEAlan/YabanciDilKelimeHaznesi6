@@ -108,14 +108,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
-                android:id="@+id/girisYapVeyaTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Google ile giriş yapmak için simgeye tıklayın"
                 android:textAlignment="center"
                 android:textAppearance="@style/under_text_high" />
             <ImageButton
-                android:id="@+id/googleSıgnButton"
+                android:id="@+id/googleSignButton"
                 android:contentDescription="Google sign button"
                 android:layout_width="@dimen/process_button_height_and_width"
                 android:layout_height="@dimen/process_button_height_and_width"

@@ -77,7 +77,7 @@ class FragmentLogin : MainFragment() {
 
     private fun initButtons() {
         with(binding) {
-            googleSGnButton.setOnClickListener {
+            googleSignButton.setOnClickListener {
                 signInGoogle()
             }
 

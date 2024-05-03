@@ -22,62 +22,61 @@ android:background="@color/theme_primary_color">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
-            android:id="@+id/cevapTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/quiz_wrong_answer_title"
             android:textAppearance="@style/main_high_title"
-            app:layout_constraintBottom_toTopOf="@+id/testDogrusuTxt" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/titleAnswerTxt" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quizResultBackButton"/>
 
 
         <TextView
-            android:id="@+id/testDogrusuTxt"
+            android:id="@+id/titleAnswerTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/quiz_answer"
             android:textAppearance="@style/under_text"
-            app:layout_constraintBottom_toTopOf="@+id/testDogrusuAnlamTxt"
+            app:layout_constraintBottom_toTopOf="@+id/titleMeaningTxt"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="@+id/view"/>
 
         <TextView
-            android:id="@+id/testDogrusuKelimeTxt"
+            android:id="@+id/titleWordTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/quiz_answer_word"
             android:textAppearance="@style/textbox_title"
-            app:layout_constraintBottom_toTopOf="@+id/kelimeKendiTextView"
-            app:layout_constraintStart_toStartOf="@+id/kelimeKendiTextView"/>
+            app:layout_constraintBottom_toTopOf="@+id/wordTextView"
+            app:layout_constraintStart_toStartOf="@+id/wordTextView"/>
 
         <TextView
-            android:id="@+id/testDogrusuAnlamTxt"
+            android:id="@+id/titleMeaningTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/quiz_answer_meaning"
             android:textAppearance="@style/textbox_title"
-            app:layout_constraintBottom_toTopOf="@+id/kelimeAnlamTextView"
-            app:layout_constraintStart_toStartOf="@+id/kelimeAnlamTextView"/>
+            app:layout_constraintBottom_toTopOf="@+id/wordMeaningTextView"
+            app:layout_constraintStart_toStartOf="@+id/wordMeaningTextView"/>
 
         <TextView
-            android:id="@+id/testDogrusuOrnekTxt"
+            android:id="@+id/titleExampleTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="@string/quiz_answer_example"
             android:textAppearance="@style/textbox_title"
-            app:layout_constraintBottom_toTopOf="@+id/kelimeOrnekCumleTextView"
+            app:layout_constraintBottom_toTopOf="@+id/wordExampleTextView"
             app:layout_constraintHorizontal_bias="0.464"
-            app:layout_constraintStart_toStartOf="@+id/kelimeOrnekCumleTextView"/>
+            app:layout_constraintStart_toStartOf="@+id/wordExampleTextView"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/nextWordButton"
@@ -108,7 +107,7 @@ android:background="@color/theme_primary_color">
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/kelimeOrnekCumleTextView"
+            android:id="@+id/wordExampleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
@@ -126,7 +125,7 @@ android:background="@color/theme_primary_color">
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/kelimeKendiTextView"
+            android:id="@+id/wordTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
@@ -140,12 +139,12 @@ android:background="@color/theme_primary_color">
             android:text="ornekKelime"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
-            app:layout_constraintBottom_toTopOf="@+id/testDogrusuOrnekTxt"
+            app:layout_constraintBottom_toTopOf="@+id/titleExampleTxt"
             app:layout_constraintEnd_toStartOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/kelimeAnlamTextView"
+            android:id="@+id/wordMeaningTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -159,7 +158,7 @@ android:background="@color/theme_primary_color">
             android:text="ornekAnlamaaaaaaaaaaaaaaa"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
-            app:layout_constraintBottom_toTopOf="@+id/testDogrusuOrnekTxt"
+            app:layout_constraintBottom_toTopOf="@+id/titleExampleTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view"/>
 
