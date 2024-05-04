@@ -3,6 +3,7 @@ package com.erdince.yabancidilkelimehaznesi6.activity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.input.key.Key
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -24,6 +26,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import com.erdince.yabancidilkelimehaznesi6.util.*
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var db: FirebaseFirestore? = null
@@ -33,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private var progressBar : LinearLayout?=null
     private var fragmentContainer : FragmentContainerView?=null
     private lateinit var navController: NavController
+    private val dBWordViewModel: DbWordViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         setNavController()
         setBackPressed()
         stopProgressBar()
+        setLocalDb()
+    }
+
+    private fun setLocalDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dBWordViewModel.syncLocalWithCloudDb(applicationContext)
+
+        }
     }
 
     private fun setNavController() {
@@ -51,13 +67,12 @@ class MainActivity : AppCompatActivity() {
             naviController.apply {
 
             }
-
-
             handleQuizNavigation(bundle, naviController, destination)
             startProgressBar()
         }
 
     }
+
 
     private fun handleQuizNavigation(
         bundle: Bundle?,

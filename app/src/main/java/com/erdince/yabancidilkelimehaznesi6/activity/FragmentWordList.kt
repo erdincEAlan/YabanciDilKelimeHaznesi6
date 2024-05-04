@@ -16,6 +16,10 @@ import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentWordList : MainFragment() {
@@ -118,8 +122,10 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun observeViewModel(){
-        wordViewModel.getWordList("customWord")
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
+        CoroutineScope(Dispatchers.IO).launch {
+            wordViewModel.getWordList("customWord")
+        }
     }
 
     private fun handleList(listResource : ResourceModel<Any?>) {

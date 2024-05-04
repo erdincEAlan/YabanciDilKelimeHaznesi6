@@ -9,12 +9,17 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuizSourceSelection
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentHomepageBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.util.createAndShowDialog
+import com.erdince.yabancidilkelimehaznesi6.util.interfaces.WordDao
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.LocalWordDb
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -22,6 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 
 @AndroidEntryPoint
@@ -31,13 +40,13 @@ class FragmentHomepage : MainFragment() {
 
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
         FirebaseApp.initializeApp(requireContext())
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

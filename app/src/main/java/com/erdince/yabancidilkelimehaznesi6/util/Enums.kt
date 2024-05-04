@@ -17,3 +17,8 @@ enum class Keys(val key: String) {
 enum class BundleSets(val keyOfBundle: String, val bundlePair: Bundle) {
     NavigationLoopBreaker("navigationLoopBreaker", bundleOf(Pair("navigationLoopBreaker", true)))
 }
+
+enum class dbSources(val source: String) {
+    Local("localDb"),
+    Cloud("cloudDb")
+}
