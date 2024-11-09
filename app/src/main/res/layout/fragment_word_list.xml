@@ -24,7 +24,7 @@
             android:fontFamily="@font/sarala_bold"
             android:text="@string/checkbox_ornek"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
+            app:layout_constraintBottom_toTopOf="@+id/searchViewLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/kelimeAraBackButton" />
 
@@ -72,27 +72,24 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat"
+            android:id="@+id/searchViewLayout"
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedcorner"
             app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchViewKelime"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:iconifiedByDefault="false"
-
                 app:layout_constraintBottom_toTopOf="@+id/list_view"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent">
 
             </androidx.appcompat.widget.SearchView>

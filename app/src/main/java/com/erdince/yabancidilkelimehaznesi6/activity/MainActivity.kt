@@ -130,7 +130,6 @@ class MainActivity : AppCompatActivity() {
     fun goBack() {
         startProgressBar()
         supportFragmentManager.popBackStack()
-
     }
 
 

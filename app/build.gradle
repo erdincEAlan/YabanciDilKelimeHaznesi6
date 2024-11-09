@@ -15,9 +15,8 @@ android {
         applicationId "com.erdince.yabancidilkelimehaznesi6"
         minSdk 24
         targetSdk 33
-        versionCode 14
-        versionName "2.8"
-
+        versionCode 281
+        versionName "2.8.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
