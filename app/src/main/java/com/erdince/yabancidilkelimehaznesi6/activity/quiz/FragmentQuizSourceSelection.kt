@@ -16,8 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentQuizSourceSelection : MainFragment() {
-    private var __binding : FragmentQuizSourceSelectionBinding?=null
-    private val binding get() = __binding
+    private var binding: FragmentQuizSourceSelectionBinding? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,26 +29,32 @@ class FragmentQuizSourceSelection : MainFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        __binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container,false)
-        binding?.backButton?.setOnClickListener(){
-            findNavController().navigateUp()
-        }
-        binding?.quizCustomWordsButton?.setOnClickListener(){
-            findNavController().navigate(
-                R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
-                    Pair(Keys.WordTypeKey.key, WordType.CustomWord.value)
-                )
-            )
-        }
-        binding?.quizPreparedWordsButton?.setOnClickListener(){
-            findNavController().navigate(
-                R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
-                    Pair(Keys.WordTypeKey.key, WordType.PreparedWord.value)
-                )
-            )
-        }
+        binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container, false)
+        handleButtons()
         stopProgressBar()
         return binding?.root
+    }
+
+    private fun handleButtons() {
+        binding?.apply {
+            backButton.setOnClickListener() {
+                findNavController().navigateUp()
+            }
+            quizCustomWordsButton.setOnClickListener() {
+                findNavController().navigate(
+                    R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
+                        Pair(Keys.WordTypeKey.key, WordType.CustomWord.value)
+                    )
+                )
+            }
+            quizPreparedWordsButton.setOnClickListener() {
+                findNavController().navigate(
+                    R.id.action_fragmentQuizSourceSelection_to_fragmentQuiz, bundleOf(
+                        Pair(Keys.WordTypeKey.key, WordType.PreparedWord.value)
+                    )
+                )
+            }
+        }
     }
 
     companion object {
