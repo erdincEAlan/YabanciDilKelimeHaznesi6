@@ -14,9 +14,10 @@ android {
     defaultConfig {
         applicationId "com.erdince.yabancidilkelimehaznesi6"
         minSdk 24
-        targetSdk 33
-        versionCode 282
-        versionName "2.8.2"
+        //noinspection EditedTargetSdkVersion
+        targetSdk 34
+        versionCode 283
+        versionName "2.8.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
