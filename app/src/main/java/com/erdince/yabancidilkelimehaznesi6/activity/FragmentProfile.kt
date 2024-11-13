@@ -44,7 +44,6 @@ class FragmentProfile : MainFragment() {
         with(binding){
             settingsButton.setOnClickListener(){
                 findNavController().navigate(R.id.action_fragmentProfile_to_fragmentSettings)
-
             }
             backButton.setOnClickListener(){
                 findNavController().navigateUp()
@@ -82,7 +81,7 @@ class FragmentProfile : MainFragment() {
             stopProgressBar()
         } else {
             throwDefaultWarning()
-            goBack()
+            findNavController().navigateUp()
         }
     }
 

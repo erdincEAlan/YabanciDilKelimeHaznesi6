@@ -135,7 +135,7 @@ class FragmentWordList : MainFragment() {
             stopProgressBar()
         }else  {
             makeToast(getString(R.string.word_not_found_err))
-            goBack()
+            findNavController().navigateUp()
         }
 
     }

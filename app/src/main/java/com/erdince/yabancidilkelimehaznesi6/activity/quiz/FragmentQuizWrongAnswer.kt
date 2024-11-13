@@ -85,7 +85,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
             nextWordButton.setOnClickListener {
                 findNavController().navigate(
                     R.id.fragmentQuiz, bundleOf(
-                        Pair(Keys.WordTypeKey.key, publicWord?.wordType),
+                        Pair(Keys.WordTypeKey.key, quizType),
                         Pair(Keys.PreviousWordKey.key, publicWord?.wordId)
                     )
                 )
