@@ -21,6 +21,9 @@ interface WordDao {
     @Query("Select * FROM wordmodel WHERE wordType = :type")
     fun getWordList(type: String): List<WordModel>
 
+    @Query("SELECT * FROM wordmodel WHERE wordId = :wordId LIMIT 1")
+    fun getWordById(wordId: String): WordModel?
+
     @Insert
     fun insertAll(vararg words: WordModel)
 

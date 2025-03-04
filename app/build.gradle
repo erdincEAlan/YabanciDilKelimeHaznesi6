@@ -4,10 +4,9 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs"
 }
-apply plugin: 'com.android.application'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'kotlin-kapt'
+
 android {
     compileSdk 35
 

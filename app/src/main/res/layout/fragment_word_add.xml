@@ -108,13 +108,13 @@
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style"
             android:textColorHint="@color/theme_hint_color"
-            app:layout_constraintBottom_toTopOf="@+id/kelimeKaydetButton"
+            app:layout_constraintBottom_toTopOf="@+id/save_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
-            android:id="@+id/kelimeKaydetButton"
+            android:id="@+id/save_button"
             android:layout_width="@dimen/process_button_height_and_width"
             android:layout_height="@dimen/process_button_height_and_width"
             android:layout_marginBottom="@dimen/button_frame_margin_bottom"
@@ -127,7 +127,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
-            android:id="@+id/kelimeEkleBackButton"
+            android:id="@+id/back_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="10dp"

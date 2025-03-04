@@ -35,7 +35,6 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     private val userDb = db.collection("users")
     private val customWordsDb = db.collection("customWords")
     private val publicWordsDb = db.collection("preparedWords")
-    private var localDb: LocalWordDb? = null
     private var localDbController: WordDao? = null
     private var app = application
     suspend fun syncLocalWithCloudDb(context: Context) {
@@ -103,6 +102,15 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
 
     fun updateWord(word: WordModel?): Int {
         word?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                LocalWordDb.getInstance(app.baseContext).wordDao().apply {
+                    getWordById(word.wordId)?.let {
+                        delete(it)
+                    }
+                    insertAll(word)
+                }
+            }
+
             customWordsDb.document(word.wordId!!).set(word).addOnSuccessListener {
                 responseCode = 200
             }.addOnFailureListener {
@@ -209,7 +217,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                             resource.success = true
                             wordLiveData.postValue(resource)
                         } else {
-                            getWordList(WordType.CustomWord.value, dbSource = dbSources.Cloud.source)
+                            getWordList(WordType.CustomWord.value, dbSource = dbSources.Cloud.source, syncTheLocalDb = true)
                         }
                     }
 
@@ -245,6 +253,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             it.set(word)
             increaseTotalWordsCount()
         }
+        localDbController?.insertAll(word)
     }
 
     private fun increaseTotalWordsCount() {

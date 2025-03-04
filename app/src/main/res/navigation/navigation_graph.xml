@@ -24,11 +24,17 @@
     <fragment android:id="@+id/fragmentWordList"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentWordList"
               android:label="fragment_word_list" tools:layout="@layout/fragment_word_list">
-        <action android:id="@+id/action_fragmentWordList_to_fragmentWordEdit" app:destination="@id/fragmentWordEdit"/>
+        <action android:id="@+id/action_fragmentWordList_to_fragmentWordEdit" app:destination="@id/fragmentWordEdit"></action>
     </fragment>
     <fragment android:id="@+id/fragmentWordEdit"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.FragmentWordEdit"
-              android:label="fragment_word_edit" tools:layout="@layout/fragment_word_edit"/>
+              android:label="fragment_word_edit" tools:layout="@layout/fragment_word_edit">
+        <argument
+            android:name="wordId"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
     <fragment android:id="@+id/fragmentQuiz"
               android:name="com.erdince.yabancidilkelimehaznesi6.activity.quiz.FragmentQuiz"
               android:label="fragment_quiz" tools:layout="@layout/fragment_quiz">

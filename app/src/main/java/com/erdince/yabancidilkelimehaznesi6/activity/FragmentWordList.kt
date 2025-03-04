@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -123,6 +124,10 @@ class FragmentWordList : MainFragment() {
 
     private fun observeViewModel(){
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
+    }
+
+    override fun onResume() {
+        super.onResume()
         CoroutineScope(Dispatchers.IO).launch {
             wordViewModel.getWordList("customWord")
         }
@@ -141,8 +146,8 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun setAdapter(wordsList: MutableList<WordModel> = wordList) {
-        adapter = WordListAdapter(wordsList){
-            changeFragment(FragmentWordEdit.newInstance(it.toString()),false)
+        adapter = WordListAdapter(wordsList){wordId->
+            findNavController().navigate(R.id.action_fragmentWordList_to_fragmentWordEdit,Bundle().apply { putString("wordId",wordId) })
         }
         binding.wordListRcv.adapter = adapter
     }

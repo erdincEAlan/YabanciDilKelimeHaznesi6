@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
     private fun setLocalDb() {
         CoroutineScope(Dispatchers.IO).launch {
             dBWordViewModel.syncLocalWithCloudDb(applicationContext)
-
         }
     }
 
@@ -64,9 +63,6 @@ class MainActivity : AppCompatActivity() {
         navController =
             (supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment).navController
         navController.addOnDestinationChangedListener() { naviController, destination, bundle ->
-            naviController.apply {
-
-            }
             handleQuizNavigation(bundle, naviController, destination)
             startProgressBar()
         }
@@ -118,13 +114,11 @@ class MainActivity : AppCompatActivity() {
     private fun setBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (navController.currentBackStack.value.size > 2) {
                     if (navController.currentBackStack.value.last().destination.label != "fragment_homepage") {
                         navController.navigateUp()
+                    }else {
+                        finish()
                     }
-                } else {
-                    finish()
-                }
             }
         })
     }
@@ -132,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         startProgressBar()
         supportFragmentManager.popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
-            .add(R.id.mainFragmentContainer, FragmentHomepage.newInstance())
+            .replace(R.id.mainFragmentContainer, FragmentHomepage.newInstance())
             .addToBackStack(null)
             .commitAllowingStateLoss()
 
@@ -144,7 +138,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun goBack() {
         startProgressBar()
-        supportFragmentManager.popBackStack()
+        navController.navigateUp()
     }
 
 

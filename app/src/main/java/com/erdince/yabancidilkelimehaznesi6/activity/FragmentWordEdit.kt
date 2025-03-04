@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordEditBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
@@ -48,14 +49,14 @@ class FragmentWordEdit : MainFragment() {
         with(binding){
             saveButton.setOnClickListener(){
                 updateTheWord()
-                changeFragment(FragmentWordList.newInstance(),false)
+                findNavController().navigateUp()
             }
             backButton.setOnClickListener(){
-                changeFragment(FragmentWordList.newInstance(),false)
+                findNavController().navigateUp()
             }
             deleteButton.setOnClickListener(){
                 dBWordViewModel.deleteWord(wordId!!)
-                changeFragment(FragmentWordList.newInstance(),false)
+                findNavController().navigateUp()
             }
             resetWordStatusBt.setOnClickListener() {
                 dBWordViewModel.resetTheWordStatus(theWord)
