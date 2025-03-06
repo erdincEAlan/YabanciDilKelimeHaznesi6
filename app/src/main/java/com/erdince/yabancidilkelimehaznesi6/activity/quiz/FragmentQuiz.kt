@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -33,9 +34,8 @@ class FragmentQuiz : MainFragment() {
    private var lastWordId : String?=null
     private var choiceWords: MutableList<String> = mutableListOf()
     private var answerText: String = ""
-    private val wordViewModel: DbWordViewModel by viewModels()
-    private lateinit var __binding: FragmentQuizBinding
-    private val binding get() = __binding
+    private val wordViewModel: DbWordViewModel by activityViewModels()
+    private var binding : FragmentQuizBinding?=null
     private var wordSourceType: String? = null
     private var answerReady = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +49,10 @@ class FragmentQuiz : MainFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        __binding = FragmentQuizBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentQuizBinding.inflate(inflater, container, false)
         init()
-        return binding.root
+        return binding?.root
     }
 
     fun init() {
@@ -72,7 +72,7 @@ class FragmentQuiz : MainFragment() {
 
 
     private fun takeListAndSetQuestKelime() {
-        wordViewModel.observeRandomWord(wordSourceType!!)
+
         wordViewModel.wordLiveData.observe(viewLifecycleOwner) {resource ->
             if (resource.success) {
                 if (resource.data != null) {
@@ -94,26 +94,34 @@ class FragmentQuiz : MainFragment() {
             }
 
         }
-
+        wordViewModel.getRandomWord(wordSourceType!!)
 
     }
 
     private fun setTextViews() {
         choiceWords.shuffle()
-        if (questionWord?.wordPoint != null && questionWord?.wordPoint != 0){
-            val wordPointAsString = questionWord?.wordPoint.toString()+getString(R.string.quiz_word_point_status_text)
-            binding.questionWordPointStatus.text = wordPointAsString
-            binding.questionWordPointStatus.isVisible = true
+        if (questionWord?.wordPoint != null && questionWord?.wordPoint != 0) {
+            val wordPointAsString = questionWord?.wordPoint.toString() + getString(R.string.quiz_word_point_status_text)
+            binding?.questionWordPointStatus?.apply {
+                text = wordPointAsString
+                isVisible = true
+            }
         }
-        binding.choiceLayout.choice1.choiceText.text = choiceWords[0].capitalize(Locale.getDefault())
-        binding.choiceLayout.choice2.choiceText.text = choiceWords[1].capitalize(Locale.getDefault())
-        binding.choiceLayout.choice3.choiceText.text = choiceWords[2].capitalize(Locale.getDefault())
-        binding.questionTextView.text = questionWord?.wordIt?.capitalize(Locale.getDefault())
+            binding?.apply {
+                choiceLayout.apply {
+                    choice1.choiceText.text = choiceWords[0].capitalize(Locale.getDefault())
+                    choice2.choiceText.text = choiceWords[1].capitalize(Locale.getDefault())
+                    choice3.choiceText.text = choiceWords[2].capitalize(Locale.getDefault())
+                }
+                questionTextView.text = questionWord?.wordIt?.capitalize(Locale.getDefault())
+            }
+
+
 
     }
 
     private fun setButtons() {
-        with(binding) {
+        binding?.apply {
             backButton.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -127,7 +135,7 @@ class FragmentQuiz : MainFragment() {
 
     }
     private fun checkBoxListeners(){
-        with(binding){
+       binding?.apply{
             choiceLayout.choice1.choiceLl.setOnClickListener(){
                 changeTapStates(1)
                 choiceLayout.choice1.checkBox.isChecked = true
@@ -172,7 +180,7 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun changeTapStates(selectedChoice : Int?){
-        with(binding){
+        binding?.apply{
             choiceLayout.choice1.animation.root.alpha = 1f
             choiceLayout.choice2.animation.root.alpha = 1f
             choiceLayout.choice3.animation.root.alpha = 1f
@@ -203,7 +211,7 @@ class FragmentQuiz : MainFragment() {
     private fun setTheAnswer(newAnswerText : String){
         answerText = newAnswerText
         answerReady = true
-        binding.answerButton.enableButton()
+        binding?.answerButton?.enableButton()
     }
 
     private fun FragmentQuizBinding.updateCheckboxClickables() {
@@ -249,31 +257,30 @@ class FragmentQuiz : MainFragment() {
     }
 
     private fun startAnimation(isAnswerTrue: Boolean) {
-        with(binding){
+        binding?.apply{
             if (choiceLayout.choice1.checkBox.isChecked){
                 if (!isAnswerTrue){
-                    binding.choiceLayout.choice1.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                    choiceLayout.choice1.animation.animationView.setAnimation(R.raw.button_wrong_animation)
                 }
-                binding.choiceLayout.choice1.animation.animationView.playAnimation()
+                choiceLayout.choice1.animation.animationView.playAnimation()
 
 
             }else if(choiceLayout.choice2.checkBox.isChecked){
                 if (!isAnswerTrue){
-                    binding.choiceLayout.choice2.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                    choiceLayout.choice2.animation.animationView.setAnimation(R.raw.button_wrong_animation)
                 }
-                binding.choiceLayout.choice2.animation.animationView.playAnimation()
+                choiceLayout.choice2.animation.animationView.playAnimation()
 
 
             }else if (choiceLayout.choice3.checkBox.isChecked){
                 if (!isAnswerTrue){
-                    binding.choiceLayout.choice3.animation.animationView.setAnimation(R.raw.button_wrong_animation)
+                    choiceLayout.choice3.animation.animationView.setAnimation(R.raw.button_wrong_animation)
                 }
-                binding.choiceLayout.choice3.animation.animationView.playAnimation()
+                choiceLayout.choice3.animation.animationView.playAnimation()
 
 
-            } else{}
+            }
         }
-
     }
 
     private fun configureAnimationsAndStart(isAnswerTrue : Boolean) {
@@ -286,6 +293,7 @@ class FragmentQuiz : MainFragment() {
                 if (isAnswerTrue) {
                     increaseKelimePointAndSwitch()
                 }else{
+                    questionWord?.let { wordViewModel.decreaseWordPoint(it) }
                     switchToWrongAnswerPage()
                 }
             }
@@ -299,13 +307,15 @@ class FragmentQuiz : MainFragment() {
             }
 
         }
-        binding.choiceLayout.choice1.animation.animationView.speed = 1.6f
-        binding.choiceLayout.choice2.animation.animationView.speed = 1.6f
-        binding.choiceLayout.choice3.animation.animationView.speed = 1.6f
-        binding.choiceLayout.choice1.animation.animationView.addAnimatorListener(animationListener)
-        binding.choiceLayout.choice2.animation.animationView.addAnimatorListener(animationListener)
-        binding.choiceLayout.choice3.animation.animationView.addAnimatorListener(animationListener)
-        startAnimation(isAnswerTrue)
+        binding?.choiceLayout?.apply {
+            choice1.animation.animationView.speed = 1.6f
+            choice2.animation.animationView.speed = 1.6f
+            choice3.animation.animationView.speed = 1.6f
+            choice1.animation.animationView.addAnimatorListener(animationListener)
+            choice2.animation.animationView.addAnimatorListener(animationListener)
+            choice3.animation.animationView.addAnimatorListener(animationListener)
+            startAnimation(isAnswerTrue)
+        }
     }
 
     private fun increaseKelimePointAndSwitch() {

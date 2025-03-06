@@ -24,9 +24,17 @@ interface WordDao {
     @Query("SELECT * FROM wordmodel WHERE wordId = :wordId LIMIT 1")
     fun getWordById(wordId: String): WordModel?
 
+    @Query("SELECT * FROM wordmodel WHERE wordLearningStatus = false ORDER BY RANDOM() LIMIT 1")
+    fun getQuizWord() : WordModel?
+
     @Insert
     fun insertAll(vararg words: WordModel)
 
     @Delete
     fun delete(word: WordModel)
+
+    fun updateWord(word : WordModel){
+        getWordById(word.wordId)?.let { delete(it) }
+        insertAll(word)
+    }
 }

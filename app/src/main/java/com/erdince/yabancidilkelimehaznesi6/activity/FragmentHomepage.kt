@@ -22,7 +22,6 @@ import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.LocalWordDb
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

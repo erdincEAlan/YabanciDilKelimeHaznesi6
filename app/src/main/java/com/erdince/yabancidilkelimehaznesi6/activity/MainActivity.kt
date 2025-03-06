@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLocalDb() {
         CoroutineScope(Dispatchers.IO).launch {
-            dBWordViewModel.syncLocalWithCloudDb(applicationContext)
+            dBWordViewModel.syncDatabases()
+
         }
     }
 
