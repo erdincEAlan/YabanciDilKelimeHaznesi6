@@ -106,10 +106,10 @@ class LearnedWordsFragment : MainFragment() {
     }
 
     private fun observeViewModel(){
+        wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
         CoroutineScope(Dispatchers.IO).launch {
             wordViewModel.getWordList("customWord", true)
         }
-        wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
     }
 
     private fun handleList(listResource : ResourceModel<Any?>) {

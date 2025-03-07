@@ -108,29 +108,38 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     }
 
     fun getWordFromId (id : String, wordType : String){
-        if (wordType == WordType.PreparedWord.value) {
-            publicWordsDb.document(id).get().addOnSuccessListener {
-                if (it.toObject<WordModel>() != null) {
-                    resource.success = true
-                    resource.data = it.toObject<WordModel>()
+        CoroutineScope(Dispatchers.IO).launch {
+            if (wordType == WordType.PreparedWord.value) {
+                publicWordsDb.document(id).get().addOnSuccessListener {
+                    if (it.toObject<WordModel>() != null) {
+                        resource.success = true
+                        resource.data = it.toObject<WordModel>()
+                        wordLiveData.postValue(resource)
+                    }
+                }.addOnFailureListener {
+                    resource.success = false
                     wordLiveData.postValue(resource)
                 }
-            }.addOnFailureListener {
-                resource.success = false
-                wordLiveData.postValue(resource)
-            }
-        } else if (wordType == WordType.CustomWord.value) {
-            customWordsDb.document(id).get().addOnSuccessListener(){
-                if (it.toObject<WordModel>() != null) {
+            } else if (wordType == WordType.CustomWord.value) {
+                localDbController.getWordById(id)?.let {
                     resource.success = true
-                    resource.data = it.toObject<WordModel>()
+                    resource.data = it
+                    wordLiveData.postValue(resource)
+                    return@launch
+                }
+                customWordsDb.document(id).get().addOnSuccessListener(){
+                    if (it.toObject<WordModel>() != null) {
+                        resource.success = true
+                        resource.data = it.toObject<WordModel>()
+                        wordLiveData.postValue(resource)
+                    }
+                }.addOnFailureListener {
+                    resource.success = false
                     wordLiveData.postValue(resource)
                 }
-            }.addOnFailureListener {
-                resource.success = false
-                wordLiveData.postValue(resource)
             }
         }
+
 
     }
     fun increaseWordPoint(word : WordModel){
@@ -190,7 +199,6 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                     insertAll(word)
                 }
             }
-
             customWordsDb.document(word.wordId).set(word).addOnSuccessListener {
                 responseCode = 200
             }.addOnFailureListener {
@@ -205,7 +213,6 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             generateCustomWord(lastWordId)
         } else if (wordSourceType == WordType.PreparedWord.value) {
             generatePreparedWord(lastWordId)
-
         }
     }
 
@@ -306,7 +313,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
 
             dbSources.Local.source -> {
                 (app as YDKHApp).returnLocalDbController()
-                    ?.getWordList(WordType.CustomWord.value)?.let {
+                    ?.getWordList(WordType.CustomWord.value, learnedStatus = learnedStatus)?.let {
                         if (it.isNotEmpty()) {
                             wordList = it.toMutableList()
                             resource.data = it.toMutableList()
