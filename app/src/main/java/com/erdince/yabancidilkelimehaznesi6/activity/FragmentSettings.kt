@@ -15,6 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import gun0912.tedimagepicker.builder.TedImagePicker
+import java.util.UUID
 import kotlin.math.sign
 
 @AndroidEntryPoint
@@ -79,7 +80,7 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
         }
     }
     private fun updateTheUsername(){
-        dbUserViewModel.updateUserData(UserModel(userName = binding.newUsernameEditText.text.toString()))
+        dbUserViewModel.updateUserData(UserModel(userId = UUID.randomUUID().toString(), userName = binding.newUsernameEditText.text.toString()))
         restartFragment(this)
     }
     private fun pickAndUploadProfilePhoto() {

@@ -16,6 +16,9 @@ import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordListBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class LearnedWordsFragment : MainFragment() {
@@ -103,8 +106,10 @@ class LearnedWordsFragment : MainFragment() {
     }
 
     private fun observeViewModel(){
-        wordViewModel.getWordList("customWord",true)
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
+        CoroutineScope(Dispatchers.IO).launch {
+            wordViewModel.getWordList("customWord", true)
+        }
     }
 
     private fun handleList(listResource : ResourceModel<Any?>) {

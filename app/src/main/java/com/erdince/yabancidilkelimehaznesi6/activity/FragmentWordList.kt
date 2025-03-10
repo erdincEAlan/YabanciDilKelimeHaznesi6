@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -16,6 +17,10 @@ import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentWordList : MainFragment() {
@@ -118,8 +123,14 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun observeViewModel(){
-        wordViewModel.getWordList("customWord")
         wordViewModel.wordLiveData.observe(viewLifecycleOwner,::handleList)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.IO).launch {
+            wordViewModel.getWordList("customWord")
+        }
     }
 
     private fun handleList(listResource : ResourceModel<Any?>) {
@@ -135,8 +146,8 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun setAdapter(wordsList: MutableList<WordModel> = wordList) {
-        adapter = WordListAdapter(wordsList){
-            changeFragment(FragmentWordEdit.newInstance(it.toString()),false)
+        adapter = WordListAdapter(wordsList){wordId->
+            findNavController().navigate(R.id.action_fragmentWordList_to_fragmentWordEdit,Bundle().apply { putString("wordId",wordId) })
         }
         binding.wordListRcv.adapter = adapter
     }

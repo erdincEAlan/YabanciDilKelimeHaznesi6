@@ -1,13 +1,16 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.input.key.Key
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
@@ -18,6 +21,8 @@ import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 private const val PARAM_WORD_ID : String = "wordId"
@@ -26,8 +31,7 @@ private const val PARAM_QUIZ_TYPE : String = "quizType"
 @AndroidEntryPoint
 class FragmentQuizWrongAnswer : MainFragment() {
     var publicWord : WordModel? =null
-    private val wordViewModel : DbWordViewModel by viewModels()
-    var db : FirebaseFirestore?=null
+    private val wordViewModel : DbWordViewModel by activityViewModels()
     var __binding : FragmentQuizWrongAnswerBinding?=null
     val binding get() = __binding!!
     private var wordId: String? = null
@@ -46,7 +50,6 @@ class FragmentQuizWrongAnswer : MainFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         __binding = FragmentQuizWrongAnswerBinding.inflate(inflater,container,false)
         init()
         return binding.root
@@ -54,23 +57,22 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     fun init() {
         initUI()
-        observeData(wordId.toString())
+        observeData()
     }
 
-    private fun observeData(wordId: String) {
-        wordViewModel.wordLiveData.observe(viewLifecycleOwner){resource ->
-            if (resource.success){
-                publicWord = resource.data as WordModel
-                binding.addToMyCustomWords.isVisible = publicWord?.wordType == "preparedWord"
-                initTextViews()
-                stopProgressBar()
-            }else{
-                makeToast("Bir sorun oluştu, internet bağlantınızı kontrol edin")
-                findNavController().navigateUp()
-                stopProgressBar()
+    private fun observeData() {
+        lifecycleScope.launch {
+            wordViewModel.publicWordData.collect{word ->
+                if (word != null){
+                    publicWord = word
+                    binding.addToMyCustomWords.isVisible = publicWord?.wordType == WordType.PreparedWord.value
+                    initTextViews()
+                    stopProgressBar()
+                }else{
+                    navigateToNewQuiz()
+                }
             }
         }
-        wordViewModel.getWordFromId(wordId,quizType.toString())
     }
 
     private fun initUI() {
@@ -83,12 +85,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
                 findNavController().navigateUp()
             }
             nextWordButton.setOnClickListener {
-                findNavController().navigate(
-                    R.id.fragmentQuiz, bundleOf(
-                        Pair(Keys.WordTypeKey.key, quizType),
-                        Pair(Keys.PreviousWordKey.key, publicWord?.wordId)
-                    )
-                )
+                navigateToNewQuiz()
             }
 
             addToMyCustomWords.setOnClickListener(){
@@ -101,12 +98,29 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     }
 
+    private fun navigateToNewQuiz() {
+        findNavController().navigate(
+            R.id.fragmentQuiz, bundleOf(
+                Pair(Keys.WordTypeKey.key, quizType),
+                Pair(Keys.PreviousWordKey.key, publicWord?.wordId)
+            )
+        )
+    }
+
 
     private fun initTextViews() {
         with(binding){
-            wordTextView.text = publicWord?.wordIt
-            wordMeaningTextView.text = publicWord?.wordMeaning
-            wordExampleTextView.text = publicWord?.wordExample
+            publicWord?.apply {
+                wordTextView.text = wordIt
+                wordMeaningTextView.text = wordMeaning
+                if (wordExample?.isNotEmpty() == true)
+                wordExampleTextView.apply {
+                    text =wordExample
+                    isVisible = true
+                    titleExampleTxt.isVisible = true
+                }
+            }
+
         }
 
     }

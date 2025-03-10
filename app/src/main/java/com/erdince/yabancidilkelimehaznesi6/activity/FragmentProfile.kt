@@ -22,9 +22,6 @@ class FragmentProfile : MainFragment() {
     private val dbUserViewModel: DbUserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(

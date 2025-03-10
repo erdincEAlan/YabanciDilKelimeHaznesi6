@@ -25,6 +25,7 @@ android:background="@color/theme_primary_color">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_mono"
+            android:layout_marginTop="@dimen/default_padding_xlarge"
             android:text="@string/quiz_wrong_answer_title"
             android:textAppearance="@style/main_high_title"
             app:layout_constraintBottom_toTopOf="@+id/titleAnswerTxt" app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +73,8 @@ android:background="@color/theme_primary_color">
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_box_title_margin_bottom"
             android:fontFamily="@font/ibm_plex_mono"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:text="@string/quiz_answer_example"
             android:textAppearance="@style/textbox_title"
             app:layout_constraintBottom_toTopOf="@+id/wordExampleTextView"
@@ -81,30 +84,29 @@ android:background="@color/theme_primary_color">
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/nextWordButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="180dp"
-            android:elevation="3dp"
+            android:layout_height="80dp"
             android:background="@drawable/roundedcorner"
+            android:elevation="3dp"
             android:padding="@dimen/button_text_padding"
             android:text="@string/next_word_button"
             android:textAppearance="@style/button_text"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="120dp"
             app:layout_constraintEnd_toEndOf="@+id/addToMyCustomWords"
-            app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords"/>
+            app:layout_constraintStart_toStartOf="@+id/addToMyCustomWords"
+            app:layout_constraintTop_toBottomOf="@+id/view"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralBasicButton
             android:id="@+id/addToMyCustomWords"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:elevation="3dp"
+            android:layout_height="80dp"
             android:background="@drawable/roundedcorner"
+            android:elevation="3dp"
+            android:layout_marginTop="@dimen/default_padding_large"
             android:padding="@dimen/button_text_padding"
             android:text="Kelimelerime ekle"
             android:textAppearance="@style/button_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextWordButton"/>
 
         <TextView
             android:id="@+id/wordExampleTextView"
@@ -112,7 +114,7 @@ android:background="@color/theme_primary_color">
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
-            android:layout_marginBottom="@dimen/button_frame_margin_bottom"
+            android:layout_marginTop="@dimen/default_padding_xlarge"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
             android:gravity="center"
@@ -120,9 +122,10 @@ android:background="@color/theme_primary_color">
             android:text="ornekCumle"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
-            app:layout_constraintBottom_toTopOf="@+id/nextWordButton"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wordMeaningTextView" tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/wordTextView"
@@ -131,17 +134,16 @@ android:background="@color/theme_primary_color">
             android:layout_marginStart="@dimen/text_box_margin_start_and_end"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="44dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:minHeight="70dp"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
+            android:gravity="center"
+            android:minHeight="70dp"
+            android:padding="10dp"
             android:text="ornekKelime"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
-            app:layout_constraintBottom_toTopOf="@+id/titleExampleTxt"
             app:layout_constraintEnd_toStartOf="@+id/view"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@+id/wordMeaningTextView"/>
 
         <TextView
             android:id="@+id/wordMeaningTextView"
@@ -152,13 +154,13 @@ android:background="@color/theme_primary_color">
             android:layout_marginEnd="@dimen/text_box_margin_start_and_end"
             android:gravity="center"
             android:minHeight="70dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/roundedcorner_textbox"
             android:fontFamily="@font/ibm_plex_mono"
             android:text="ornekAnlamaaaaaaaaaaaaaaa"
             android:textAlignment="center"
             android:textAppearance="@style/textbox_text_style_high"
-            app:layout_constraintBottom_toTopOf="@+id/titleExampleTxt"
+            app:layout_constraintTop_toBottomOf="@id/titleAnswerTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view"/>
 

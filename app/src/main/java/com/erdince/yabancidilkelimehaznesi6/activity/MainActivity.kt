@@ -3,6 +3,7 @@ package com.erdince.yabancidilkelimehaznesi6.activity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.input.key.Key
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -24,6 +26,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import com.erdince.yabancidilkelimehaznesi6.util.*
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var db: FirebaseFirestore? = null
@@ -33,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private var progressBar : LinearLayout?=null
     private var fragmentContainer : FragmentContainerView?=null
     private lateinit var navController: NavController
+    private val dBWordViewModel: DbWordViewModel by viewModels()
+    private val dbUserViewModel : DbUserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,22 +52,25 @@ class MainActivity : AppCompatActivity() {
         setNavController()
         setBackPressed()
         stopProgressBar()
+        setLocalDb()
+    }
+
+    private fun setLocalDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dBWordViewModel.syncDatabases()
+        }
     }
 
     private fun setNavController() {
         navController =
             (supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment).navController
         navController.addOnDestinationChangedListener() { naviController, destination, bundle ->
-            naviController.apply {
-
-            }
-
-
             handleQuizNavigation(bundle, naviController, destination)
             startProgressBar()
         }
 
     }
+
 
     private fun handleQuizNavigation(
         bundle: Bundle?,
@@ -103,13 +116,11 @@ class MainActivity : AppCompatActivity() {
     private fun setBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (navController.currentBackStack.value.size > 2) {
                     if (navController.currentBackStack.value.last().destination.label != "fragment_homepage") {
                         navController.navigateUp()
+                    }else {
+                        finish()
                     }
-                } else {
-                    finish()
-                }
             }
         })
     }
@@ -117,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         startProgressBar()
         supportFragmentManager.popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
-            .add(R.id.mainFragmentContainer, FragmentHomepage.newInstance())
+            .replace(R.id.mainFragmentContainer, FragmentHomepage.newInstance())
             .addToBackStack(null)
             .commitAllowingStateLoss()
 
@@ -129,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun goBack() {
         startProgressBar()
-        supportFragmentManager.popBackStack()
+        navController.navigateUp()
     }
 
 
@@ -180,6 +191,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navController.navigate(R.id.fragmentHomepage)
+            dbUserViewModel.syncUserDatabases()
         }else{
             navController.navigate(R.id.fragmentLogin)
         }
@@ -189,6 +201,7 @@ class MainActivity : AppCompatActivity() {
         if (isOnline(this)) {
             checkIsSignedInAndSwitchActivity()
         } else {
+            dbUserViewModel.getUserData()
             showNetworkAlert()
         }
     }

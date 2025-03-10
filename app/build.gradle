@@ -4,10 +4,9 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs"
 }
-apply plugin: 'com.android.application'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'kotlin-kapt'
+
 android {
     compileSdk 35
 
@@ -47,7 +46,11 @@ android {
 }
 
 dependencies {
-
+//Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    //
     implementation "com.airbnb.android:lottie:6.5.0"
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.3")

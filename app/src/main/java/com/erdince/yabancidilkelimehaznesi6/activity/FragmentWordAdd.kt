@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentWordAddBinding
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
@@ -19,9 +21,6 @@ class FragmentWordAdd : MainFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(
@@ -46,19 +45,19 @@ class FragmentWordAdd : MainFragment() {
 
     private fun setButtonClickers() {
         binding?.apply {
-            kelimeKaydetButton.setOnClickListener {
-                saveKelime()
+            saveButton.setOnClickListener {
+                save()
             }
-            kelimeEkleBackButton.setOnClickListener {
+            backButton.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
     }
 
-    private fun saveKelime() {
+    private fun save() {
         if (checkIfFieldsEmpty()){
             saveTheWord()
-            restartFragment(newInstance())
+            navigateWithCleaningLastBackStack(findNavController(),R.id.fragmentWordAdd)
         }
     }
 

@@ -52,7 +52,7 @@
     <dimen name="mainscreen_icons_size">115dp</dimen>
     <dimen name="icon_radius">30dp</dimen>
     <dimen name="general_edit_text_margin">30dp</dimen>
-    <dimen name="button_text_padding">8dp</dimen>
+    <dimen name="button_text_padding">12dp</dimen>
 
 
 </resources>

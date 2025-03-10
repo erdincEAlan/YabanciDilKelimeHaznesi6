@@ -1,5 +1,5 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
-
+/*
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -114,3 +114,5 @@ class EmailVerifyFragment : Fragment() {
 
 
 }
+
+ */
