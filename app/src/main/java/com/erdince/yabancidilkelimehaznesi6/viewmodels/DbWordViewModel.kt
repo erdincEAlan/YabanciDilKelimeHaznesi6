@@ -142,10 +142,10 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
         CoroutineScope(Dispatchers.IO).launch {
             word.wordPoint = word.wordPoint!! + 1
             word.let{ increasedWord ->
-                localDbController?.updateWord(increasedWord)
+                localDbController.updateWord(increasedWord)
                 customWordsDb.document(word.wordId ).update("wordPoint", FieldValue.increment(1))
                 if (increasedWord.wordPoint!! >= 10){
-                    localDbController?.updateWord(increasedWord.apply { wordLearningStatus = true })
+                    localDbController.updateWord(increasedWord.apply { wordLearningStatus = true })
                     customWordsDb.document(word.wordId).update("wordLearningStatus", true)
                     increaseLearnedWordsCount()
                 }
@@ -164,25 +164,16 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             word.let{ decreasedWord ->
                 localDbController.updateWord(decreasedWord)
                 customWordsDb.document(word.wordId).update("wordPoint",decreasedWord.wordPoint)
-                if (decreasedWord.wordPoint!! >= 10){
-                    customWordsDb.document(word.wordId).update("wordLearningStatus", true)
-                    increaseLearnedWordsCount()
-                }
             }
         }
     }
 
-    fun deleteWord(wordId: String) : Int{
+    fun deleteWord(wordId: String){
         CoroutineScope(Dispatchers.IO).launch { localDbController.apply {
             getWordById(wordId)?.let { delete(it) }
         }
         }
-        customWordsDb.document(wordId).delete().addOnSuccessListener {
-            responseCode = 200
-        }.addOnFailureListener {
-            responseCode = 400
-        }
-        return responseCode
+        customWordsDb.document(wordId).delete()
     }
 
     fun updateWord(word: WordModel?): Int {

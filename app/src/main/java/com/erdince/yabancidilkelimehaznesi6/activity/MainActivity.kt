@@ -201,6 +201,7 @@ class MainActivity : AppCompatActivity() {
         if (isOnline(this)) {
             checkIsSignedInAndSwitchActivity()
         } else {
+            dbUserViewModel.getUserData()
             showNetworkAlert()
         }
     }
