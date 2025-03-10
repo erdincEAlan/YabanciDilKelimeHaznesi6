@@ -26,6 +26,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import com.erdince.yabancidilkelimehaznesi6.util.*
+import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private var fragmentContainer : FragmentContainerView?=null
     private lateinit var navController: NavController
     private val dBWordViewModel: DbWordViewModel by viewModels()
+    private val dbUserViewModel : DbUserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun setLocalDb() {
         CoroutineScope(Dispatchers.IO).launch {
             dBWordViewModel.syncDatabases()
-
         }
     }
 
@@ -190,6 +191,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navController.navigate(R.id.fragmentHomepage)
+            dbUserViewModel.syncUserDatabases()
         }else{
             navController.navigate(R.id.fragmentLogin)
         }

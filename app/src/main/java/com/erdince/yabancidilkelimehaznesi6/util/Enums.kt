@@ -22,3 +22,8 @@ enum class dbSources(val source: String) {
     Local("localDb"),
     Cloud("cloudDb")
 }
+
+enum class LocalDbType(val dbFor : String){
+    User("userDataLocalDb"),
+    Word("wordDataLocalDb")
+}

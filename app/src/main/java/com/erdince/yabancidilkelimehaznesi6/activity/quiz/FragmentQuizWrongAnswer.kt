@@ -61,10 +61,6 @@ class FragmentQuizWrongAnswer : MainFragment() {
     }
 
     private fun observeData() {
-
-        if (wordViewModel.publicWordData.value != null) {
-            Log.d("SecondFragment", "DATAAAA")
-        }
         lifecycleScope.launch {
             wordViewModel.publicWordData.collect{word ->
                 if (word != null){

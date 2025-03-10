@@ -1,13 +1,19 @@
 package com.erdince.yabancidilkelimehaznesi6.model
 
+import androidx.room.ColumnInfo
+import androidx.room.DatabaseView
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class UserModel(
-    var userId : String? = null,
-    var userStatus : Boolean? = null,
-    var userName : String? = null,
-    var totalWordCount : Int? = null,
-    var learnedWordsCount : Int? = null,
-    var profilePhotoUrl : String? = null,
-    var authMethod : String? = null
+    @PrimaryKey var userId : String = "",
+    @ColumnInfo var userStatus : Boolean? = null,
+    @ColumnInfo var userName : String? = null,
+    @ColumnInfo var totalWordCount : Int? = null,
+    @ColumnInfo var learnedWordsCount : Int? = null,
+    @ColumnInfo var profilePhotoUrl : String? = null,
+    @ColumnInfo var authMethod : String? = null
 ){
     fun merge(newUserData : UserModel){
         this.userId = newUserData.userId ?: this.userId

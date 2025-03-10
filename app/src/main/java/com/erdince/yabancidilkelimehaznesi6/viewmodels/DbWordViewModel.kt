@@ -1,9 +1,7 @@
 package com.erdince.yabancidilkelimehaznesi6.viewmodels
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -14,7 +12,6 @@ import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.util.dbSources
 import com.erdince.yabancidilkelimehaznesi6.util.interfaces.WordDao
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -28,7 +25,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, application: Application) : ViewModel() {
@@ -217,6 +213,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     }
 
     private fun generatePreparedWord(lastWordId: String?) {
+        resource = ResourceModel(false,null)
         publicWordsDb.whereEqualTo("wordStatus", true).get().addOnSuccessListener { documents ->
             for (document in documents) {
                 wordList.add(document.toObject<WordModel>())
@@ -232,7 +229,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                         } else resource.data = it;
                     }
                 }
-
+                wordData.value = resource.data as WordModel
                 wordLiveData.postValue(resource)
 
             } else wordLiveData.postValue(resource)
@@ -312,7 +309,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             }
 
             dbSources.Local.source -> {
-                (app as YDKHApp).returnLocalDbController()
+                (app as YDKHApp).returnLocalWordDbController()
                     ?.getWordList(WordType.CustomWord.value, learnedStatus = learnedStatus)?.let {
                         if (it.isNotEmpty()) {
                             wordList = it.toMutableList()
@@ -335,15 +332,8 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
         updateWord(word)
     }
     fun addPublicWordToCustomWord (word : WordModel){
-        word.wordStatus = true
-        word.wordLearningStatus = false
-        word.wordPoint = 0
-        word.wordOwnerId = Firebase.auth.uid
-        customWordsDb.add(word).addOnSuccessListener {
-            word.wordId = it.id
-            it.set(word)
-            increaseTotalWordsCount()
-        }
+        addCustomWord(word)
+        increaseTotalWordsCount()
     }
     fun addCustomWord (word : WordModel){
         word.wordStatus = true

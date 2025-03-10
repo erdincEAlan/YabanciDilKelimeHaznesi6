@@ -72,30 +72,30 @@ class FragmentQuiz : MainFragment() {
 
 
     private fun takeListAndSetQuestKelime() {
-
+        wordViewModel.getRandomWord(wordSourceType!!)
         wordViewModel.wordLiveData.observe(viewLifecycleOwner) {resource ->
             if (resource.success) {
-                if (resource.data != null) {
-                    questionWord = resource.data as WordModel
-                    questionWord?.wordMeaning?.let { it1 -> choiceWords.add(it1) }
-                    while (choiceWords.size < 3){
-                        resources.getStringArray(R.array.randomChoices).random().let {choiceWord ->
-                            if (!choiceWords.contains(choiceWord)){
-                                choiceWords.add(choiceWord)
+                when(resource.data){
+                    is WordModel -> {
+                            questionWord = resource.data as WordModel
+                            questionWord?.wordMeaning?.let { it1 -> choiceWords.add(it1) }
+                            while (choiceWords.size < 3){
+                                resources.getStringArray(R.array.randomChoices).random().let {choiceWord ->
+                                    if (!choiceWords.contains(choiceWord)){
+                                        choiceWords.add(choiceWord)
+                                    }
+                                }
                             }
-                        }
+                            setTextViews()
+                        stopProgressBar()
                     }
-                    setTextViews()
                 }
-                stopProgressBar()
+
             } else {
                 requireActivity().makeToast("Sormak için kelime bulunmadığı veya hepsini öğrendiğiniz için anaekrana yönlendirildi. Kelime Ekle ekranından yeni kelime ekleyebilirsiniz")
                 findNavController().navigateUp()
             }
-
         }
-        wordViewModel.getRandomWord(wordSourceType!!)
-
     }
 
     private fun setTextViews() {
