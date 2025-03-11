@@ -1,15 +1,12 @@
 package com.erdince.yabancidilkelimehaznesi6.activity.quiz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.input.key.Key
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
@@ -19,9 +16,7 @@ import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.Keys
 import com.erdince.yabancidilkelimehaznesi6.util.WordType
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -62,7 +57,7 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     private fun observeData() {
         lifecycleScope.launch {
-            wordViewModel.publicWordData.collect{word ->
+            wordViewModel.publicWrongAnswerWordData.collect{ word ->
                 if (word != null){
                     publicWord = word
                     binding.addToMyCustomWords.isVisible = publicWord?.wordType == WordType.PreparedWord.value

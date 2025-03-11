@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.interfaces.WordDao
 
-@Database(entities = [WordModel::class], version = 1)
+@Database(entities = [WordModel::class], version = 2)
 abstract class LocalWordDb : RoomDatabase() {
     abstract fun wordDao(): WordDao
 

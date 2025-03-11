@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.activity.MainFragment
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
+import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.WordModel
 import com.erdince.yabancidilkelimehaznesi6.util.Keys
 import com.erdince.yabancidilkelimehaznesi6.util.WordType

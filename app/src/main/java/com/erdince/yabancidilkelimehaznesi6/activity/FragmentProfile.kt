@@ -51,11 +51,10 @@ class FragmentProfile : MainFragment() {
         }
     }
     private fun observeUserData() {
-        dbUserViewModel.photoUrlLiveData.observe(viewLifecycleOwner, ::getTheProfilePhoto)
-        dbUserViewModel.userLiveData.observe(viewLifecycleOwner, ::handleUserData)
         dbUserViewModel.getUserData()
         dbUserViewModel.getProfilePhoto()
-
+        dbUserViewModel.photoUrlLiveData.observe(viewLifecycleOwner, ::getTheProfilePhoto)
+        dbUserViewModel.userLiveData.observe(viewLifecycleOwner, ::handleUserData)
     }
 
     private fun getTheProfilePhoto(photoUrlResource: ResourceModel<String>) {

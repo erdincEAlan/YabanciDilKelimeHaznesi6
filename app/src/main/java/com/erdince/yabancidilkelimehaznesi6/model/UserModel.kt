@@ -10,8 +10,8 @@ data class UserModel(
     @PrimaryKey var userId : String = "",
     @ColumnInfo var userStatus : Boolean? = null,
     @ColumnInfo var userName : String? = null,
-    @ColumnInfo var totalWordCount : Int? = null,
-    @ColumnInfo var learnedWordsCount : Int? = null,
+    @ColumnInfo var totalWordCount : Int = 0,
+    @ColumnInfo var learnedWordsCount : Int = 0,
     @ColumnInfo var profilePhotoUrl : String? = null,
     @ColumnInfo var authMethod : String? = null
 ){

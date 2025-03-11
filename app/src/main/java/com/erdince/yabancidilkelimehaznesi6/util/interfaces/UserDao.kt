@@ -18,7 +18,7 @@ interface UserDao {
     fun delete(userModel: UserModel)
 
     fun updateUserData(userModel: UserModel){
-        userModel.userId?.let {
+        userModel.userId.let {
             getUserDataById(it)?.let { it1 -> delete(it1) }
         }
         addUserData(userModel)

@@ -30,8 +30,8 @@ import javax.inject.Inject
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, application: Application) : ViewModel() {
     private var responseCode: Int = 400
     var wordLiveData = MutableLiveData<ResourceModel<Any?>>()
-    private val wordData = MutableStateFlow<WordModel?>(null)
-    var publicWordData : StateFlow<WordModel?> = wordData
+    private val wrongAnswerWordData = MutableStateFlow<WordModel?>(null)
+    var publicWrongAnswerWordData : StateFlow<WordModel?> = wrongAnswerWordData
     private var resource : ResourceModel<Any?> = ResourceModel(false, null)
     private var wordList = mutableListOf<WordModel>()
     private val db : FirebaseFirestore = Firebase.firestore
@@ -40,19 +40,22 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     private val publicWordsDb = db.collection("preparedWords")
     private val localDbController: WordDao = LocalWordDb.getInstance(application.baseContext).wordDao()
     private var app = application
-     private fun syncLocalWithCloudDb() {
-        CoroutineScope(Dispatchers.IO).launch {
-            localDbController.getWordList(WordType.CustomWord.value).let {
-                if (it.isEmpty()){
-                    getWordList(WordType.CustomWord.value, dbSource = dbSources.Cloud.source, syncTheLocalDb = true)
-                }
-            }
-        }
 
-    }
+
     fun syncDatabases(){
         syncCloudWithLocal()
-        CoroutineScope(Dispatchers.IO).launch { syncLocalWithCloudDb() }
+        CoroutineScope(Dispatchers.IO).launch {
+            syncLocalWithCloudDb()
+            /*
+            wordList.size.let {totalWord->
+                Firebase.auth.uid?.let {uid->
+                    LocalUserDb.getInstance(app.baseContext).userDao().apply {
+                        getUserDataById(uid = uid)?.let { updateUserData(it.apply { totalWordCount=totalWord }) }
+                    }
+                }
+            }
+             */
+        }
     }
     private fun syncCloudWithLocal(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -80,12 +83,23 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             }
         }
     }
+    private fun syncLocalWithCloudDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+            localDbController.getWordList(WordType.CustomWord.value).let {
+                if (it.isEmpty()){
+                    wordList = it.toMutableList()
+                    getWordList(WordType.CustomWord.value, dbSource = dbSources.Cloud.source, syncTheLocalDb = true)
+                }
+            }
+        }
+
+    }
 
     private suspend fun syncLocalWithCloud() {
         CoroutineScope(Dispatchers.IO).launch {
             if (resource.success) {
                 (resource.data as MutableList<WordModel>).let { cloudList ->
-
+                    wordList = cloudList
                     localDbController.getAll().let { localWordList ->
                         if (localWordList.isNotEmpty()) {
                             for (word in localWordList) {
@@ -220,13 +234,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                         } else resource.data = it;
                     }
                 }
-                wordData.value = resource.data as WordModel
-                wordLiveData.postValue(resource)
-
-            } else wordLiveData.postValue(resource)
-
+            }
+            wrongAnswerWordData.value = resource.data as WordModel
+            wordLiveData.postValue(resource)
+            wordLiveData = MutableLiveData<ResourceModel<Any?>>()
         }.addOnFailureListener() {
             wordLiveData.postValue(resource)
+            wordLiveData = MutableLiveData<ResourceModel<Any?>>()
         }
     }
 
@@ -237,12 +251,12 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                     if (lastWordId != word.wordId){
                         resource.success = true
                         resource.data = word
-                        wordLiveData.postValue(resource)
                     }else{
                         CoroutineScope(Dispatchers.IO).launch {
                             generateCustomWord(lastWordId)
                         }
                     }
+
                 }else{
                     customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordLearningStatus", false)
                         .whereEqualTo("wordOwnerId", Firebase.auth.uid).get().addOnSuccessListener { documents ->
@@ -258,16 +272,15 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                                         } else resource.data = it;
                                     }
                                 }
-
-                                wordLiveData.postValue(resource)
-
-                            } else wordLiveData.postValue(resource)
+                            }
 
                         }.addOnFailureListener() {
-                            wordLiveData.postValue(resource)
+                            resource = ResourceModel(false,null)
                         }
                 }
-                wordData.value = resource.data as WordModel?
+                wrongAnswerWordData.value = resource.data as WordModel
+                wordLiveData.postValue(resource)
+                wordLiveData = MutableLiveData<ResourceModel<Any?>>()
             }
         }
     }
@@ -343,10 +356,23 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     }
 
     private fun increaseTotalWordsCount() {
-        userDb.document(Firebase.auth.uid.toString()).update("totalWordCount", FieldValue.increment(1))
+        CoroutineScope(Dispatchers.IO).launch {
+            LocalUserDb.getInstance(app.baseContext).userDao().apply {
+                getUserDataById(Firebase.auth.uid.toString())?.let {userData->
+                    updateUserData(userData.apply { totalWordCount += 1 })
+                }
+            }
+            userDb.document(Firebase.auth.uid.toString()).update("totalWordCount", FieldValue.increment(1))
+        }
     }
     private fun increaseLearnedWordsCount() {
-        userDb.document(Firebase.auth.uid.toString()).update("learnedWordsCount", FieldValue.increment(1))
+        CoroutineScope(Dispatchers.IO).launch {
+            LocalUserDb.getInstance(app.baseContext).userDao().apply {
+                getUserDataById(Firebase.auth.uid.toString())?.let {userData->
+                    updateUserData(userData.apply { learnedWordsCount += 1})
+                }
+            }
+            userDb.document(Firebase.auth.uid.toString()).update("learnedWordsCount", FieldValue.increment(1))
+        }
     }
-
 }

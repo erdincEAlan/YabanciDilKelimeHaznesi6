@@ -32,6 +32,7 @@ class DbUserViewModel   @Inject constructor(savedStateHandle: SavedStateHandle?,
 private    var profilePhotoDirectoryRef = FirebaseStorage.getInstance().reference.child("images/$uid.jpg")
 private val userDocRef = Firebase.firestore.collection("users").document(uid)
     private val userLocalDbController = LocalUserDb.getInstance(application.baseContext).userDao()
+
     private fun getUserDataFromCloud(){
         userDocRef.get().addOnSuccessListener {
             userResource.data = it.toObject<UserModel>()
