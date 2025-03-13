@@ -1,22 +1,32 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentSettingsBinding
 import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.UserModel
+import com.erdince.yabancidilkelimehaznesi6.util.setVisibilityWithAnimation
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-import gun0912.tedimagepicker.builder.TedImagePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.UUID
-import kotlin.math.sign
 
 @AndroidEntryPoint
 class FragmentSettings : MainFragment() {
@@ -30,7 +40,22 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
 
         }
     }
+    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
+            dbUserViewModel.updateProfilePhoto(uri,
+                completedCallback = {
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        {dbUserViewModel.getProfilePhoto()},
+                        500
+                    )
 
+                })
+
+
+        } else {
+            Log.d("PhotoPicker", "No image selected")
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,11 +74,50 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
         dbUserViewModel.userLiveData.observe(viewLifecycleOwner, ::handleUserData)
         dbUserViewModel.photoUrlLiveData.observe(viewLifecycleOwner){
             if (it.success){
-                Glide.with(requireContext()).load(it.data).centerCrop().circleCrop().into(binding.ayarlarProfilePhoto)
-                stopProgressBar()
+                CoroutineScope(Dispatchers.Main).launch {
+                    val glideListener = object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            p0: GlideException?,
+                            p1: Any?,
+                            p2: Target<Drawable>,
+                            p3: Boolean
+                        ): Boolean {
+                            Log.d("Glide","can't load")
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            p1: Any,
+                            p2: Target<Drawable>?,
+                            p3: DataSource,
+                            p4: Boolean
+                        ): Boolean {
+                            makePpVisible(resource)
+                            return false
+                        }
+
+                    }
+                    val glide = Glide.with(requireContext()).load(it.data).centerCrop().circleCrop().listener(glideListener)
+                    glide.submit()
+                }
+
             }
         }
     }
+
+    private fun makePpVisible(resource: Drawable) {
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.ayarlarProfilePhoto.apply {
+             setVisibilityWithAnimation(false)
+                setImageDrawable(resource)
+             setVisibilityWithAnimation(true)
+            }
+            stopProgressBar()
+        }
+
+    }
+
     private fun handleUserData(userDataResource : ResourceModel<UserModel>){
         if(userDataResource.success){
             userDataResource.data.let {userData ->
@@ -84,9 +148,7 @@ private lateinit var fragmentSettingsBinding : FragmentSettingsBinding
         restartFragment(this)
     }
     private fun pickAndUploadProfilePhoto() {
-        TedImagePicker.with(requireContext()).start { uri ->
-            dbUserViewModel.updateProfilePhoto(uri)
-        }
+         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
 
