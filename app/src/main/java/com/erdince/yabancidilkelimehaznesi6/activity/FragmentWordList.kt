@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
@@ -32,7 +33,6 @@ class FragmentWordList : MainFragment() {
     private val binding get() = fragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -57,15 +57,17 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun prepareTheRecyclerView() {
-        val layoutManager = LinearLayoutManager(requireContext())
-        binding.wordListRcv.layoutManager = layoutManager
-        setAdapter()
+        kotlin.runCatching {
+            val layoutManager = LinearLayoutManager(requireContext())
+            binding.wordListRcv.layoutManager = layoutManager
+        }
+
     }
 
     private fun initSearchView() { 
         val filterProcessList = mutableListOf<WordModel>()
         with(binding){
-            searchViewKelime.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     return true
             }
@@ -117,7 +119,7 @@ class FragmentWordList : MainFragment() {
     }
 
     private fun setButtonClickers() {
-        binding.kelimeAraBackButton.setOnClickListener {
+        binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
     }
@@ -128,19 +130,28 @@ class FragmentWordList : MainFragment() {
 
     override fun onResume() {
         super.onResume()
+        binding.nestedScrollView.visibility = View.GONE
         CoroutineScope(Dispatchers.IO).launch {
             wordViewModel.getWordList("customWord")
         }
     }
 
+
+
     private fun handleList(listResource : ResourceModel<Any?>) {
         if (listResource.success){
             wordList = listResource.data as MutableList<WordModel>
-            adapter?.updateList(wordList)
+            setAdapter(wordList)
+            activateNoWordLayout(wordList.size == 0)
             stopProgressBar()
-        }else  {
-            makeToast(getString(R.string.word_not_found_err))
-            findNavController().navigateUp()
+        }
+
+    }
+
+    private fun activateNoWordLayout(isActive : Boolean) {
+        binding.apply {
+            noWordLayout.root.isVisible = isActive
+            nestedScrollView.isVisible = !isActive
         }
 
     }

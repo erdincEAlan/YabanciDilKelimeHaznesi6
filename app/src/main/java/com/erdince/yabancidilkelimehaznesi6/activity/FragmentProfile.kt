@@ -1,12 +1,20 @@
 package com.erdince.yabancidilkelimehaznesi6.activity
 
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.erdince.yabancidilkelimehaznesi6.R
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentLearnedWordsBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentProfileBinding
@@ -14,6 +22,11 @@ import com.erdince.yabancidilkelimehaznesi6.model.ResourceModel
 import com.erdince.yabancidilkelimehaznesi6.model.UserModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbUserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import com.erdince.yabancidilkelimehaznesi6.util.setVisibilityWithAnimation
 
 @AndroidEntryPoint
 class FragmentProfile : MainFragment() {
@@ -58,11 +71,51 @@ class FragmentProfile : MainFragment() {
     }
 
     private fun getTheProfilePhoto(photoUrlResource: ResourceModel<String>) {
-        if (photoUrlResource.success) {
-            photoUrlResource.data.let { url ->
-               Glide.with(this).load(url).centerCrop().into(binding.profilPhotoImageView)
+        CoroutineScope(Dispatchers.Main).launch {
+            if (photoUrlResource.success) {
+                val glideListener = object : RequestListener<Drawable>{
+                    override fun onLoadFailed(
+                        p0: GlideException?,
+                        p1: Any?,
+                        p2: Target<Drawable>,
+                        p3: Boolean
+                    ): Boolean {
+                        Log.d("Glide","can't load")
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        p1: Any,
+                        p2: Target<Drawable>?,
+                        p3: DataSource,
+                        p4: Boolean
+                    ): Boolean {
+                        setImageAndDisableLoading(resource)
+
+                        return false
+                    }
+
+                }
+                photoUrlResource.data.let { url ->
+                    val glide = Glide.with(requireContext()).load(url).listener(glideListener)
+                    glide.submit()
+                }
             }
         }
+
+    }
+
+    private fun setImageAndDisableLoading(resource: Drawable) {
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.apply {
+                profilPhotoImageView.setImageDrawable(resource)
+                progressBar.setVisibilityWithAnimation(false)
+                profilPhotoImageView.setVisibilityWithAnimation(true)
+
+            }
+        }
+
     }
 
     private fun handleUserData(userDataResource: ResourceModel<UserModel>) {

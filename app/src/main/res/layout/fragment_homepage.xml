@@ -12,6 +12,26 @@
         android:layout_height="match_parent"
         android:background="@color/theme_primary_color">
 
+        <LinearLayout
+            android:id="@+id/offlineModeLayout"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                       android:src="@drawable/offline_mode_icon_1"
+                       android:tint="@android:color/holo_red_dark"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="Offline mode"
+                      android:textSize="9sp" android:layout_gravity="bottom"
+                      android:textColor="@android:color/holo_red_dark"/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/profilTxt"
             android:layout_width="80dp"
@@ -23,7 +43,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/profilButon"
-            app:layout_constraintTop_toBottomOf="@+id/profilButon" />
+            app:layout_constraintTop_toBottomOf="@+id/profilButon"/>
 
         <TextView
             android:id="@+id/testTxt"
@@ -38,7 +58,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/listeGoruntuleTxt"
@@ -53,18 +73,19 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/testButon"
-            app:layout_constraintStart_toEndOf="@+id/testButon" />
+            app:layout_constraintStart_toEndOf="@+id/testButon"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/profilButon"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:elevation="3dp"
-            android:background="@null"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_anaekran_profile"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/ic_anaekran_profile"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/kelimeEkleButon"
@@ -76,7 +97,7 @@
             app:layout_constraintBottom_toTopOf="@+id/kelimeEkleTxt"
             app:layout_constraintEnd_toEndOf="@+id/kelimeEkleTxt"
             app:srcCompat="@drawable/ic_anaekran_kelime_ekle"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/listeGoruntuleButon"
@@ -88,7 +109,7 @@
             app:layout_constraintBottom_toTopOf="@+id/listeGoruntuleTxt"
             app:layout_constraintEnd_toEndOf="@+id/listeGoruntuleTxt"
             app:srcCompat="@drawable/ic_anaekran_list_goruntule"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/testButon"
@@ -100,7 +121,7 @@
             app:layout_constraintBottom_toTopOf="@+id/testTxt"
             app:layout_constraintEnd_toEndOf="@+id/testTxt"
             app:srcCompat="@drawable/ic_anaekran_test"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <TextView
             android:id="@+id/kelimeEkleTxt"
@@ -113,7 +134,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/listeGoruntuleTxt"
-            app:layout_constraintEnd_toStartOf="@+id/testButon" />
+            app:layout_constraintEnd_toStartOf="@+id/testButon"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
@@ -18,6 +19,7 @@ import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentHomepageBinding
 import com.erdince.yabancidilkelimehaznesi6.databinding.FragmentQuizBinding
 import com.erdince.yabancidilkelimehaznesi6.util.createAndShowDialog
 import com.erdince.yabancidilkelimehaznesi6.util.interfaces.WordDao
+import com.erdince.yabancidilkelimehaznesi6.util.isOnline
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.DbWordViewModel
 import com.erdince.yabancidilkelimehaznesi6.viewmodels.LocalWordDb
 import com.google.firebase.FirebaseApp
@@ -58,6 +60,7 @@ class FragmentHomepage : MainFragment() {
     }
 
     private fun init() {
+        binding?.offlineModeLayout?.isVisible = !requireActivity().isOnline(requireContext())
         setButtons()
     }
 

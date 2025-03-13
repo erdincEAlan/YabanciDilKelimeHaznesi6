@@ -31,34 +31,58 @@ class WordListAdapter(
     }
 
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
-        val wordItem = wordList[position]
+        if (wordList.size > 0){
+            val wordItem = wordList[position]
 
-        with(holder.binding) {
-            if (wordItStatus) {
-                txtWord.text = wordItem.wordIt
-                txtWord.visibility = View.VISIBLE
-            } else {
-                txtWord.visibility = View.GONE
-            }
+            with(holder.binding) {
+                if (wordItStatus) {
+                    txtWord.text = wordItem.wordIt
+                    txtWord.visibility = View.VISIBLE
+                } else {
+                    txtWord.visibility = View.GONE
+                }
 
-            if (meaningStatus) {
-                txtMeaning.text = wordItem.wordMeaning
-                txtMeaning.visibility = View.VISIBLE
-            } else {
-                txtMeaning.visibility = View.GONE
-            }
+                if (meaningStatus) {
+                    txtMeaning.text = wordItem.wordMeaning
+                    txtMeaning.visibility = View.VISIBLE
+                } else {
+                    txtMeaning.visibility = View.GONE
+                }
 
-            if (exampleStatus) {
-                txtExample.text = wordItem.wordExample
-                txtExample.visibility = View.VISIBLE
-            } else {
-                txtExample.visibility = View.GONE
-            }
+                if (exampleStatus) {
+                    txtExample.text = wordItem.wordExample
+                    txtExample.visibility = View.VISIBLE
+                } else {
+                    txtExample.visibility = View.GONE
+                }
+                var isSingleLineForExampleTv = true
+                txtExample.setOnClickListener{
+                    txtExample.apply {
+                        isSingleLineForExampleTv = !isSingleLineForExampleTv
+                        isSingleLine = isSingleLineForExampleTv
+                    }
+                }
 
-            wordEditButton.setOnClickListener {
-                onClick(wordItem.wordId)
+                var isSingleLineForMeaningTv= true
+                txtMeaning.setOnClickListener{
+                    txtMeaning.apply {
+                        isSingleLineForMeaningTv = !isSingleLineForMeaningTv
+                        isSingleLine = isSingleLineForMeaningTv
+                    }
+                }
+                var isSingleLineForWordIt = true
+                txtWord.setOnClickListener{
+                    txtWord.apply {
+                        isSingleLineForWordIt = !isSingleLineForWordIt
+                        isSingleLine = isSingleLineForWordIt
+                    }
+                }
+                editButton.setOnClickListener {
+                    onClick(wordItem.wordId)
+                }
             }
         }
+
     }
 
     fun updateList(

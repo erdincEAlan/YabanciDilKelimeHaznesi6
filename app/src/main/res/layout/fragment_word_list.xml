@@ -3,112 +3,107 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:background="@color/theme_primary_color"
              tools:context=".activity.FragmentWordList">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/theme_primary_color"
+        android:paddingHorizontal="10dp"
         android:orientation="vertical">
-
-
-        <CheckBox
-            android:id="@+id/wordExampleCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="32dp"
-            android:buttonTint="@color/theme_orange_color"
-            android:checked="true"
-            android:fontFamily="@font/sarala_bold"
-            android:text="@string/checkbox_ornek"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/searchViewLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/kelimeAraBackButton" />
-
-        <CheckBox
-            android:id="@+id/wordMeaningCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:checked="true"
-            android:fontFamily="@font/sarala_bold"
-            android:text="@string/checkbox_anlam"
-            android:textColor="@color/white"
-            android:buttonTint="@color/theme_orange_color"
-            app:layout_constraintBottom_toBottomOf="@+id/wordExampleCheckBox"
-            app:layout_constraintEnd_toStartOf="@+id/wordExampleCheckBox"
-            app:layout_constraintHorizontal_bias="0.468"
-            app:layout_constraintStart_toEndOf="@+id/wordItCheckBox" />
-
-        <CheckBox
-            android:id="@+id/wordItCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:checked="true"
-            android:fontFamily="@font/sarala_bold"
-            android:text="@string/checkbox_kelime"
-            android:textColor="@color/white"
-            android:buttonTint="@color/theme_orange_color"
-            app:layout_constraintBottom_toBottomOf="@+id/wordMeaningCheckBox"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageButton
-            android:id="@+id/kelimeAraBackButton"
+            android:id="@+id/backButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@null"
             android:src="@drawable/ic_button_back"
-            android:layout_marginStart="@dimen/back_button_frame_margin_top_and_start"
             android:layout_marginTop="@dimen/back_button_frame_margin_top_and_start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck"
         />
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/searchViewLayout"
+        <LinearLayout
+            android:id="@+id/checkboxFilterLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/roundedcorner"
-            app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+        android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/wordItCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="@font/sarala_bold"
+                android:text="@string/checkbox_kelime"
+                android:textColor="@color/white"
+                android:buttonTint="@color/theme_orange_color"
+            />
+            <View android:layout_width="0dp" android:layout_height="1dp"
+                  android:layout_weight="1"/>
+            <CheckBox
+                android:id="@+id/wordMeaningCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="@font/sarala_bold"
+                android:text="@string/checkbox_anlam"
+                android:textColor="@color/white"
+                android:buttonTint="@color/theme_orange_color"
+            />
+            <View android:layout_width="0dp" android:layout_height="1dp"
+                  android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/wordExampleCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/theme_orange_color"
+                android:checked="true"
+                android:fontFamily="@font/sarala_bold"
+                android:text="@string/checkbox_ornek"
+                android:textColor="@color/white"
+            />
+
+        </LinearLayout>
+
+
+
+
+
+
+
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchViewKelime"
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:iconifiedByDefault="false"
-                app:layout_constraintBottom_toTopOf="@+id/list_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_marginTop="14dp"
+                android:background="@drawable/roundedcorner"
+                app:queryBackground="@null"
+                android:iconifiedByDefault="false">
 
             </androidx.appcompat.widget.SearchView>
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <include
+            android:id="@+id/noWordLayout"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="100dp"
+            layout="@layout/no_word_layout"/>
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="250dp"
-            android:background="@null"
-            android:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -119,7 +114,7 @@
                 />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 

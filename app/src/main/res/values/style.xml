@@ -70,6 +70,11 @@
     <style name="main_high_title">
         <item name="android:textSize">34sp</item>
         <item name="android:textColor">@color/theme_orange_color</item>
+    </style>
+
+    <style name="main_high_medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/theme_orange_color</item>
 
     </style>
 

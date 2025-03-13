@@ -62,14 +62,17 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
 
     fun updateUserData(userModel : UserModel?){
         getUserData()
-        if (userModel != null) {
-            userResource.data?.merge(userModel)
-            (userResource.data as UserModel?)?.let {
-                userDocRef.set(it)
-                userLocalDbController.updateUserData(it)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            if (userModel != null) {
+                userResource.data?.merge(userModel)
+                (userResource.data as UserModel?)?.let {
+                    userDocRef.set(it)
+                    userLocalDbController.updateUserData(it)
+                }
 
+            }
         }
+
     }
 
     fun syncUserDatabases(){

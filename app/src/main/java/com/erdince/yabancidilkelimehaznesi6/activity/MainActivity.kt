@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                     if (navController.currentBackStack.value.last().destination.label != "fragment_homepage") {
-                        navController.navigateUp()
+                        goBack()
                     }else {
                         finish()
                     }
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
     fun returnUid() : String{
         return uid
     }
-    private fun startProgressBar(){
+    fun startProgressBar(){
         fragmentContainer?.isVisible = false
         progressBar?.isVisible = true
 
@@ -191,19 +191,20 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navController.navigate(R.id.fragmentHomepage)
-            dbUserViewModel.syncUserDatabases()
+            if (isOnline(this)){
+                dbUserViewModel.syncUserDatabases()
+            }
         }else{
-            navController.navigate(R.id.fragmentLogin)
+            if (isOnline(this)){
+                navController.navigate(R.id.fragmentLogin)
+            }else{
+                showNetworkAlert()
+            }
         }
     }
 
     private fun networkCheck() {
-        if (isOnline(this)) {
-            checkIsSignedInAndSwitchActivity()
-        } else {
-            dbUserViewModel.getUserData()
-            showNetworkAlert()
-        }
+        checkIsSignedInAndSwitchActivity()
     }
 
     private fun showNetworkAlert() {

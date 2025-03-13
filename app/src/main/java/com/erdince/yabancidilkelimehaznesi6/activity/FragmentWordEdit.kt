@@ -49,14 +49,14 @@ class FragmentWordEdit : MainFragment() {
         with(binding){
             saveButton.setOnClickListener(){
                 updateTheWord()
-                findNavController().navigateUp()
+                goBack()
             }
             backButton.setOnClickListener(){
-                findNavController().navigateUp()
+                goBack()
             }
             deleteButton.setOnClickListener(){
                 dBWordViewModel.deleteWord(wordId!!)
-                findNavController().navigateUp()
+                goBack()
             }
             resetWordStatusBt.setOnClickListener() {
                 dBWordViewModel.resetTheWordStatus(theWord)

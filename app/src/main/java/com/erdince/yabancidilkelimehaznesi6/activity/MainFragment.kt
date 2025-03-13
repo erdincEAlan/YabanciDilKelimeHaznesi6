@@ -15,13 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 open class MainFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    arguments.let {
 
-    }
-
-    }
 
     fun changeFragment(fragment : Fragment, addTobackStack : Boolean = true){
         (activity as MainActivity).changeFragment(fragment, addTobackStack)
@@ -35,6 +29,9 @@ open class MainFragment : Fragment() {
     }
     fun stopProgressBar(){
         (activity as MainActivity).stopProgressBar()
+    }
+    fun startProgressBar(){
+        (activity as MainActivity).startProgressBar()
     }
     fun returnUid() : String{
         return  (activity as MainActivity).returnUid()

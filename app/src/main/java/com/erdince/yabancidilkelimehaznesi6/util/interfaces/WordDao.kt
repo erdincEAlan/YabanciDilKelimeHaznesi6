@@ -40,8 +40,8 @@ interface WordDao {
     @Query("SELECT * FROM wordmodel WHERE wordId = :wordId LIMIT 1")
     fun getWordById(wordId: String): WordModel?
 
-    @Query("SELECT * FROM wordmodel WHERE wordLearningStatus = false ORDER BY RANDOM() LIMIT 1")
-    fun getQuizWord() : WordModel?
+    @Query("SELECT * FROM wordmodel WHERE wordLearningStatus = false AND wordId !=:lastWordId  ORDER BY RANDOM() LIMIT 1")
+    fun getQuizWord(lastWordId : String) : WordModel?
 
     @Insert
     fun insertAll(vararg words: WordModel)

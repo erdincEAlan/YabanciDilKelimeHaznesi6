@@ -2,7 +2,7 @@
     <string name="app_name">SozLook</string>
     <!-- Splash -->
     <string name="network_error_title">İnternet bağlantısı bulunamadı</string>
-    <string name="network_error_main">Uygulama çalışmak için internet bağlantısına ihtiyaç duyar, lütfen internet
+    <string name="network_error_main">Uygulama ilk açılışta giriş yapmak için internet bağlantısına ihtiyaç duyar, lütfen internet
         bağlantınızı kontrol edin.
     </string>
     <string name="network_dialog_wifi_button">WIFI ayarlarını aç</string>
@@ -89,5 +89,7 @@
     <string name="learnedWordStatusText">Öğrenilmiş</string>
     <string name="unLearnedWordStatusText">Öğreniliyor</string>
     <string name="of10">/10</string>
+    <string name="no_word_found_message">Hiç kelimeniz yok</string>
+    <string name="no_word_quiz_msg">Görünüşe göre test olacak bir kelimeniz bulunmuyor.</string>
 
 </resources>

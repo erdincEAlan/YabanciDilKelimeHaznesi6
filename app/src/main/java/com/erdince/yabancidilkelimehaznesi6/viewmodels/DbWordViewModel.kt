@@ -30,8 +30,13 @@ import javax.inject.Inject
 class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, application: Application) : ViewModel() {
     private var responseCode: Int = 400
     var wordLiveData = MutableLiveData<ResourceModel<Any?>>()
+    //Wrong answer quiz
     private val wrongAnswerWordData = MutableStateFlow<WordModel?>(null)
     var publicWrongAnswerWordData : StateFlow<WordModel?> = wrongAnswerWordData
+    //Quiz
+    private val privateQuizWord = MutableStateFlow<ResourceModel<WordModel?>?>(null)
+    var quizWord : StateFlow<ResourceModel<WordModel?>?> = privateQuizWord
+    //
     private var resource : ResourceModel<Any?> = ResourceModel(false, null)
     private var wordList = mutableListOf<WordModel>()
     private val db : FirebaseFirestore = Firebase.firestore
@@ -72,7 +77,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                                 Log.d("Firestore", "All documents deleted successfully!")
                                 wordList.forEachIndexed {index, word ->
                                     customWordsDb.document().delete()
-                                    customWordsDb.add(word).addOnSuccessListener {
+                                    customWordsDb.document(word.wordId).set(word).addOnSuccessListener {
                                         Log.d("LOCAL TO CLOUD", "$index word okke")
                                     }
                                 }
@@ -184,10 +189,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
 
     fun deleteWord(wordId: String){
         CoroutineScope(Dispatchers.IO).launch { localDbController.apply {
-            getWordById(wordId)?.let { delete(it) }
+            getWordById(wordId)?.let {
+                delete(it)
+            }
         }
+            customWordsDb.document(wordId).delete()
         }
-        customWordsDb.document(wordId).delete()
+
     }
 
     fun updateWord(word: WordModel?): Int {
@@ -209,7 +217,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
         }
         return responseCode
     }
-    fun getRandomWord(wordSourceType : String, lastWordId : String? = null) {
+    fun getRandomWord(wordSourceType : String, lastWordId : String = "") {
         if (wordSourceType == WordType.CustomWord.value) {
             generateCustomWord(lastWordId)
         } else if (wordSourceType == WordType.PreparedWord.value) {
@@ -218,71 +226,59 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
     }
 
     private fun generatePreparedWord(lastWordId: String?) {
-        resource = ResourceModel(false,null)
-        publicWordsDb.whereEqualTo("wordStatus", true).get().addOnSuccessListener { documents ->
+        publicWordsDb.whereEqualTo("wordStatus", true).whereNotEqualTo("wordId",lastWordId).get().addOnSuccessListener { documents ->
             for (document in documents) {
                 wordList.add(document.toObject<WordModel>())
             }
             if (wordList.size > 0) {
-                resource.success = true
-                while (resource.data == null) {
                     wordList.random().let {
                         if (wordList.size > 1) {
-                            if (it.wordId != lastWordId) {
-                                resource.data = it
-                            }
-                        } else resource.data = it;
+                            postStateValueAndClean(it)
+                        }
                     }
-                }
             }
-            wrongAnswerWordData.value = resource.data as WordModel
-            wordLiveData.postValue(resource)
-            wordLiveData = MutableLiveData<ResourceModel<Any?>>()
         }.addOnFailureListener() {
-            wordLiveData.postValue(resource)
-            wordLiveData = MutableLiveData<ResourceModel<Any?>>()
+            postUnsuccessfulState()
         }
     }
 
-    private fun generateCustomWord(lastWordId: String? = ""){
+    private fun generateCustomWord(lastWordId: String = ""){
         CoroutineScope(Dispatchers.IO).launch {
-            localDbController.getQuizWord().let { word->
+            localDbController.getQuizWord(lastWordId).let { word->
                 if (word !=null){
-                    if (lastWordId != word.wordId){
-                        resource.success = true
-                        resource.data = word
-                    }else{
-                        CoroutineScope(Dispatchers.IO).launch {
-                            generateCustomWord(lastWordId)
-                        }
-                    }
-
+                    postStateValueAndClean(word)
                 }else{
                     customWordsDb.whereEqualTo("wordStatus", true).whereEqualTo("wordLearningStatus", false)
-                        .whereEqualTo("wordOwnerId", Firebase.auth.uid).get().addOnSuccessListener { documents ->
+                        .whereEqualTo("wordOwnerId", Firebase.auth.uid).whereNotEqualTo("wordId",lastWordId).get().addOnSuccessListener { documents ->
                             wordList = documents.toObjects(WordModel::class.java)
                             if (wordList.size > 0) {
-                                resource.success = true
-                                while (resource.data == null) {
-                                    wordList.random().let {
-                                        if (wordList.size > 1) {
-                                            if (it.wordId != lastWordId) {
-                                                resource.data = it
-                                            }
-                                        } else resource.data = it;
-                                    }
+                                wordList.random().let {
+                                    postStateValueAndClean(it)
+                                    wrongAnswerWordData.value = it
                                 }
+                            }else{
+                                postUnsuccessfulState()
                             }
 
                         }.addOnFailureListener() {
-                            resource = ResourceModel(false,null)
+                            postUnsuccessfulState()
                         }
                 }
-                wrongAnswerWordData.value = resource.data as WordModel
-                wordLiveData.postValue(resource)
                 wordLiveData = MutableLiveData<ResourceModel<Any?>>()
             }
         }
+    }
+
+    private fun postUnsuccessful() {
+        wordLiveData.value =  ResourceModel(false,null)
+    }
+    private fun postUnsuccessfulState(){
+        privateQuizWord.value = ResourceModel(false,null)
+    }
+
+    private fun postStateValueAndClean(wordToPost : WordModel){
+        val resourceToPost = ResourceModel<WordModel?>(true,wordToPost)
+            privateQuizWord.value = resourceToPost
     }
 
     fun getWordList(
@@ -291,6 +287,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
         dbSource: String = dbSources.Local.source,
         syncTheLocalDb: Boolean = false
     ) {
+
         when (dbSource) {
             dbSources.Cloud.source -> {
                 if (wordType == WordType.CustomWord.value) {
@@ -302,14 +299,15 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                     listRequest.get().addOnSuccessListener { documents ->
                         wordList = documents.toObjects(WordModel::class.java)
                         if (wordList.size > 0) {
-                            resource.data = wordList
-                            resource.success = true
                             if (syncTheLocalDb) CoroutineScope(Dispatchers.IO).launch{ syncLocalWithCloud() }
                         }
+                        postListValueAndClean()
+                    }.addOnFailureListener() {
+                        resource.success = false
                         wordLiveData.postValue(resource)
-
-                    }.addOnFailureListener() { wordLiveData.postValue(resource) }
+                    }
                 }
+
             }
 
             dbSources.Local.source -> {
@@ -317,9 +315,7 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
                     ?.getWordList(WordType.CustomWord.value, learnedStatus = learnedStatus)?.let {
                         if (it.isNotEmpty()) {
                             wordList = it.toMutableList()
-                            resource.data = it.toMutableList()
-                            resource.success = true
-                            wordLiveData.postValue(resource)
+                            postListValueAndClean()
                         } else {
                             getWordList(WordType.CustomWord.value, dbSource = dbSources.Cloud.source, syncTheLocalDb = true)
                         }
@@ -328,7 +324,20 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
             }
         }
 
+    }
 
+    private fun postListValueAndClean() {
+        val wordlistForResource = mutableListOf<WordModel>()
+        wordlistForResource.addAll(wordList)
+        resource.data = wordlistForResource
+        resource.success = true
+        wordLiveData.postValue(resource)
+        wordList.clear()
+    }
+    private fun postWordValueAndClean(wordToPost: WordModel) {
+        resource.data = wordToPost
+        resource.success = true
+        wordLiveData.postValue(resource)
     }
 
     fun resetTheWordStatus(word: WordModel?) {
@@ -346,13 +355,13 @@ class DbWordViewModel @Inject constructor(savedStateHandle: SavedStateHandle?, a
         word.wordOwnerId = Firebase.auth.uid
         word.wordType = "customWord"
         word.wordId = UUID.randomUUID().toString()
+        CoroutineScope(Dispatchers.IO).launch { localDbController.insertAll(word) }
         customWordsDb.document(word.wordId).set(word).addOnSuccessListener {
-            CoroutineScope(Dispatchers.IO).launch { localDbController.insertAll(word) }
-            increaseTotalWordsCount()
+            Log.d("FIRESTORE","Word has been successfully added, wordId: ${word.wordId}")
         }.addOnFailureListener{message ->
             Log.d("FIRESTORE EXCEPTION", message.message.toString())
         }
-
+        increaseTotalWordsCount()
     }
 
     private fun increaseTotalWordsCount() {

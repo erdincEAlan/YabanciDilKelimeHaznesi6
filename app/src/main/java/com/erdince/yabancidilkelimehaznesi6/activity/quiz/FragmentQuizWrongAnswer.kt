@@ -57,9 +57,9 @@ class FragmentQuizWrongAnswer : MainFragment() {
 
     private fun observeData() {
         lifecycleScope.launch {
-            wordViewModel.publicWrongAnswerWordData.collect{ word ->
-                if (word != null){
-                    publicWord = word
+            wordViewModel.quizWord.collect{ wordResource ->
+                if (wordResource != null){
+                    publicWord = wordResource.data
                     binding.addToMyCustomWords.isVisible = publicWord?.wordType == WordType.PreparedWord.value
                     initTextViews()
                     stopProgressBar()

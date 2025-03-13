@@ -31,8 +31,12 @@ class FragmentQuizSourceSelection : MainFragment() {
     ): View? {
         binding = FragmentQuizSourceSelectionBinding.inflate(inflater, container, false)
         handleButtons()
-        stopProgressBar()
         return binding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        stopProgressBar()
     }
 
     private fun handleButtons() {

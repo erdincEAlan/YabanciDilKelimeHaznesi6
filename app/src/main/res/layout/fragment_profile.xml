@@ -133,11 +133,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_button_back"/>
 
-
-        <ImageView
-            android:id="@+id/profilPhotoImageView"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/ppLayout" android:background="@color/theme_primary_color"
+            android:gravity="center"
             android:layout_height="0dp"
+            android:orientation="vertical"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="@dimen/profile_photo_margin_top"
             app:layout_constraintBottom_toTopOf="@+id/rectangle_toplam_kelime"
@@ -145,8 +145,24 @@
             app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backButton"
-            app:layout_constraintVertical_bias="0.428"
-            app:srcCompat="@drawable/ic_anaekran_profile"/>
+            app:layout_constraintVertical_bias="0.428" android:layout_width="match_parent">
+
+            <ProgressBar
+                android:layout_width="120dp" android:layout_height="120dp"
+                         android:id="@+id/progressBar"
+                         android:visibility="visible"
+                         style="?android:attr/progressBarStyle"
+                         android:background="@color/theme_primary_color"/>
+
+            <ImageView
+                android:id="@+id/profilPhotoImageView"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_anaekran_profile"/>
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/userNameTextView"
@@ -159,7 +175,7 @@
             android:textSize="@dimen/profil_kullanici_adi_text_size"
             android:textStyle="bold"
             android:fontFamily="@font/ibm_plex_mono"
-            app:layout_constraintBottom_toBottomOf="@+id/profilPhotoImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/ppLayout"
             app:layout_constraintStart_toStartOf="parent"/>
 
 
@@ -178,7 +194,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-            <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
+        <com.erdince.yabancidilkelimehaznesi6.util.GeneralImageButton
             android:id="@+id/settingsButton"
             android:layout_width="@dimen/back_button_height_and_width"
             android:layout_height="@dimen/back_button_height_and_width"
