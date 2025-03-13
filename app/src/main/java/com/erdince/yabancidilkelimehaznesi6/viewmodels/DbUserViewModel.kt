@@ -107,7 +107,7 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
         }
     }
 
-    fun updateProfilePhoto(fileUri : Uri){
+    fun updateProfilePhoto(fileUri : Uri, completedCallback : () -> Unit){
        profilePhotoDirectoryRef.putFile(fileUri)
         var newUserDoc : UserModel? = UserModel(userId = UUID.randomUUID().toString())
         profilePhotoDirectoryRef.downloadUrl.addOnSuccessListener {
@@ -118,6 +118,7 @@ private val userDocRef = Firebase.firestore.collection("users").document(uid)
             updateUserData(newUserDoc)
             Firebase.auth.currentUser?.updateProfile(profileUpdate)?.addOnSuccessListener {
                 Log.d("Firebase Photo Update","COMPLETED")
+                completedCallback.invoke()
             }?.addOnFailureListener {
                 Log.d("Fiirebase Photo Update", "FAILURE $it")
             }

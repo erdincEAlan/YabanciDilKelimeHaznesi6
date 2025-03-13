@@ -98,7 +98,7 @@ class FragmentProfile : MainFragment() {
 
                 }
                 photoUrlResource.data.let { url ->
-                    val glide = Glide.with(requireContext()).load(url).listener(glideListener)
+                    val glide = Glide.with(requireContext()).load(url).centerCrop().listener(glideListener)
                     glide.submit()
                 }
             }
